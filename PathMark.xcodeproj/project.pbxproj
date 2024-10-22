@@ -29,6 +29,7 @@
 		B903CDB02A58018500208E80 /* PathMarkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B903CDAF2A58018500208E80 /* PathMarkUITests.swift */; };
 		B903CDB22A58018500208E80 /* PathMarkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B903CDB12A58018500208E80 /* PathMarkUITestsLaunchTests.swift */; };
 		B90540A42B0F8FC100283AF8 /* pay_after_cancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90540A32B0F8FC100283AF8 /* pay_after_cancel.swift */; };
+		B90761652CC7BD4500D64E5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B90761642CC7BD4500D64E5C /* GoogleService-Info.plist */; };
 		B91F4ACF2B06339300A587B5 /* schedule_ride_details.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F4ACE2B06339300A587B5 /* schedule_ride_details.swift */; };
 		B934EC832B0744B300908C0D /* edit_profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934EC822B0744B300908C0D /* edit_profile.swift */; };
 		B934EC862B0763F500908C0D /* before_payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934EC852B0763F500908C0D /* before_payment.swift */; };
@@ -47,7 +48,6 @@
 		B97A19582A8CF4DD00D4DAD0 /* car-toy.gif in Resources */ = {isa = PBXBuildFile; fileRef = B97A19572A8CF4DD00D4DAD0 /* car-toy.gif */; };
 		B97A195B2A8D087900D4DAD0 /* add_address.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97A195A2A8D087900D4DAD0 /* add_address.swift */; };
 		B97AE2022AA85089005EE5FF /* success_payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97AE2012AA85089005EE5FF /* success_payment.swift */; };
-		B980DD142A9DC1DA00F7CD07 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B980DD132A9DC1DA00F7CD07 /* GoogleService-Info.plist */; };
 		B980DD172A9DC98900F7CD07 /* ride_status.swift in Sources */ = {isa = PBXBuildFile; fileRef = B980DD162A9DC98900F7CD07 /* ride_status.swift */; };
 		B980DD1A2A9DDB2800F7CD07 /* ride_history.swift in Sources */ = {isa = PBXBuildFile; fileRef = B980DD192A9DDB2800F7CD07 /* ride_history.swift */; };
 		B982B2512A8C9F9C0091DE1B /* my_custom_loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B982B2502A8C9F9C0091DE1B /* my_custom_loader.swift */; };
@@ -158,6 +158,7 @@
 		B903CDAF2A58018500208E80 /* PathMarkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathMarkUITests.swift; sourceTree = "<group>"; };
 		B903CDB12A58018500208E80 /* PathMarkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathMarkUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B90540A32B0F8FC100283AF8 /* pay_after_cancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pay_after_cancel.swift; sourceTree = "<group>"; };
+		B90761642CC7BD4500D64E5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B91F4ACE2B06339300A587B5 /* schedule_ride_details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = schedule_ride_details.swift; sourceTree = "<group>"; };
 		B934EC822B0744B300908C0D /* edit_profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = edit_profile.swift; sourceTree = "<group>"; };
 		B934EC852B0763F500908C0D /* before_payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = before_payment.swift; sourceTree = "<group>"; };
@@ -177,7 +178,6 @@
 		B97A19572A8CF4DD00D4DAD0 /* car-toy.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "car-toy.gif"; sourceTree = "<group>"; };
 		B97A195A2A8D087900D4DAD0 /* add_address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = add_address.swift; sourceTree = "<group>"; };
 		B97AE2012AA85089005EE5FF /* success_payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = success_payment.swift; sourceTree = "<group>"; };
-		B980DD132A9DC1DA00F7CD07 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B980DD162A9DC98900F7CD07 /* ride_status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ride_status.swift; sourceTree = "<group>"; };
 		B980DD192A9DDB2800F7CD07 /* ride_history.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ride_history.swift; sourceTree = "<group>"; };
 		B982B2502A8C9F9C0091DE1B /* my_custom_loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = my_custom_loader.swift; sourceTree = "<group>"; };
@@ -345,7 +345,7 @@
 				B903CD972A58018400208E80 /* Assets.xcassets */,
 				B903CD992A58018400208E80 /* LaunchScreen.storyboard */,
 				B903CD9C2A58018400208E80 /* Info.plist */,
-				B980DD132A9DC1DA00F7CD07 /* GoogleService-Info.plist */,
+				B90761642CC7BD4500D64E5C /* GoogleService-Info.plist */,
 			);
 			path = PathMark;
 			sourceTree = "<group>";
@@ -984,7 +984,6 @@
 			files = (
 				B9AFE50E2A5BDB9100C76CE4 /* Poppins-Thin.ttf in Resources */,
 				B9AFE5072A5BDB9100C76CE4 /* Poppins-ExtraLightItalic.ttf in Resources */,
-				B980DD142A9DC1DA00F7CD07 /* GoogleService-Info.plist in Resources */,
 				B9AFE50C2A5BDB9100C76CE4 /* Poppins-ExtraLight.ttf in Resources */,
 				B9AFE5002A5BDB9100C76CE4 /* Poppins-Light.ttf in Resources */,
 				B9AFE5082A5BDB9100C76CE4 /* Poppins-Medium.ttf in Resources */,
@@ -997,6 +996,7 @@
 				B9AFE50B2A5BDB9100C76CE4 /* Poppins-Regular.ttf in Resources */,
 				B9AFE50F2A5BDB9100C76CE4 /* OFL.txt in Resources */,
 				B9AFE5012A5BDB9100C76CE4 /* Poppins-SemiBold.ttf in Resources */,
+				B90761652CC7BD4500D64E5C /* GoogleService-Info.plist in Resources */,
 				B9AFE50D2A5BDB9100C76CE4 /* Poppins-ExtraBold.ttf in Resources */,
 				B903CD982A58018400208E80 /* Assets.xcassets in Resources */,
 				B9AFE5092A5BDB9100C76CE4 /* Poppins-BlackItalic.ttf in Resources */,
@@ -1415,7 +1415,7 @@
 				DEVELOPMENT_TEAM = NHVZESNL9B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PathMark/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Ride with us - Passenger";
+				INFOPLIST_KEY_CFBundleDisplayName = "Ride with us";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Zarib would like to access your camera to upload profile picture.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Zarib would like to access your location for Customer's current location. ";
@@ -1460,7 +1460,7 @@
 				DEVELOPMENT_TEAM = NHVZESNL9B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PathMark/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Ride with us - Passenger";
+				INFOPLIST_KEY_CFBundleDisplayName = "Ride with us";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Zarib would like to access your camera to upload profile picture.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Zarib would like to access your location for Customer's current location. ";

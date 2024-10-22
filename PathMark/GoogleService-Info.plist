@@ -2,24 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>750959835757-n1cfij1rbhbnnk65sgkrovpdi170j9bb.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.750959835757-n1cfij1rbhbnnk65sgkrovpdi170j9bb</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>750959835757-52orkflr9st06kl872ef797hs24lbui3.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBOpQ27nzwjVcMMC6Yk765ZFNPGK3JqlBw</string>
+	<string>AIzaSyAHRpJ7__2BEc7O-VYECWEZ94WBB44Lsow</string>
 	<key>GCM_SENDER_ID</key>
-	<string>750959835757</string>
+	<string>492221243496</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.evs.dev.PathMark</string>
+	<string>com.evs.dev.RideWithUs</string>
 	<key>PROJECT_ID</key>
-	<string>pathmark-9ebc3</string>
+	<string>ride-with-us-4e864</string>
 	<key>STORAGE_BUCKET</key>
-	<string>pathmark-9ebc3.appspot.com</string>
+	<string>ride-with-us-4e864.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +25,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:750959835757:ios:0f6ec500ebe31d83ab1d64</string>
+	<string>1:492221243496:ios:dcc59150197ba8d0ce9bdd</string>
+	<key>DATABASE_URL</key>
+	<string>https://ride-with-us-4e864-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

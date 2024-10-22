@@ -399,7 +399,7 @@ class search_location: UIViewController, UITextFieldDelegate, CLLocationManagerD
         
         let filter = GMSAutocompleteFilter()
         filter.type = .establishment
-        filter.countries = ["BD"]
+        // filter.countries = ["BD"]
         
         placesClient.findAutocompletePredictions(fromQuery: query,
                                                  filter: filter,

@@ -13,6 +13,8 @@ import UIKit
 
 class select_profile: UIViewController {
     
+    var window: UIWindow?
+    
     @IBOutlet weak var btn_language:UIButton!
     
     @IBOutlet weak var btn_create_ac_account:UIButton! {
@@ -36,6 +38,49 @@ class select_profile: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = viewBackgroundColor
+        
+        if let remember_me = UserDefaults.standard.string(forKey: "key_remember_me") {
+            print(remember_me as Any)
+            
+            if (remember_me == "yes") {
+                self.remember_me()
+            }
+        }
+        
+        
+    }
+    
+    @objc func remember_me() {
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person as Any)
+            
+            if person["role"] as! String == "Member" {
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let destinationController = storyboard.instantiateViewController(withIdentifier:"dashboard_id") as? dashboard
+                let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+                let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+                let mainRevealController = SWRevealViewController()
+                mainRevealController.rearViewController = rearViewController
+                mainRevealController.frontViewController = frontNavigationController
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+                }
+                
+                window?.makeKeyAndVisible()
+                
+            } else {
+                
+                // DRIVER
+                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id")
+                self.navigationController?.pushViewController(push, animated: true)
+                
+            }
+            
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

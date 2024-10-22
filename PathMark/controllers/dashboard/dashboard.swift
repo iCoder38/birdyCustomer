@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import SDWebImage
 
 // MARK:- LOCATION -
 import CoreLocation
@@ -62,7 +63,8 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     
     @IBOutlet weak var tbleView:UITableView! {
         didSet {
-            tbleView.backgroundColor = .clear
+            tbleView.isHidden = true
+            tbleView.backgroundColor = .white
         }
     }
     
@@ -228,15 +230,15 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     @IBOutlet weak var btn_push_to_map:UIButton!
     @IBOutlet weak var btn_push_to_map_down:UIButton!
     
-    @IBOutlet weak var view_set_name:UIView! {
+    @IBOutlet weak var viewPlace:UIView! {
         didSet {
-            view_set_name.backgroundColor = .white
-            view_set_name.layer.masksToBounds = false
-            view_set_name.layer.shadowColor = UIColor.black.cgColor
-            view_set_name.layer.shadowOffset =  CGSize.zero
-            view_set_name.layer.shadowOpacity = 0.5
-            view_set_name.layer.shadowRadius = 2
-            view_set_name.layer.cornerRadius = 12
+            viewPlace.backgroundColor = .white
+            viewPlace.layer.masksToBounds = false
+            viewPlace.layer.shadowColor = UIColor.black.cgColor
+            viewPlace.layer.shadowOffset =  CGSize.zero
+            viewPlace.layer.shadowOpacity = 0.5
+            viewPlace.layer.shadowRadius = 2
+            viewPlace.layer.cornerRadius = 12
         }
     }
     
@@ -529,6 +531,9 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                             ar = (JSON["data"] as! Array<Any>) as NSArray
                             self.arrCarCategories.addObjects(from: ar as! [Any])
                             
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            self.tbleView.isHidden = false
                             self.tbleView.delegate = self
                             self.tbleView.dataSource = self
                             self.tbleView.reloadData()
@@ -570,6 +575,132 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
             self.navigationController?.pushViewController(push, animated: true)
         }
     }
+    
+    @objc func findDriversWB(str_show_loader:String) {
+        
+        if (str_show_loader == "yes") {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                }
+                
+                
+            }
+        }
+        
+        self.view.endEditing(true)
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            var ar : NSArray!
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            
+            let arr_mut_order_history:NSMutableArray! = []
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+                
+                // loginUserLatitudeTo = "\(userLatitude!)"
+                // loginUserLongitudeTo = "\(userLongitude!)"
+                
+                var parameters:Dictionary<AnyHashable, Any>!
+                parameters = [
+                    "action"        : "category",
+                    "userId"        : String("CAR"),
+                    "latitude"      : String("CAR"),
+                    "longitude"     : String("CAR"),
+                    "language"      : String("en"),
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON {
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                        
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        var message : String!
+                        message = (JSON["msg"] as? String)
+                        
+                        print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                             
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                              
+                            var ar : NSArray!
+                            ar = (JSON["data"] as! Array<Any>) as NSArray
+                            self.arrCarCategories.addObjects(from: ar as! [Any])
+                            
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            self.tbleView.isHidden = false
+                            self.tbleView.delegate = self
+                            self.tbleView.dataSource = self
+                            self.tbleView.reloadData()
+                            
+                        } else if message == String(not_authorize_api) {
+                            self.login_refresh_token_wb()
+                            
+                        } else {
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
+                    }
+                }
+            } else {
+                print("no token found")
+                self.login_refresh_token_wb()
+            }
+        } else {
+            print("something went very wrong")
+            ERProgressHud.sharedInstance.hide()
+            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "get_started_id")
+            self.navigationController?.pushViewController(push, animated: true)
+        }
+    }
+    
+    
     
     @objc func getUsersCurrentLatLong() {
         //        // Request location authorization
@@ -1456,175 +1587,27 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
         backgroundView.backgroundColor = .clear
         cell.selectedBackgroundView = backgroundView
         
-        
-        
         let item = self.arrCarCategories[indexPath.row] as? [String:Any]
         cell.lblName.text = (item!["name"] as! String)
-        
-        /*cell.btn_car.addTarget(self, action: #selector(push_to_car_map_click_method), for: .touchUpInside)
-        cell.btn_bike.addTarget(self, action: #selector(push_to_bike_map_click_method), for: .touchUpInside)
-        cell.btn_intercity.addTarget(self, action: #selector(push_to_intercity_map_click_method), for: .touchUpInside)
-        
-        cell.btn_book_a_ride_now.addTarget(self, action: #selector(book_a_ride_click_method), for: .touchUpInside)
+        cell.lblName.textColor = .black
         
         
-        
-        cell.btn_schedule_a_ride_now.addTarget(self, action: #selector(schedule_a_ride_click_method), for: .touchUpInside)
-        
-        
-        cell.btn_book_a_ride_now.backgroundColor = navigation_color
-        
-        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-            print(language as Any)
-            
-            if (language == "en") {
-                cell.btn_car.setImage(UIImage(named: "s_car"), for: .normal)
-                cell.btn_bike.setImage(UIImage(named: "s_bike"), for: .normal)
-                cell.btn_intercity.setImage(UIImage(named: "s_intercity"), for: .normal)
-            } else {
-                cell.btn_car.setImage(UIImage(named: "car_bangla_selected"), for: .normal)
-                cell.btn_bike.setImage(UIImage(named: "bike_bangla_selected"), for: .normal)
-                cell.btn_intercity.setImage(UIImage(named: "intercity_bangla_selected"), for: .normal)
-            }
-        }
-        
-        if (self.str_vehicle_type == "CAR") {
-            
-            cell.btn_car_checkmark.setImage(UIImage(named: "tick3"), for: .normal)
-            cell.btn_bike_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
-            cell.btn_intercity_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
-            
-        } else if (self.str_vehicle_type == "BIKE") {
-            
-            cell.btn_car_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
-            cell.btn_bike_checkmark.setImage(UIImage(named: "tick3"), for: .normal)
-            cell.btn_intercity_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
-            
-        }  else if (self.str_vehicle_type == "INTERCITY") {
-            
-            cell.btn_car_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
-            cell.btn_bike_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
-            cell.btn_intercity_checkmark.setImage(UIImage(named: "tick3"), for: .normal)
-            
-        }*/
-        /*if (self.str_vehicle_type == "CAR") {
-            cell.btn_book_a_ride_now.backgroundColor = navigation_color
-            cell.btn_schedule_a_ride_now.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1);
-            //
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    cell.btn_bike.setImage(UIImage(named: "ns_bike"), for: .normal)
-                    cell.btn_car.setImage(UIImage(named: "s_car"), for: .normal)
-                    cell.btn_intercity.setImage(UIImage(named: "ns_intercity"), for: .normal)
-                } else {
-                    cell.btn_bike.setImage(UIImage(named: "bike_bangla_unselected"), for: .normal)
-                    cell.btn_car.setImage(UIImage(named: "car_bangla_selected"), for: .normal)
-                    cell.btn_intercity.setImage(UIImage(named: "intercity_bangla_unselected"), for: .normal)
-                }
-                
-            }
-            //
-        } else if (self.str_vehicle_type == "BIKE") {
-            cell.btn_book_a_ride_now.backgroundColor = navigation_color
-            cell.btn_schedule_a_ride_now.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1);
-            //
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    cell.btn_bike.setImage(UIImage(named: "s_bike"), for: .normal)
-                    cell.btn_car.setImage(UIImage(named: "ns_car"), for: .normal)
-                    cell.btn_intercity.setImage(UIImage(named: "ns_intercity"), for: .normal)
-                } else {
-                    cell.btn_bike.setImage(UIImage(named: "bike_bangla_selected"), for: .normal)
-                    cell.btn_car.setImage(UIImage(named: "car_bangla_unselected"), for: .normal)
-                    cell.btn_intercity.setImage(UIImage(named: "intercity_bangla_unselected"), for: .normal)
-                }
-                
-            }
-            //
-        } else if (self.str_vehicle_type == "INTERCITY") {
-            cell.btn_book_a_ride_now.backgroundColor = navigation_color
-            cell.btn_schedule_a_ride_now.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1);
-            //
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    cell.btn_bike.setImage(UIImage(named: "ns_bike"), for: .normal)
-                    cell.btn_car.setImage(UIImage(named: "ns_car"), for: .normal)
-                    cell.btn_intercity.setImage(UIImage(named: "s_intercity"), for: .normal)
-                } else {
-                    cell.btn_bike.setImage(UIImage(named: "bike_bangla_unselected"), for: .normal)
-                    cell.btn_car.setImage(UIImage(named: "car_bangla_unselected"), for: .normal)
-                    cell.btn_intercity.setImage(UIImage(named: "intercity_bangla_selected"), for: .normal)
-                }
-                
-            }
-            //
-        }*/
-        
-        /*cell.btn_schedule_a_ride_now.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1);
-        cell.btn_book_a_ride_now.backgroundColor = navigation_color*/
-        
-        /*if (self.str_select_option == "schedule") {
-            cell.btn_schedule_a_ride_now.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1);
-            cell.btn_book_a_ride_now.backgroundColor = .systemGray
-        } else if (self.str_select_option == "book") {
-            cell.btn_book_a_ride_now.backgroundColor = navigation_color
-            cell.btn_schedule_a_ride_now.backgroundColor = .systemGray
-        } else {
-            cell.btn_book_a_ride_now.backgroundColor = .systemGray
-            cell.btn_schedule_a_ride_now.backgroundColor = .systemGray
-        }*/
-        
-        /*cell.collectionView?.delegate = self
-        cell.collectionView?.dataSource = self
-        cell.collectionView?.reloadData()
-        
-        cell.page_control.currentPage = self.strIndex
-        cell.page_control.numberOfPages = self.arr_banner.count
-        
-        cell.btn_next.tag = indexPath.row
-        cell.btn_next.addTarget(self, action: #selector(next_click_method), for: .touchUpInside)
-        cell.btn_previous.addTarget(self, action: #selector(previous_click_method), for: .touchUpInside)
-        */
+        let lat1 = Double(self.loginUserLatitudeTo!)
+        let lon1 = Double(self.loginUserLongitudeTo!)
+
+        let lat2 = Double(self.loginUserLatitudeFrom!)
+        let lon2 = Double(self.loginUserLongitudeFrom!)
+
+        let distance = getDistanceInMiles(lat1: lat1!, lon1: lon1!, lat2: lat2!, lon2: lon2!)
        
-        
-        /*if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-            print(language as Any)
-            
-            if (language == "en") {
-                self.str_selected_language_is = "en"
-                cell.lbl_set_ride_location.text = "Set ride location"
-                cell.lbl_select_vehicle.text = "Select vehicle"
-                cell.btn_book_a_ride_now.setTitle("BOOK A RIDE NOW", for: .normal)
-                cell.btn_schedule_a_ride_now.setTitle("SCHEDULE A RIDE", for: .normal)
-                
-            } else {
-                cell.lbl_set_ride_location.text = "রাইডের লোকেশন সেট করুন"
-                cell.lbl_select_vehicle.text = "বাহন নির্বাচন করুন"
-                cell.btn_book_a_ride_now.setTitle("এখনই রাইড বুক করুন", for: .normal)
-                cell.btn_schedule_a_ride_now.setTitle("রাইডের সময়সুচী নির্ধারণ করুন", for: .normal)
-                self.str_selected_language_is = "bn"
-            }
-            
-            
-        } else {
-            print("=============================")
-            print("LOGIN : Select language error")
-            print("=============================")
-            self.str_selected_language_is = "en"
-            UserDefaults.standard.set("en", forKey: str_language_convert)
-        }*/
+        var multiplePriceWithDistance = Double(distance) * Double("\(item!["perMile"]!)")!
+        let myString = String(format: "%.2f", multiplePriceWithDistance)
+        cell.lblPrice.text = "$\(myString)"
+        cell.lblPrice.textColor = .black
         
         
-        
-        
-        
-        
+        cell.imgProfile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+        cell.imgProfile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo"))
         
         
         
@@ -1682,14 +1665,14 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 660
+        return 80
     }
     
 }
 
 
 //MARK:- COLLECTION VIEW -
-extension dashboard: UICollectionViewDelegate ,
+/*extension dashboard: UICollectionViewDelegate ,
                      UICollectionViewDataSource ,
                      UICollectionViewDelegateFlowLayout {
     
@@ -1768,9 +1751,9 @@ extension dashboard: UICollectionViewDelegate ,
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
-}
+}*/
 
-class dashboard_collection_view_cell: UICollectionViewCell , UITextFieldDelegate {
+/*class dashboard_collection_view_cell: UICollectionViewCell , UITextFieldDelegate {
     
     @IBOutlet weak var view_bg:UIView! {
         didSet {
@@ -1799,10 +1782,24 @@ class dashboard_collection_view_cell: UICollectionViewCell , UITextFieldDelegate
     @IBOutlet weak var lbl_description:UILabel!
     @IBOutlet weak var lbl_expired:UILabel!
     
-}
+}*/
 
 class dashboard_table_cell: UITableViewCell {
     
+    @IBOutlet weak var viewBG:UIView! {
+        didSet {
+            viewBG.backgroundColor = .white
+            viewBG.layer.cornerRadius = 12
+            viewBG.clipsToBounds = true
+            
+            viewBG.layer.shadowColor = UIColor.black.cgColor
+            viewBG.layer.shadowOpacity = 0.5
+            viewBG.layer.shadowOffset = CGSize(width: 2, height: 2)
+            viewBG.layer.shadowRadius = 4
+            viewBG.layer.masksToBounds = false
+
+        }
+    }
     @IBOutlet weak var imgProfile:UIImageView!
     
     @IBOutlet weak var lblName:UILabel!

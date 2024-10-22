@@ -526,8 +526,8 @@
             filePath = "PathMark/controllers/dashboard/dashboard.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "857"
-            endingLineNumber = "857"
+            startingLineNumber = "988"
+            endingLineNumber = "988"
             landmarkName = "schedule_a_ride_click_method()"
             landmarkType = "7">
          </BreakpointContent>

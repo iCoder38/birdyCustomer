@@ -71,6 +71,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     // var arr_banner = ["car_image_name","car_image_name"]
     
     var arr_banner:NSMutableArray! = []
+    var arrCarCategories:NSMutableArray! = []
     
     var str_token_id:String!
     
@@ -85,6 +86,223 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     private let geocoder = CLGeocoder()
     
     var userAddress: String?
+    
+    @IBOutlet weak var btn_car:UIButton! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_car.setImage(UIImage(named: "ns_car"), for: .normal)
+                } else {
+                    btn_car.setImage(UIImage(named: "car_bangla_unselected"), for: .normal)
+                }
+                
+            }
+            
+            btn_car.titleLabel!.font = UIFont(name: "Poppins-Regular", size: 14.0)!
+            btn_car.backgroundColor = .systemPurple
+            btn_car.layer.cornerRadius = 14
+            btn_car.clipsToBounds = true
+            
+            btn_car.layer.masksToBounds = false
+            btn_car.layer.shadowColor = UIColor.black.cgColor
+            btn_car.layer.shadowOffset =  CGSize.zero
+            btn_car.layer.shadowOpacity = 0.5
+            btn_car.layer.shadowRadius = 2
+            btn_car.layer.cornerRadius = 12
+        }
+    }
+    
+    @IBOutlet weak var btn_car_checkmark:UIButton! {
+        didSet {
+            btn_car_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
+        }
+    }
+    @IBOutlet weak var btn_bike_checkmark:UIButton! {
+        didSet {
+            btn_bike_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
+        }
+    }
+    @IBOutlet weak var btn_intercity_checkmark:UIButton! {
+        didSet {
+            btn_intercity_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
+        }
+    }
+    
+    @IBOutlet weak var btn_bike:UIButton! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_bike.setImage(UIImage(named: "ns_bike"), for: .normal)
+                } else {
+                    btn_bike.setImage(UIImage(named: "bike_bangla_unselected"), for: .normal)
+                }
+                
+            }
+            btn_bike.titleLabel!.font = UIFont(name: "Poppins-Regular", size: 14.0)!
+            btn_bike.backgroundColor = .systemPurple
+            btn_bike.layer.cornerRadius = 14
+            btn_bike.clipsToBounds = true
+            
+            btn_bike.layer.masksToBounds = false
+            btn_bike.layer.shadowColor = UIColor.black.cgColor
+            btn_bike.layer.shadowOffset =  CGSize.zero
+            btn_bike.layer.shadowOpacity = 0.5
+            btn_bike.layer.shadowRadius = 2
+            btn_bike.layer.cornerRadius = 12
+        }
+    }
+    @IBOutlet weak var btn_intercity:UIButton! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_intercity.setImage(UIImage(named: "ns_intercity"), for: .normal)
+                } else {
+                    btn_intercity.setImage(UIImage(named: "intercity_bangla_unselected"), for: .normal)
+                }
+                
+            }
+            btn_intercity.titleLabel!.font = UIFont(name: "Poppins-Regular", size: 14.0)!
+            btn_intercity.backgroundColor = .systemPurple
+            btn_intercity.layer.cornerRadius = 14
+            btn_intercity.clipsToBounds = true
+            
+            btn_intercity.layer.masksToBounds = false
+            btn_intercity.layer.shadowColor = UIColor.black.cgColor
+            btn_intercity.layer.shadowOffset =  CGSize.zero
+            btn_intercity.layer.shadowOpacity = 0.5
+            btn_intercity.layer.shadowRadius = 2
+            btn_intercity.layer.cornerRadius = 12
+        }
+    }
+    
+    @IBOutlet weak var btn_next:UIButton! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_next.setTitle("Next", for: .normal)
+                } else {
+                    btn_next.setTitle("পরবর্তী", for: .normal)
+                }
+                
+            }
+        }
+    }
+    
+    @IBOutlet weak var btn_previous:UIButton! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_previous.setTitle("Previous", for: .normal)
+                } else {
+                    btn_previous.setTitle("পূর্ববর্তী", for: .normal)
+                }
+                
+            }
+        }
+    }
+    
+    @IBOutlet weak var page_control:UIPageControl! {
+        didSet {
+            page_control.currentPage = 0
+            page_control.backgroundColor = .clear
+        }
+    }
+    
+    @IBOutlet weak var collectionView:UICollectionView! {
+        didSet {
+            collectionView.isPagingEnabled = true
+            collectionView.backgroundColor = .clear
+        }
+    }
+    
+    @IBOutlet weak var btn_push_to_map:UIButton!
+    @IBOutlet weak var btn_push_to_map_down:UIButton!
+    
+    @IBOutlet weak var view_set_name:UIView! {
+        didSet {
+            view_set_name.backgroundColor = .white
+            view_set_name.layer.masksToBounds = false
+            view_set_name.layer.shadowColor = UIColor.black.cgColor
+            view_set_name.layer.shadowOffset =  CGSize.zero
+            view_set_name.layer.shadowOpacity = 0.5
+            view_set_name.layer.shadowRadius = 2
+            view_set_name.layer.cornerRadius = 12
+        }
+    }
+    
+    @IBOutlet weak var lbl_my_full_address:UILabel! {
+        didSet {
+            lbl_my_full_address.text = ""
+        }
+    }
+    
+    @IBOutlet weak var view_select_vehicle:UIView! {
+        didSet {
+            view_select_vehicle.backgroundColor = .clear
+        }
+    }
+    
+    @IBOutlet weak var btn_book_a_ride_now:UIButton! {
+        didSet {
+            Utils.buttonStyle(button: btn_book_a_ride_now,
+                              bCornerRadius: 12,
+                              bBackgroundColor: navigation_color,
+                              bTitle: "BOOK A RIDE NOW",
+                              bTitleColor: .white)
+            
+            btn_book_a_ride_now.layer.masksToBounds = false
+            btn_book_a_ride_now.layer.shadowColor = UIColor.black.cgColor
+            btn_book_a_ride_now.layer.shadowOffset =  CGSize.zero
+            btn_book_a_ride_now.layer.shadowOpacity = 0.5
+            btn_book_a_ride_now.layer.shadowRadius = 2
+            
+        }
+    }
+    
+    @IBOutlet weak var btn_schedule_a_ride_now:UIButton! {
+        didSet {
+            Utils.buttonStyle(button: btn_schedule_a_ride_now,
+                              bCornerRadius: 12,
+                              bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
+                              bTitle: "SCHEDULE A RIDE",
+                              bTitleColor: .white)
+            
+            btn_schedule_a_ride_now.layer.masksToBounds = false
+            btn_schedule_a_ride_now.layer.shadowColor = UIColor.black.cgColor
+            btn_schedule_a_ride_now.layer.shadowOffset =  CGSize.zero
+            btn_schedule_a_ride_now.layer.shadowOpacity = 0.5
+            btn_schedule_a_ride_now.layer.shadowRadius = 2
+            
+        }
+    }
+    
+    @IBOutlet weak var lbl_select_destination:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_select_destination.text = "Select destination"
+                } else {
+                    lbl_select_destination.text = "গন্তব্য নির্বাচন করুন"
+                }
+                
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_set_ride_location:UILabel!
+    @IBOutlet weak var lbl_select_vehicle:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +342,9 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
             self.str_token_id = String(device_token)
             
         }
+        
+        self.btn_push_to_map.addTarget(self, action: #selector(please_select_atleast_one_vehicle), for: .touchUpInside)
+        self.btn_push_to_map_down.addTarget(self, action: #selector(please_select_atleast_one_vehicle2), for: .touchUpInside)
         
         //
         // let settingsVCId = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_payment_id") as? success_payment
@@ -177,10 +398,10 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 if let address = UserDefaults.standard.string(forKey: "key_map_view_address") {
                     print(address)
                     
-                    let indexPath = IndexPath.init(row: 0, section: 0)
-                    let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
+//                    let indexPath = IndexPath.init(row: 0, section: 0)
+//                    let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
                     
-                    cell.lbl_my_full_address.text = String(address)
+                    self.lbl_my_full_address.text = String(address)
                     self.loginUserAddressTo = String(address)
                 }
                 
@@ -206,10 +427,10 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 if let address = UserDefaults.standard.string(forKey: "key_map_view_address") {
                     print(address)
                     
-                    let indexPath = IndexPath.init(row: 0, section: 0)
-                    let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
+//                    let indexPath = IndexPath.init(row: 0, section: 0)
+//                    let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
                     
-                    cell.lbl_select_destination.text = String(address)
+                    self.lbl_select_destination.text = String(address)
                     self.loginUserAddressFrom = String(address)
                 }
             }
@@ -224,24 +445,131 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         UserDefaults.standard.set("", forKey: "keyUserSelectWhichProfile")
         UserDefaults.standard.set(nil, forKey: "keyUserSelectWhichProfile")
         
+        
+        if (self.loginUserLatitudeTo != nil && self.loginUserLatitudeFrom != nil) {
+            self.checkCarCategoriesWB(str_show_loader: "yes")
+        }
+        
     }
     
-    /*func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-     switch manager.authorizationStatus {
-     case .authorizedWhenInUse, .authorizedAlways:
-     // Start updating location if authorized
-     locationManager.startUpdatingLocation()
-     case .denied, .restricted:
-     // Handle the case where the user denied or restricted location access
-     print("Location access denied or restricted")
-     case .notDetermined:
-     // Authorization not yet determined; wait for user action
-     break
-     @unknown default:
-     // Handle any future cases
-     break
-     }
-     }*/
+    @objc func checkCarCategoriesWB(str_show_loader:String) {
+        
+        if (str_show_loader == "yes") {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                }
+                
+                
+            }
+        }
+        
+        self.view.endEditing(true)
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            var ar : NSArray!
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            
+            let arr_mut_order_history:NSMutableArray! = []
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+                
+                // loginUserLatitudeTo = "\(userLatitude!)"
+                // loginUserLongitudeTo = "\(userLongitude!)"
+                
+                var parameters:Dictionary<AnyHashable, Any>!
+                parameters = [
+                    "action"        : "category",
+                    "TYPE"        : String("CAR"),
+                    
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON {
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                        
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        var message : String!
+                        message = (JSON["msg"] as? String)
+                        
+                        print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                             
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                              
+                            var ar : NSArray!
+                            ar = (JSON["data"] as! Array<Any>) as NSArray
+                            self.arrCarCategories.addObjects(from: ar as! [Any])
+                            
+                            self.tbleView.delegate = self
+                            self.tbleView.dataSource = self
+                            self.tbleView.reloadData()
+                            
+                        } else if message == String(not_authorize_api) {
+                            self.login_refresh_token_wb()
+                            
+                        } else {
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
+                    }
+                }
+            } else {
+                print("no token found")
+                self.login_refresh_token_wb()
+            }
+        } else {
+            print("something went very wrong")
+            ERProgressHud.sharedInstance.hide()
+            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "get_started_id")
+            self.navigationController?.pushViewController(push, animated: true)
+        }
+    }
     
     @objc func getUsersCurrentLatLong() {
         //        // Request location authorization
@@ -334,10 +662,10 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     }
     
     @objc func call(addressString:String){
-        let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
-        
-        cell.lbl_my_full_address.text = "\(addressString)"
+//        let indexPath = IndexPath.init(row: 0, section: 0)
+//        let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
+//        
+        self.lbl_my_full_address.text = "\(addressString)"
         self.loginUserAddressTo = "\(addressString)"
         
         self.update_token_WB(str_show_loader: "yes")
@@ -1093,6 +1421,19 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         task.resume()
     }
     
+    func getDistanceInMiles(lat1: Double, lon1: Double, lat2: Double, lon2: Double) -> Double {
+        let location1 = CLLocation(latitude: lat1, longitude: lon1)
+        let location2 = CLLocation(latitude: lat2, longitude: lon2)
+        
+        // Distance in meters
+        let distanceInMeters = location1.distance(from: location2)
+        
+        // Convert meters to miles (1 mile = 1609.34 meters)
+        let distanceInMiles = distanceInMeters / 1609.34
+        
+        return distanceInMiles
+    }
+   
 }
 
 
@@ -1102,7 +1443,7 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.arrCarCategories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -1115,14 +1456,18 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
         backgroundView.backgroundColor = .clear
         cell.selectedBackgroundView = backgroundView
         
-        cell.btn_car.addTarget(self, action: #selector(push_to_car_map_click_method), for: .touchUpInside)
+        
+        
+        let item = self.arrCarCategories[indexPath.row] as? [String:Any]
+        cell.lblName.text = (item!["name"] as! String)
+        
+        /*cell.btn_car.addTarget(self, action: #selector(push_to_car_map_click_method), for: .touchUpInside)
         cell.btn_bike.addTarget(self, action: #selector(push_to_bike_map_click_method), for: .touchUpInside)
         cell.btn_intercity.addTarget(self, action: #selector(push_to_intercity_map_click_method), for: .touchUpInside)
         
         cell.btn_book_a_ride_now.addTarget(self, action: #selector(book_a_ride_click_method), for: .touchUpInside)
         
-        cell.btn_push_to_map.addTarget(self, action: #selector(please_select_atleast_one_vehicle), for: .touchUpInside)
-        cell.btn_push_to_map_down.addTarget(self, action: #selector(please_select_atleast_one_vehicle2), for: .touchUpInside)
+        
         
         cell.btn_schedule_a_ride_now.addTarget(self, action: #selector(schedule_a_ride_click_method), for: .touchUpInside)
         
@@ -1161,7 +1506,7 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
             cell.btn_bike_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
             cell.btn_intercity_checkmark.setImage(UIImage(named: "tick3"), for: .normal)
             
-        }
+        }*/
         /*if (self.str_vehicle_type == "CAR") {
             cell.btn_book_a_ride_now.backgroundColor = navigation_color
             cell.btn_schedule_a_ride_now.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1);
@@ -1221,8 +1566,8 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
             //
         }*/
         
-        cell.btn_schedule_a_ride_now.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1);
-        cell.btn_book_a_ride_now.backgroundColor = navigation_color
+        /*cell.btn_schedule_a_ride_now.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1);
+        cell.btn_book_a_ride_now.backgroundColor = navigation_color*/
         
         /*if (self.str_select_option == "schedule") {
             cell.btn_schedule_a_ride_now.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1);
@@ -1235,7 +1580,7 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
             cell.btn_schedule_a_ride_now.backgroundColor = .systemGray
         }*/
         
-        cell.collectionView?.delegate = self
+        /*cell.collectionView?.delegate = self
         cell.collectionView?.dataSource = self
         cell.collectionView?.reloadData()
         
@@ -1245,10 +1590,10 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
         cell.btn_next.tag = indexPath.row
         cell.btn_next.addTarget(self, action: #selector(next_click_method), for: .touchUpInside)
         cell.btn_previous.addTarget(self, action: #selector(previous_click_method), for: .touchUpInside)
-        
+        */
        
         
-        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+        /*if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
             
             if (language == "en") {
@@ -1273,7 +1618,7 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
             print("=============================")
             self.str_selected_language_is = "en"
             UserDefaults.standard.set("en", forKey: str_language_convert)
-        }
+        }*/
         
         
         
@@ -1458,222 +1803,11 @@ class dashboard_collection_view_cell: UICollectionViewCell , UITextFieldDelegate
 
 class dashboard_table_cell: UITableViewCell {
     
-    @IBOutlet weak var btn_car:UIButton! {
-        didSet {
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    btn_car.setImage(UIImage(named: "ns_car"), for: .normal)
-                } else {
-                    btn_car.setImage(UIImage(named: "car_bangla_unselected"), for: .normal)
-                }
-                
-            }
-            
-            btn_car.titleLabel!.font = UIFont(name: "Poppins-Regular", size: 14.0)!
-            btn_car.backgroundColor = .systemPurple
-            btn_car.layer.cornerRadius = 14
-            btn_car.clipsToBounds = true
-            
-            btn_car.layer.masksToBounds = false
-            btn_car.layer.shadowColor = UIColor.black.cgColor
-            btn_car.layer.shadowOffset =  CGSize.zero
-            btn_car.layer.shadowOpacity = 0.5
-            btn_car.layer.shadowRadius = 2
-            btn_car.layer.cornerRadius = 12
-        }
-    }
+    @IBOutlet weak var imgProfile:UIImageView!
     
-    @IBOutlet weak var btn_car_checkmark:UIButton! {
-        didSet {
-            btn_car_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
-        }
-    }
-    @IBOutlet weak var btn_bike_checkmark:UIButton! {
-        didSet {
-            btn_bike_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
-        }
-    }
-    @IBOutlet weak var btn_intercity_checkmark:UIButton! {
-        didSet {
-            btn_intercity_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
-        }
-    }
+    @IBOutlet weak var lblName:UILabel!
+    @IBOutlet weak var lblPrice:UILabel!
     
-    @IBOutlet weak var btn_bike:UIButton! {
-        didSet {
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    btn_bike.setImage(UIImage(named: "ns_bike"), for: .normal)
-                } else {
-                    btn_bike.setImage(UIImage(named: "bike_bangla_unselected"), for: .normal)
-                }
-                
-            }
-            btn_bike.titleLabel!.font = UIFont(name: "Poppins-Regular", size: 14.0)!
-            btn_bike.backgroundColor = .systemPurple
-            btn_bike.layer.cornerRadius = 14
-            btn_bike.clipsToBounds = true
-            
-            btn_bike.layer.masksToBounds = false
-            btn_bike.layer.shadowColor = UIColor.black.cgColor
-            btn_bike.layer.shadowOffset =  CGSize.zero
-            btn_bike.layer.shadowOpacity = 0.5
-            btn_bike.layer.shadowRadius = 2
-            btn_bike.layer.cornerRadius = 12
-        }
-    }
-    @IBOutlet weak var btn_intercity:UIButton! {
-        didSet {
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    btn_intercity.setImage(UIImage(named: "ns_intercity"), for: .normal)
-                } else {
-                    btn_intercity.setImage(UIImage(named: "intercity_bangla_unselected"), for: .normal)
-                }
-                
-            }
-            btn_intercity.titleLabel!.font = UIFont(name: "Poppins-Regular", size: 14.0)!
-            btn_intercity.backgroundColor = .systemPurple
-            btn_intercity.layer.cornerRadius = 14
-            btn_intercity.clipsToBounds = true
-            
-            btn_intercity.layer.masksToBounds = false
-            btn_intercity.layer.shadowColor = UIColor.black.cgColor
-            btn_intercity.layer.shadowOffset =  CGSize.zero
-            btn_intercity.layer.shadowOpacity = 0.5
-            btn_intercity.layer.shadowRadius = 2
-            btn_intercity.layer.cornerRadius = 12
-        }
-    }
-    
-    @IBOutlet weak var btn_next:UIButton! {
-        didSet {
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    btn_next.setTitle("Next", for: .normal)
-                } else {
-                    btn_next.setTitle("পরবর্তী", for: .normal)
-                }
-                
-            }
-        }
-    }
-    
-    @IBOutlet weak var btn_previous:UIButton! {
-        didSet {
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    btn_previous.setTitle("Previous", for: .normal)
-                } else {
-                    btn_previous.setTitle("পূর্ববর্তী", for: .normal)
-                }
-                
-            }
-        }
-    }
-    
-    @IBOutlet weak var page_control:UIPageControl! {
-        didSet {
-            page_control.currentPage = 0
-            page_control.backgroundColor = .clear
-        }
-    }
-    
-    @IBOutlet weak var collectionView:UICollectionView! {
-        didSet {
-            collectionView.isPagingEnabled = true
-            collectionView.backgroundColor = .clear
-        }
-    }
-    
-    @IBOutlet weak var btn_push_to_map:UIButton!
-    @IBOutlet weak var btn_push_to_map_down:UIButton!
-    
-    @IBOutlet weak var view_set_name:UIView! {
-        didSet {
-            view_set_name.backgroundColor = .white
-            view_set_name.layer.masksToBounds = false
-            view_set_name.layer.shadowColor = UIColor.black.cgColor
-            view_set_name.layer.shadowOffset =  CGSize.zero
-            view_set_name.layer.shadowOpacity = 0.5
-            view_set_name.layer.shadowRadius = 2
-            view_set_name.layer.cornerRadius = 12
-        }
-    }
-    
-    @IBOutlet weak var lbl_my_full_address:UILabel! {
-        didSet {
-            lbl_my_full_address.text = ""
-        }
-    }
-    
-    @IBOutlet weak var view_select_vehicle:UIView! {
-        didSet {
-            view_select_vehicle.backgroundColor = .clear
-        }
-    }
-    
-    @IBOutlet weak var btn_book_a_ride_now:UIButton! {
-        didSet {
-            Utils.buttonStyle(button: btn_book_a_ride_now,
-                              bCornerRadius: 12,
-                              bBackgroundColor: navigation_color,
-                              bTitle: "BOOK A RIDE NOW",
-                              bTitleColor: .white)
-            
-            btn_book_a_ride_now.layer.masksToBounds = false
-            btn_book_a_ride_now.layer.shadowColor = UIColor.black.cgColor
-            btn_book_a_ride_now.layer.shadowOffset =  CGSize.zero
-            btn_book_a_ride_now.layer.shadowOpacity = 0.5
-            btn_book_a_ride_now.layer.shadowRadius = 2
-            
-        }
-    }
-    
-    @IBOutlet weak var btn_schedule_a_ride_now:UIButton! {
-        didSet {
-            Utils.buttonStyle(button: btn_schedule_a_ride_now,
-                              bCornerRadius: 12,
-                              bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
-                              bTitle: "SCHEDULE A RIDE",
-                              bTitleColor: .white)
-            
-            btn_schedule_a_ride_now.layer.masksToBounds = false
-            btn_schedule_a_ride_now.layer.shadowColor = UIColor.black.cgColor
-            btn_schedule_a_ride_now.layer.shadowOffset =  CGSize.zero
-            btn_schedule_a_ride_now.layer.shadowOpacity = 0.5
-            btn_schedule_a_ride_now.layer.shadowRadius = 2
-            
-        }
-    }
-    
-    @IBOutlet weak var lbl_select_destination:UILabel! {
-        didSet {
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    lbl_select_destination.text = "Select destination"
-                } else {
-                    lbl_select_destination.text = "গন্তব্য নির্বাচন করুন"
-                }
-                
-            }
-        }
-    }
-    
-    @IBOutlet weak var lbl_set_ride_location:UILabel!
-    @IBOutlet weak var lbl_select_vehicle:UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -34,7 +34,6 @@
 		B934EC862B0763F500908C0D /* before_payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B934EC852B0763F500908C0D /* before_payment.swift */; };
 		B943FE532B26EA03000A20FA /* BooCheckTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B943FE512B26EA02000A20FA /* BooCheckTableCell.swift */; };
 		B943FE542B26EA03000A20FA /* BooCheckChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B943FE522B26EA03000A20FA /* BooCheckChat.swift */; };
-		B963994B2BFDEA14000A00CA /* get_started.swift in Sources */ = {isa = PBXBuildFile; fileRef = B963994A2BFDEA14000A00CA /* get_started.swift */; };
 		B9658D8F2B2ADF4C005F8D00 /* search_location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9658D8E2B2ADF4C005F8D00 /* search_location.swift */; };
 		B96790842C7F636D00646B9F /* select_location_via_name.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96790832C7F636D00646B9F /* select_location_via_name.swift */; };
 		B9695DF52A5BE73000552578 /* sign_up.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9695DF42A5BE73000552578 /* sign_up.swift */; };
@@ -164,7 +163,6 @@
 		B934EC852B0763F500908C0D /* before_payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = before_payment.swift; sourceTree = "<group>"; };
 		B943FE512B26EA02000A20FA /* BooCheckTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooCheckTableCell.swift; sourceTree = "<group>"; };
 		B943FE522B26EA03000A20FA /* BooCheckChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooCheckChat.swift; sourceTree = "<group>"; };
-		B963994A2BFDEA14000A00CA /* get_started.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = get_started.swift; path = ../../../../../../Desktop/get_started.swift; sourceTree = "<group>"; };
 		B9658D8E2B2ADF4C005F8D00 /* search_location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = search_location.swift; sourceTree = "<group>"; };
 		B96790832C7F636D00646B9F /* select_location_via_name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = select_location_via_name.swift; sourceTree = "<group>"; };
 		B9695DF42A5BE73000552578 /* sign_up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sign_up.swift; sourceTree = "<group>"; };
@@ -410,14 +408,6 @@
 			path = single_chat;
 			sourceTree = "<group>";
 		};
-		B96399492BFDEA06000A00CA /* get_started */ = {
-			isa = PBXGroup;
-			children = (
-				B963994A2BFDEA14000A00CA /* get_started.swift */,
-			);
-			path = get_started;
-			sourceTree = "<group>";
-		};
 		B9658D8D2B2ADF36005F8D00 /* search_location */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,7 +438,6 @@
 			children = (
 				B98DF8D62C93069A00BE03B6 /* New Group */,
 				B9BE71FD2C0DF41F00FB48D8 /* custom_notification.mp3 */,
-				B96399492BFDEA06000A00CA /* get_started */,
 				B9A8EE602BFE206E00169855 /* select_profile */,
 				B9CC22CB2BE0D4EB00164C53 /* bKash */,
 				B9F779F52BDBA24D00D699D0 /* invoice */,
@@ -1225,7 +1214,6 @@
 				B903CD8F2A58018000208E80 /* AppDelegate.swift in Sources */,
 				B903CD912A58018000208E80 /* SceneDelegate.swift in Sources */,
 				B9CC75B82B06055B00446959 /* schedule_confirm_booking.swift in Sources */,
-				B963994B2BFDEA14000A00CA /* get_started.swift in Sources */,
 				B9E13D4A2A5C474B0068774A /* ERProgressHud.swift in Sources */,
 				B9FE545C2A5FD8CE005583C2 /* parameter.swift in Sources */,
 				B9038E022A5D41C40041A5B4 /* map_view.swift in Sources */,

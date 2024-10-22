@@ -81,6 +81,47 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
     var doublePlaceFinalLat:Double!
     var doublePlaceFinalLong:Double!
     
+    @IBOutlet weak var lblStartingLocation:UILabel!
+    @IBOutlet weak var lblEndLocation:UILabel!
+    
+    @IBOutlet weak var viewEstimateBG:UIView!{
+        didSet {
+            viewEstimateBG.backgroundColor = .white
+        }
+    }
+    
+    @IBOutlet weak var btnWallet:UIButton! {
+        didSet {
+            btnWallet.setTitleColor(.white, for: .normal)
+            btnWallet.layer.cornerRadius = 14
+            btnWallet.clipsToBounds = true
+            btnWallet.backgroundColor = UIColor.init(red: 227.0/255.0, green: 230.0/255.0, blue: 244.0/255.0, alpha: 1)
+        }
+    }
+    
+    @IBOutlet weak var btnTime:UIButton! {
+        didSet {
+            btnTime.setTitleColor(.white, for: .normal)
+            btnTime.layer.cornerRadius = 14
+            btnTime.clipsToBounds = true
+            btnTime.backgroundColor = UIColor.init(red: 227.0/255.0, green: 230.0/255.0, blue: 244.0/255.0, alpha: 1)
+        }
+    }
+    
+    @IBOutlet weak var btnDistance:UIButton! {
+        didSet {
+            btnDistance.setTitleColor(.white, for: .normal)
+            btnDistance.layer.cornerRadius = 14
+            btnDistance.clipsToBounds = true
+            btnDistance.backgroundColor = UIColor.init(red: 227.0/255.0, green: 230.0/255.0, blue: 244.0/255.0, alpha: 1)
+        }
+    }
+    
+    @IBOutlet weak var lblWallet:UILabel!
+    @IBOutlet weak var lblTime:UILabel!
+    @IBOutlet weak var lblDistance:UILabel!
+    
+    
     @IBOutlet weak var navigationBar:UIView! {
         didSet {
             navigationBar.backgroundColor = navigation_color
@@ -151,8 +192,8 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         self.show_loading_UI()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
         
-        self.lblFrom.text = String(self.str_from_location)
-        self.lblTo.text = String(self.str_to_location)
+        self.lblStartingLocation.text = String(self.str_from_location)
+        self.lblEndLocation.text = String(self.str_to_location)
         
         
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -816,6 +857,16 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                                 self.str_active_ride = "\(dict["activeRide"]!)"
                                 self.strGetTotalDistance = "\(dict["distance"]!)"
                                 
+                                let kilometers = Double(self.strGetTotalDistance)
+                                let miles = self.convertKmToMiles(kilometers: kilometers!)
+                                // print("\(kilometers) kilometers is equal to \(miles) miles")
+                                
+                                self.lblWallet.text = "$\(self.str_total_rupees!)"
+                                self.lblTime.text = String(self.str_total_duration)
+                                
+                                // let formattedNumber1 = String(format: "%.2f", "\(dict["distance"]!)")
+                                self.lblDistance.text = "\(dict["distance"]!) Mi"
+                                
                                 /*self.tbleView.delegate = self
                                 self.tbleView.dataSource = self
                                 self.tbleView.reloadData()*/
@@ -839,105 +890,20 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
             }
         }
     }
-    
-    
-    
-    
-    /*func addMarker(at coordinate: CLLocationCoordinate2D, title: String) {
-        let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! total_fare_distance_mpa_route_table_cell
-        let marker = GMSMarker(position: coordinate)
-        marker.title = title
-        marker.map = cell.mapViewG
+  
+    func convertKmToMiles(kilometers: Double) -> Double {
+        return kilometers * 0.621371
     }
     
-    func drawPolyline(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) {
-        let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! total_fare_distance_mpa_route_table_cell
-        let path = GMSMutablePath()
-        path.add(from)
-        path.add(to)
-        
-        let polyline = GMSPolyline(path: path)
-        polyline.strokeColor = .blue
-        polyline.strokeWidth = 5.0
-        polyline.map = cell.mapViewG
-    }*/
-    
-    
-    
-    
-    
     @objc func handleEveythingFromGoogleMapInit() {
-        
-        
-        /*print(self.getLoginUserLatitudeTo as Any)
-         print(self.getLoginUserLongitudeTo as Any)
-         print(self.getLoginUserAddressTo as Any)
-         
-         print(self.getLoginUserLatitudeFrom as Any)
-         print(self.getLoginUserLongitudeFrom as Any)
-         print(self.getLoginUserAddressFrom as Any)
-         
-         UserDefaults.standard.set("", forKey: "key_map_view_lat_long")
-         UserDefaults.standard.set(nil, forKey: "key_map_view_lat_long")
-         
-         UserDefaults.standard.set("", forKey: "key_map_view_address")
-         UserDefaults.standard.set(nil, forKey: "key_map_view_address")
-         
-         UserDefaults.standard.set("", forKey: "keyUserSelectWhichProfile")
-         UserDefaults.standard.set(nil, forKey: "keyUserSelectWhichProfile")
-         */
         
         self.initializeMap()
     }
     
     func initializeMap() {
-        let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! total_fare_distance_mpa_route_table_cell
-         
-        /*
-         let restaurantLatitudeDouble    = Double(self.searched_place_location_lat)
-         let restaurantLongitudeDouble   = Double(self.searched_place_location_long)
-         */
         
-        /*let separateDropLocation    = "\(self.searched_place_location_lat!)"
-        let separateRequestLocation = "\(self.searched_place_location_long!)"
-        
-        print(separateDropLocation as Any)
-        print(separateRequestLocation as Any)
-        
-        let separateDropLocationArr = separateDropLocation.components(separatedBy: ",")
-        let separateRequestLocationArr = separateRequestLocation.components(separatedBy: ",")
-        
-        let dropLatitude    = separateDropLocationArr[0]
-        let dropLongitude   = separateDropLocationArr[1]
-        
-        let requestLatitude    = separateRequestLocationArr[0]
-        let requestLongitude   = separateRequestLocationArr[1]*/
-        
-        /*
-         push!.str_vehicle_type = String(self.str_user_select_vehicle)
-         
-         push!.str_get_category_id = String(self.str_category_id)
-         // push!.str_from_location = String(self.lbl_location_from.text!)
-         // push!.str_to_location = String(self.stateAndCountry)+" "+String(self.stateAndCountry)
-         
-         push!.str_from_location = String(self.getLoginUserAddressTo)
-         push!.str_to_location = String(self.getLoginUserAddressFrom)
-         
-         push!.my_location_lat = String(self.getLoginUserLatitudeTo)
-         push!.my_location_long = String(self.getLoginUserLongitudeTo)
-         
-         push!.searched_place_location_lat = String(self.getLoginUserLatitudeFrom)
-         push!.searched_place_location_long = String(self.getLoginUserLongitudeFrom)
-         */
-        
-        cell.lblStartingLocation.text = String(self.str_from_location)
-        cell.lblEndLocation.text = String(self.str_to_location)
-        
-        // cell.lbl_from.text = String(self.str_from_location)
-        // cell.lbl_to.text = String(self.str_to_location)
+        self.lblStartingLocation.text = String(self.str_from_location)
+        self.lblEndLocation.text = String(self.str_to_location)
         
         self.doublePlaceStartLat = Double("\(self.searched_place_location_lat!)")
         self.doublePlaceStartLong = Double("\(self.searched_place_location_long!)")
@@ -949,31 +915,8 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         debugPrint(doublePlaceStartLong as Any)
         debugPrint(doublePlaceFinalLat as Any)
         debugPrint(doublePlaceFinalLong as Any)
-        // self.tbleView.isHidden = true
-        
-        /*let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 5.0)
-        mapView = GMSMapView(frame: .zero)
-        mapView.camera = camera
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(mapView)
-        
-        NSLayoutConstraint.activate([
-            mapView.leadingAnchor.constraint(equalTo: self.customView.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: self.customView.trailingAnchor),
-            mapView.topAnchor.constraint(equalTo: self.customView.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: self.customView.bottomAnchor)
-        ])
-        
-//        self.customView.bringSubviewToFront(navigationBar)
-//        self.customView.bringSubviewToFront(cell.view_big)
-        
-        let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
-        let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
-        
-        addMarker(at: placeACoordinate, title: "Origin", snippet: "Pickup", color: .green)
-        addMarker(at: placeBCoordinate, title: "Destination", snippet: "Drop", color: .yellow)
-        
-        fetchRoute(from: placeACoordinate, to: placeBCoordinate)*/
+      
+         
         let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 5.0)
             mapView.camera = camera
             

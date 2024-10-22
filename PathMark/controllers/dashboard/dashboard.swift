@@ -345,7 +345,6 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
             
             self.str_token_id = String(device_token)
-            
         }
         
         self.btn_push_to_map.addTarget(self, action: #selector(please_select_atleast_one_vehicle), for: .touchUpInside)
@@ -354,11 +353,11 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         // book a ride now
         self.btn_book_a_ride_now.addTarget(self, action: #selector(bookARideNowClickMethod), for: .touchUpInside)
         
+        
         self.getUsersCurrentLatLong()
         
     }
     
-    //
     @objc func bookARideNowClickMethod() {
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "total_fare_distance_mpa_route_id") as? total_fare_distance_mpa_route
        
@@ -637,10 +636,10 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 
                 var parameters:Dictionary<AnyHashable, Any>!
                 parameters = [
-                    "action"        : "category",
-                    "userId"        : String("CAR"),
-                    "latitude"      : String("CAR"),
-                    "longitude"     : String("CAR"),
+                    "action"        : "finddriver",
+                    "userId"        : String(myString),
+                    "latitude"      : "\(self.userLatitude!)",
+                    "longitude"     : "\(self.userLongitude!)",
                     "language"      : String("en"),
                 ]
                 
@@ -676,10 +675,10 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                             
                             ERProgressHud.sharedInstance.hide()
                             
-                            self.tbleView.isHidden = false
+                            /*self.tbleView.isHidden = false
                             self.tbleView.delegate = self
                             self.tbleView.dataSource = self
-                            self.tbleView.reloadData()
+                            self.tbleView.reloadData()*/
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_wb()
@@ -758,6 +757,8 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
             
             // Stop updating location to save battery life
             locationManager.stopUpdatingLocation()
+            
+            findDriversWB(str_show_loader: "yes")
             
         }
     }

@@ -72,7 +72,8 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
     var getLoginUserLatitudeFrom:String!
     var getLoginUserLongitudeFrom:String!
     var getLoginUserAddressFrom:String!
-    var mapView: GMSMapView!
+    // var mapView: GMSMapView!
+    @IBOutlet weak var mapView: GMSMapView!
     
     var doublePlaceStartLat:Double!
     var doublePlaceStartLong:Double!
@@ -109,6 +110,9 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         }
     }
     
+    @IBOutlet weak var lblTo:UILabel!
+    @IBOutlet weak var lblFrom:UILabel!
+    
     @IBOutlet weak var btnConfirmBooking:UIButton! {
         didSet {
             btnConfirmBooking.backgroundColor = .systemGreen
@@ -119,6 +123,16 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
     //    @IBOutlet weak var mapView:MKMapView!
     
     var str_selected_language_is:String!
+    
+    @IBOutlet weak var lbl_from:UILabel!
+    @IBOutlet weak var lbl_to:UILabel!
+    
+    
+    @IBOutlet weak var customView:UIView! {
+        didSet {
+            customView.backgroundColor = .white
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,6 +150,9 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         
         self.show_loading_UI()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        
+        self.lblFrom.text = String(self.str_from_location)
+        self.lblTo.text = String(self.str_to_location)
         
         
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -736,6 +753,7 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
             
             var parameters:Dictionary<AnyHashable, Any>!
             
+           
             if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
                 
                 let x : Int = person["userId"] as! Int
@@ -747,7 +765,7 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                     "pickuplatLong" : String(self.my_location_lat)+","+String(self.my_location_long),
                     "droplatLong"   : String(self.searched_place_location_lat)+","+String(self.searched_place_location_long),
                     "categoryId"    : String(self.str_get_category_id),
-                    "language"      : String(self.str_selected_language_is)
+                    "language"      : String("en")
                 ]
                 
                 print("parameters-------\(String(describing: parameters))")
@@ -771,7 +789,7 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                                 dict = JSON["data"] as! Dictionary<AnyHashable, Any>
                                 
                                 self.hide_loading_UI()
-                                self.tbleView.separatorColor = .clear
+                                // self.tbleView.separatorColor = .clear
                                 // self.iAmHereForLocationPermission()
                                 
                                 
@@ -798,9 +816,9 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                                 self.str_active_ride = "\(dict["activeRide"]!)"
                                 self.strGetTotalDistance = "\(dict["distance"]!)"
                                 
-                                self.tbleView.delegate = self
+                                /*self.tbleView.delegate = self
                                 self.tbleView.dataSource = self
-                                self.tbleView.reloadData()
+                                self.tbleView.reloadData()*/
                                 
                                 self.handleEveythingFromGoogleMapInit()
                             }
@@ -918,8 +936,8 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         cell.lblStartingLocation.text = String(self.str_from_location)
         cell.lblEndLocation.text = String(self.str_to_location)
         
-        cell.lbl_from.text = String(self.str_from_location)
-        cell.lbl_to.text = String(self.str_to_location)
+        // cell.lbl_from.text = String(self.str_from_location)
+        // cell.lbl_to.text = String(self.str_to_location)
         
         self.doublePlaceStartLat = Double("\(self.searched_place_location_lat!)")
         self.doublePlaceStartLong = Double("\(self.searched_place_location_long!)")
@@ -931,22 +949,23 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         debugPrint(doublePlaceStartLong as Any)
         debugPrint(doublePlaceFinalLat as Any)
         debugPrint(doublePlaceFinalLong as Any)
+        // self.tbleView.isHidden = true
         
-        let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 10.0)
+        /*let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 5.0)
         mapView = GMSMapView(frame: .zero)
         mapView.camera = camera
         mapView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mapView)
         
         NSLayoutConstraint.activate([
-            mapView.leadingAnchor.constraint(equalTo: cell.customView.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: cell.customView.trailingAnchor),
-            mapView.topAnchor.constraint(equalTo: cell.customView.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: cell.customView.bottomAnchor)
+            mapView.leadingAnchor.constraint(equalTo: self.customView.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: self.customView.trailingAnchor),
+            mapView.topAnchor.constraint(equalTo: self.customView.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: self.customView.bottomAnchor)
         ])
         
-        cell.customView.bringSubviewToFront(navigationBar)
-        cell.customView.bringSubviewToFront(cell.view_big)
+//        self.customView.bringSubviewToFront(navigationBar)
+//        self.customView.bringSubviewToFront(cell.view_big)
         
         let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
         let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
@@ -954,8 +973,19 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         addMarker(at: placeACoordinate, title: "Origin", snippet: "Pickup", color: .green)
         addMarker(at: placeBCoordinate, title: "Destination", snippet: "Drop", color: .yellow)
         
-        fetchRoute(from: placeACoordinate, to: placeBCoordinate)
-        
+        fetchRoute(from: placeACoordinate, to: placeBCoordinate)*/
+        let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 5.0)
+            mapView.camera = camera
+            
+            let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
+            let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
+            
+            // Add markers
+            addMarker(at: placeACoordinate, title: "Origin", snippet: "Pickup", color: .green)
+            addMarker(at: placeBCoordinate, title: "Destination", snippet: "Drop", color: .yellow)
+            
+            // Fetch the route
+            fetchRoute(from: placeACoordinate, to: placeBCoordinate)
     }
     
     @objc func buttonUpClickMethod() {
@@ -1067,7 +1097,8 @@ extension total_fare_distance_mpa_route: UITableViewDataSource , UITableViewDele
         
         let doubleTotalRupees = Double(self.str_total_rupees)
         let formattedNumber = String(format: "%.2f", doubleTotalRupees!)
-        cell.lblTotalPayableAmount.text = formattedNumber //String (self.str_total_rupees)
+        print(formattedNumber)
+        cell.lblTotalPayableAmount.text = "$\(formattedNumber)"
         
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
@@ -1086,18 +1117,18 @@ extension total_fare_distance_mpa_route: UITableViewDataSource , UITableViewDele
             UserDefaults.standard.set("en", forKey: str_language_convert)
         }
         
-        cell.txt_field.delegate = self
+        // cell.txt_field.delegate = self
         
-        cell.lbl_curreny_symbol.text = String(str_bangladesh_currency_symbol)
+        // cell.lbl_curreny_symbol.text = String(str_bangladesh_currency_symbol)
         
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
             
             if (language == "en") {
-                cell.lbl_estimated_only_text.text = "This is an estimated only, price & km may vary."
-                cell.lbl_distance_text.text = "distance"
-                cell.lbl_est_amount_text.text = "Est. amount"
-                cell.txt_field.placeholder = "Promotion"
+                cell.lbl_estimated_only_text.text = "Amount to be paid in advance."
+                // cell.lbl_distance_text.text = "distance"
+                // cell.lbl_est_amount_text.text = "Est. amount"
+                // cell.txt_field.placeholder = "Promotion"
             } else {
                 cell.lbl_estimated_only_text.text = "এটি কেবল একটি অনুমান মাত্র, সময়, ভাড়া ও কি.মি. পরিবর্তন হতে পারে "
                 cell.lbl_distance_text.text = "দূরত্ব"
@@ -1126,7 +1157,7 @@ extension total_fare_distance_mpa_route: UITableViewDataSource , UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 800
+        return 220
     }
     
 }
@@ -1230,11 +1261,7 @@ class total_fare_distance_mpa_route_table_cell: UITableViewCell {
     
     //
     
-    @IBOutlet weak var customView:UIView! {
-        didSet {
-            customView.backgroundColor = .white
-        }
-    }
+    
     
     @IBOutlet weak var view_big:UIView! {
         didSet {

@@ -65,6 +65,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         didSet {
             tbleView.isHidden = true
             tbleView.backgroundColor = .white
+            tbleView.separatorColor = .clear
         }
     }
     
@@ -88,6 +89,8 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     private let geocoder = CLGeocoder()
     
     var userAddress: String?
+    
+    var strUserSelectCarCategory:String!
     
     @IBOutlet weak var btn_car:UIButton! {
         didSet {
@@ -257,7 +260,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     @IBOutlet weak var btn_book_a_ride_now:UIButton! {
         didSet {
             Utils.buttonStyle(button: btn_book_a_ride_now,
-                              bCornerRadius: 12,
+                              bCornerRadius: 0,
                               bBackgroundColor: navigation_color,
                               bTitle: "BOOK A RIDE NOW",
                               bTitleColor: .white)
@@ -274,7 +277,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     @IBOutlet weak var btn_schedule_a_ride_now:UIButton! {
         didSet {
             Utils.buttonStyle(button: btn_schedule_a_ride_now,
-                              bCornerRadius: 12,
+                              bCornerRadius: 0,
                               bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
                               bTitle: "SCHEDULE A RIDE",
                               bTitleColor: .white)
@@ -347,32 +350,47 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         
         self.btn_push_to_map.addTarget(self, action: #selector(please_select_atleast_one_vehicle), for: .touchUpInside)
         self.btn_push_to_map_down.addTarget(self, action: #selector(please_select_atleast_one_vehicle2), for: .touchUpInside)
-        
-        //
-        // let settingsVCId = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_payment_id") as? success_payment
-        // self.navigationController?.pushViewController(settingsVCId!, animated: true)
-        //
-        
-        
-        // self.dummy_notification()
+       
+        // book a ride now
+        self.btn_book_a_ride_now.addTarget(self, action: #selector(bookARideNowClickMethod), for: .touchUpInside)
         
         self.getUsersCurrentLatLong()
         
     }
     
-    
+    //
+    @objc func bookARideNowClickMethod() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "total_fare_distance_mpa_route_id") as? total_fare_distance_mpa_route
+       
+        // login user location
+        push!.my_location_lat = String(self.loginUserLatitudeTo)
+        push!.my_location_long = String(self.loginUserLongitudeTo)
+        
+        // destination lat long
+        push!.searched_place_location_lat = String(self.loginUserLatitudeFrom)
+        push!.searched_place_location_long = String(self.loginUserLongitudeFrom)
+        
+        // id
+        push!.str_get_category_id = String(self.strUserSelectCarCategory)
+        
+        // address
+        push!.str_to_location =  String(self.loginUserAddressTo)
+        push!.str_from_location =  String(self.loginUserAddressFrom)
+        
+        self.navigationController?.pushViewController(push!, animated: true)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-//        UserDefaults.standard.set("", forKey: "key_map_view_lat_long")
-//        UserDefaults.standard.set(nil, forKey: "key_map_view_lat_long")
-//
-//        UserDefaults.standard.set("", forKey: "key_map_view_address")
-//        UserDefaults.standard.set(nil, forKey: "key_map_view_address")
-//
-//        UserDefaults.standard.set("", forKey: "keyUserSelectWhichProfile")
-//        UserDefaults.standard.set(nil, forKey: "keyUserSelectWhichProfile")
+        //        UserDefaults.standard.set("", forKey: "key_map_view_lat_long")
+        //        UserDefaults.standard.set(nil, forKey: "key_map_view_lat_long")
+        //
+        //        UserDefaults.standard.set("", forKey: "key_map_view_address")
+        //        UserDefaults.standard.set(nil, forKey: "key_map_view_address")
+        //
+        //        UserDefaults.standard.set("", forKey: "keyUserSelectWhichProfile")
+        //        UserDefaults.standard.set(nil, forKey: "keyUserSelectWhichProfile")
         
         if let profileUpOrBottom = UserDefaults.standard.string(forKey: "keyUserSelectWhichProfile") {
             debugPrint(profileUpOrBottom)
@@ -400,8 +418,8 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 if let address = UserDefaults.standard.string(forKey: "key_map_view_address") {
                     print(address)
                     
-//                    let indexPath = IndexPath.init(row: 0, section: 0)
-//                    let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
+                    //                    let indexPath = IndexPath.init(row: 0, section: 0)
+                    //                    let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
                     
                     self.lbl_my_full_address.text = String(address)
                     self.loginUserAddressTo = String(address)
@@ -429,8 +447,8 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 if let address = UserDefaults.standard.string(forKey: "key_map_view_address") {
                     print(address)
                     
-//                    let indexPath = IndexPath.init(row: 0, section: 0)
-//                    let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
+                    //                    let indexPath = IndexPath.init(row: 0, section: 0)
+                    //                    let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
                     
                     self.lbl_select_destination.text = String(address)
                     self.loginUserAddressFrom = String(address)
@@ -522,11 +540,12 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                         print(strSuccess as Any)
                         if strSuccess == String("success") {
                             print("yes")
-                             
+                            
                             let str_token = (JSON["AuthToken"] as! String)
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-                              
+                            
+                            self.arrCarCategories.removeAllObjects()
                             var ar : NSArray!
                             ar = (JSON["data"] as! Array<Any>) as NSArray
                             self.arrCarCategories.addObjects(from: ar as! [Any])
@@ -646,11 +665,11 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                         print(strSuccess as Any)
                         if strSuccess == String("success") {
                             print("yes")
-                             
+                            
                             let str_token = (JSON["AuthToken"] as! String)
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-                              
+                            
                             var ar : NSArray!
                             ar = (JSON["data"] as! Array<Any>) as NSArray
                             self.arrCarCategories.addObjects(from: ar as! [Any])
@@ -793,9 +812,9 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     }
     
     @objc func call(addressString:String){
-//        let indexPath = IndexPath.init(row: 0, section: 0)
-//        let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
-//        
+        //        let indexPath = IndexPath.init(row: 0, section: 0)
+        //        let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
+        //
         self.lbl_my_full_address.text = "\(addressString)"
         self.loginUserAddressTo = "\(addressString)"
         
@@ -1564,7 +1583,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         
         return distanceInMiles
     }
-   
+    
 }
 
 
@@ -1600,67 +1619,24 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
 
         let distance = getDistanceInMiles(lat1: lat1!, lon1: lon1!, lat2: lat2!, lon2: lon2!)
        
-        var multiplePriceWithDistance = Double(distance) * Double("\(item!["perMile"]!)")!
+        let multiplePriceWithDistance = Double(distance) * Double("\(item!["perMile"]!)")!
         let myString = String(format: "%.2f", multiplePriceWithDistance)
         cell.lblPrice.text = "$\(myString)"
         cell.lblPrice.textColor = .black
         
-        
         cell.imgProfile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         cell.imgProfile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo"))
-        
-        
-        
+         
         return cell
     }
     
-    @objc func previous_click_method(_ scrollView: UIScrollView) {
-        print(scrollView)
-        print(scrollView.tag)
-        
-    }
-    
-    @objc func next_click_method(_ scrollView: UIScrollView) {
-        print(scrollView)
-        print(scrollView.tag)
-        
-//        if scrollView.contentOffset.x < scrollView.bounds.width * CGFloat(1) {
-//            scrollView.contentOffset.x +=  scrollView.bounds.width
-//        }
-        
-    }
-   
-    @objc func sign_up_click_method() {
-        
-        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "verify_phone_number_id") as? verify_phone_number
-        self.navigationController?.pushViewController(push!, animated: true)
-        
-    }
-    
-    @objc func btnForgotPasswordPress() {
-        
-//        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ForgotPassword") as? ForgotPassword
-//        self.navigationController?.pushViewController(push!, animated: true)
-        
-    }
-    
-    @objc func signInClickMethod() {
-        
-//        self.login_WB()
-        
-        /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "UPDSAddressId")
-         self.navigationController?.pushViewController(push, animated: true)*/
-    }
-    
-    @objc func dontHaveAntAccountClickMethod() {
-        
-//        let settingsVCId = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "RegistraitonId") as? Registraiton
-//        self.navigationController?.pushViewController(settingsVCId!, animated: true)
-        
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let item = self.arrCarCategories[indexPath.row] as? [String:Any]
+        self.strUserSelectCarCategory = "\(item!["id"]!)"
+        
         
     }
     

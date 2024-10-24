@@ -464,6 +464,11 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         UserDefaults.standard.set("", forKey: "keyUserSelectWhichProfile")
         UserDefaults.standard.set(nil, forKey: "keyUserSelectWhichProfile")
         
+        print(loginUserLatitudeTo as Any)
+        print(loginUserLongitudeTo as Any)
+        
+        print(loginUserLatitudeFrom as Any)
+        print(loginUserLongitudeFrom as Any)
         
         if (self.loginUserLatitudeTo != nil && self.loginUserLatitudeFrom != nil) {
             self.checkCarCategoriesWB(str_show_loader: "yes")

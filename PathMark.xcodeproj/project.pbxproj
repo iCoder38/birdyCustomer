@@ -96,6 +96,7 @@
 		B9CC75B82B06055B00446959 /* schedule_confirm_booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CC75B72B06055B00446959 /* schedule_confirm_booking.swift */; };
 		B9CEA2892B0B5E9200CC2340 /* faq.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CEA2882B0B5E9200CC2340 /* faq.swift */; };
 		B9CEA28C2B0B5F7B00CC2340 /* rating_review.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CEA28B2B0B5F7B00CC2340 /* rating_review.swift */; };
+		B9D3EAE02CCA303800711D69 /* cardPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D3EADF2CCA303800711D69 /* cardPayment.swift */; };
 		B9E13D4A2A5C474B0068774A /* ERProgressHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E13D492A5C474B0068774A /* ERProgressHud.swift */; };
 		B9F377CF2B0F30FE007F6CEB /* shared_booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F377CE2B0F30FE007F6CEB /* shared_booking.swift */; };
 		B9F377D22B0F3CB3007F6CEB /* share_track.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F377D12B0F3CB3007F6CEB /* share_track.swift */; };
@@ -222,6 +223,7 @@
 		B9CC75B72B06055B00446959 /* schedule_confirm_booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = schedule_confirm_booking.swift; sourceTree = "<group>"; };
 		B9CEA2882B0B5E9200CC2340 /* faq.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = faq.swift; sourceTree = "<group>"; };
 		B9CEA28B2B0B5F7B00CC2340 /* rating_review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rating_review.swift; sourceTree = "<group>"; };
+		B9D3EADF2CCA303800711D69 /* cardPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cardPayment.swift; sourceTree = "<group>"; };
 		B9E13D492A5C474B0068774A /* ERProgressHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ERProgressHud.swift; sourceTree = "<group>"; };
 		B9F377CE2B0F30FE007F6CEB /* shared_booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = shared_booking.swift; sourceTree = "<group>"; };
 		B9F377D12B0F3CB3007F6CEB /* share_track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = share_track.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 		B96B4B702A5BD0AC0038B82F /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B9D3EADE2CCA302A00711D69 /* cardPayment */,
 				B98DF8D62C93069A00BE03B6 /* New Group */,
 				B9BE71FD2C0DF41F00FB48D8 /* custom_notification.mp3 */,
 				B9A8EE602BFE206E00169855 /* select_profile */,
@@ -757,6 +760,14 @@
 				B9CEA28B2B0B5F7B00CC2340 /* rating_review.swift */,
 			);
 			path = rating_review;
+			sourceTree = "<group>";
+		};
+		B9D3EADE2CCA302A00711D69 /* cardPayment */ = {
+			isa = PBXGroup;
+			children = (
+				B9D3EADF2CCA303800711D69 /* cardPayment.swift */,
+			);
+			path = cardPayment;
 			sourceTree = "<group>";
 		};
 		B9E13D462A5C46A20068774A /* third_party */ = {
@@ -1206,6 +1217,7 @@
 				B9F779F42BDBA24300D699D0 /* invoice.swift in Sources */,
 				B980DD172A9DC98900F7CD07 /* ride_status.swift in Sources */,
 				B9038E0C2A5D45FB0041A5B4 /* AlertView.swift in Sources */,
+				B9D3EAE02CCA303800711D69 /* cardPayment.swift in Sources */,
 				B91F4ACF2B06339300A587B5 /* schedule_ride_details.swift in Sources */,
 				B9F377D22B0F3CB3007F6CEB /* share_track.swift in Sources */,
 				B9038E162A5D465A0041A5B4 /* total_fare_distance_mpa_route.swift in Sources */,

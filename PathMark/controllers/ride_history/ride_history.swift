@@ -1101,22 +1101,23 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                          push!.dict_all_details = (item! as NSDictionary)
                         self.navigationController?.pushViewController(push!, animated: true)
                         
-                        /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
-                        
-                        push!.str_booking_id2 = "\(item!["bookingId"]!)"
-                        push!.str_get_total_price2 = "\(item!["FinalFare"]!)"
-                        push!.get_full_data_for_payment2 = (item! as NSDictionary)
-                        
-                        self.navigationController?.pushViewController(push!, animated: true)*/
-                        
                     }
                 } else if "\(item!["rideStatus"]!)" == "3" || "\(item!["rideStatus"]!)" == "1" || "\(item!["rideStatus"]!)" == "2" {
                     
-                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_status_id") as? ride_status
-                    push!.dict_get_all_data_from_notification = (item! as NSDictionary)
-                    push!.str_from_history = "yes"
+                    // check payment
+                    if ("\(item!["paymentStatus"]!)" == "") {
+                        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "cardPayment_id") as? cardPayment
+                        push!.get_full_data_for_payment = (item! as NSDictionary)
+                        push!.str_from_history = "yes"
+                        self.navigationController?.pushViewController(push!, animated: true)
+                    } else {
+                        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_status_id") as? ride_status
+                        push!.dict_get_all_data_from_notification = (item! as NSDictionary)
+                        push!.str_from_history = "yes"
+                        
+                        self.navigationController?.pushViewController(push!, animated: true)
+                    }
                     
-                    self.navigationController?.pushViewController(push!, animated: true)
                 } else {
                     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
                     push!.dict_get_booking_details = (item! as NSDictionary)
@@ -1132,20 +1133,25 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             
             if "\(item!["bookingTime"]!)" != "" { // schedule
                 if "\(item!["rideStatus"]!)" == "1" {
+                    
                     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
                     push!.dict_get_booking_details = (item! as NSDictionary)
                     push!.str_from_history = "yes"
                     self.navigationController?.pushViewController(push!, animated: true)
+                    
                 } else if "\(item!["rideStatus"]!)" == "5" || "\(item!["rideStatus"]!)" == "4" {
+                    
                     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "invoice_id") as? invoice
                      push!.dict_all_details = (item! as NSDictionary)
                     self.navigationController?.pushViewController(push!, animated: true)
+                    
                 } else if "\(item!["rideStatus"]!)" == "3" || "\(item!["rideStatus"]!)" == "2" {
+                    
                     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_status_id") as? ride_status
                     push!.dict_get_all_data_from_notification = (item! as NSDictionary)
                     push!.str_from_history = "yes"
-                    
                     self.navigationController?.pushViewController(push!, animated: true)
+                    
                 }
             } else {
                 

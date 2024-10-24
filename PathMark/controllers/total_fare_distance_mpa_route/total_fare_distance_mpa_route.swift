@@ -192,8 +192,8 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         self.show_loading_UI()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
         
-        self.lblStartingLocation.text = String(self.str_from_location)
-        self.lblEndLocation.text = String(self.str_to_location)
+        self.lblStartingLocation.text = String(self.str_to_location)
+        self.lblEndLocation.text = String(self.str_from_location)
         
         
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -642,11 +642,11 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                     "action"                : "addbooking",
                     "userId"                : String(myString),
                     "categoryId"            : String(self.str_get_category_id),
-                    "RequestPickupAddress"  : String(self.str_from_location),
+                    "RequestPickupAddress"  : String(self.str_to_location),
                      
                     "RequestPickupLatLong"  : String(request_lat)+","+String(request_long),
-                    "RequestDropAddress"    : String(self.str_to_location),
-                    // "RequestDropLatLong"    : "28.663360225298394,77.32386478305855",// String(drop_lat)+","+String(drop_long),
+                    "RequestDropAddress"    : String(self.str_from_location),
+                    
                     "RequestDropLatLong"    : String(drop_lat)+","+String(drop_long),
                     "duration"              : String(self.str_total_duration),
                     "distance"              : String(self.str_total_distance),
@@ -843,7 +843,9 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                                 let string1 = "\(dict["total"]!)"
                                 let string2 = "\(dict["Promotional_total"]!)"
                                 
-                                if let value1 = Double(string1), let value2 = Double(string2) {
+                                self.str_total_rupees = "\(dict["total"]!)"
+                                
+                                /*if let value1 = Double(string1), let value2 = Double(string2) {
                                     
                                     let result = value1 - value2
                                     print("The result is \(result)")
@@ -851,7 +853,7 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                                     
                                 } else {
                                     print("One or both values are not valid Doubles")
-                                }
+                                }*/
                                 
                                 self.str_total_duration = (dict["duration"] as! String)
                                 self.str_active_ride = "\(dict["activeRide"]!)"
@@ -902,8 +904,8 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
     
     func initializeMap() {
         
-        self.lblStartingLocation.text = String(self.str_from_location)
-        self.lblEndLocation.text = String(self.str_to_location)
+        self.lblStartingLocation.text = String(self.str_to_location)
+        self.lblEndLocation.text = String(self.str_from_location)
         
         self.doublePlaceStartLat = Double("\(self.searched_place_location_lat!)")
         self.doublePlaceStartLong = Double("\(self.searched_place_location_long!)")
@@ -915,7 +917,6 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         debugPrint(doublePlaceStartLong as Any)
         debugPrint(doublePlaceFinalLat as Any)
         debugPrint(doublePlaceFinalLong as Any)
-      
          
         let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 5.0)
             mapView.camera = camera

@@ -40,7 +40,7 @@ let buttonColorRed = UIColor(red: 204/255, green: 60/255, blue: 36/255, alpha: 1
 let viewBackgroundColor = UIColor(red: 20/255, green: 19/255, blue: 19/255, alpha: 1.0)
 
 
-
+var GOOGLE_MAP_API = "AIzaSyB3sYhSTD7GEn1j6SsH-QL_GVNG6oUsfM0"
 
 // ###########################################################################################
 // ###########################################################################################
@@ -61,7 +61,7 @@ var bkash_call_back_URL = "http://mamtechit.com/callback"
 
 // AIzaSyB3sYhSTD7GEn1j6SsH-QL_GVNG6oUsfM0
 // AIzaSyDlTJ6OLa_sQxzYnWEjgubGlaiM6Wq951s: personal
-var GOOGLE_MAP_API = "AIzaSyB3sYhSTD7GEn1j6SsH-QL_GVNG6oUsfM0"
+
 
 
 
@@ -434,8 +434,6 @@ extension UIView {
         }
         
 }
-    
- 
 
 extension UIViewController {
     

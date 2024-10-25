@@ -967,7 +967,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     @objc func push_to_car_map_click_method() {
         
         self.str_vehicle_type = "CAR"
-        self.tbleView.reloadData()
+//        self.tbleView.reloadData()
         /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
          push!.str_user_select_vehicle = "CAR"
          self.navigationController?.pushViewController(push!, animated: true)*/
@@ -977,7 +977,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     @objc func push_to_bike_map_click_method() {
         
         self.str_vehicle_type = "BIKE"
-        self.tbleView.reloadData()
+//        self.tbleView.reloadData()
         /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
          push!.str_user_select_vehicle = "BIKE"
          self.navigationController?.pushViewController(push!, animated: true)*/
@@ -989,7 +989,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         
         
         self.str_vehicle_type = "INTERCITY"
-        self.tbleView.reloadData()
+//        self.tbleView.reloadData()
         
         
         /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
@@ -1228,7 +1228,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
             print(pageNumber)
             
             self.strIndex = Int(pageNumber)
-            self.tbleView.reloadData()
+//            self.tbleView.reloadData()
         }
         
     }
@@ -1474,7 +1474,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                             ar = (JSON["data"] as! Array<Any>) as NSArray
                             self.arr_banner.addObjects(from: ar as! [Any])
                             
-                            self.tbleView.reloadData()
+//                            self.tbleView.reloadData()
                             
                             ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)

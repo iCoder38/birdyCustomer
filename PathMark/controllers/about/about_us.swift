@@ -30,7 +30,7 @@ class about_us: UIViewController {
                 print(language as Any)
                 
                 if (language == "en") {
-                    view_navigation_title.text = "About Zarib"
+                    view_navigation_title.text = "About"
                 } else {
                     view_navigation_title.text = "যারিব সম্পর্কে জানুন"
                 }

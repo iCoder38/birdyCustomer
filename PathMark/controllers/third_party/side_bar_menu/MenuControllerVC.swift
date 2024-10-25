@@ -23,12 +23,14 @@ class MenuControllerVC: UIViewController {
     @IBOutlet weak var navigationBar:UIView! {
         didSet {
             navigationBar.backgroundColor = navigation_color
+            navigationBar.backgroundColor = .black
         }
     }
     
     @IBOutlet weak var viewUnderNavigation:UIView! {
         didSet {
             viewUnderNavigation.backgroundColor = navigation_color
+            viewUnderNavigation.backgroundColor = .black
         }
     }
     
@@ -66,7 +68,7 @@ class MenuControllerVC: UIViewController {
                 UserDefaults.standard.set("en", forKey: str_language_convert)
             }
             
-            
+            btn_panic.applyGradient()
             btn_panic.setTitleColor(.white, for: .normal)
             btn_panic.layer.cornerRadius = 6
             btn_panic.clipsToBounds = true
@@ -80,11 +82,11 @@ class MenuControllerVC: UIViewController {
                               "Emergency Contacts",
                               "Manage Address",
                               "Review & Rating",
-                              "About Zarib",
+                              "About",
                               "FAQ(s)",
                               "Shared booking",
                               "Help",
-                                 "Change Language",
+                              //   "Change Language",
                               "Logout"]
     var arr_customer_title_bg = ["ড্যাশবোর্ড",
                               "প্রোফাইল আপডেট করুন",
@@ -96,7 +98,7 @@ class MenuControllerVC: UIViewController {
                               "FAQ(s)",
                               "বুকিং শেয়ার করুন",
                               "হেল্প",
-                                 "ভাষা পরিবর্তন করুন",
+                                 //"ভাষা পরিবর্তন করুন",
                               "লগ-আউট করুন"]
     
     var arr_customer_image = ["home",
@@ -109,7 +111,7 @@ class MenuControllerVC: UIViewController {
                               "help",
                               "help",
                               "help",
-                              "language_white",
+                              // "language_white",
                               "logout"]
     
     @IBOutlet weak var lblUserName:UILabel! {
@@ -131,7 +133,7 @@ class MenuControllerVC: UIViewController {
             tbleView.delegate = self
             tbleView.dataSource = self
             tbleView.tableFooterView = UIView.init()
-            tbleView.backgroundColor = navigation_color
+            tbleView.backgroundColor = .black
             // tbleView.separatorInset = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 50)
             tbleView.separatorColor = .white
         }
@@ -146,7 +148,7 @@ class MenuControllerVC: UIViewController {
         
         self.tbleView.separatorColor = .white
 
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .black
         
         self.btn_panic.addTarget(self, action: #selector(panic_click_method), for: .touchUpInside)
         self.sideBarMenuClick()
@@ -157,7 +159,7 @@ class MenuControllerVC: UIViewController {
         super.viewWillAppear(true)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        self.view.backgroundColor = navigation_color
+        self.view.backgroundColor = .black
         
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             self.lblUserName.text = (person["fullName"] as! String)
@@ -397,7 +399,7 @@ extension MenuControllerVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:MenuControllerVCTableCell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! MenuControllerVCTableCell
         
-        cell.backgroundColor = .clear
+        cell.backgroundColor = .black
         
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero
@@ -444,7 +446,7 @@ extension MenuControllerVC: UITableViewDataSource {
             let navigationController = UINavigationController(rootViewController: destinationController!)
             sw.setFront(navigationController, animated: true)
             
-        }  else if arr_customer_title_en [indexPath.row] == "About Zarib" {
+        }  else if arr_customer_title_en [indexPath.row] == "About" {
             
             let obj = self.storyboard?.instantiateViewController(withIdentifier: "about_us_id") as! about_us
             let navController = UINavigationController(rootViewController: obj)

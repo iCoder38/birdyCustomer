@@ -2238,9 +2238,29 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
                     // Call the hitWebservice function after the delay
                     debugPrint("Show popup now")
                     ERProgressHud.sharedInstance.hide()
-                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pay_after_ride_cancel_id") as? pay_after_ride_cancel
-                    push!.dictGetAllData = self.dict_get_all_data_from_notification
+                    
+                    
+                    
+                    
+                    
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
                     self.navigationController?.pushViewController(push!, animated: true)
+                    
+                    
+                    
+                    
+                    
+                    /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pay_after_ride_cancel_id") as? pay_after_ride_cancel
+                    push!.dictGetAllData = self.dict_get_all_data_from_notification
+                    self.navigationController?.pushViewController(push!, animated: true)*/
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     // self.booking_history_details_WB(str_show_loader: "yes")
                 }

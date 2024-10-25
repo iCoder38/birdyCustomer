@@ -15,6 +15,7 @@ class ride_history_details: UIViewController {
     @IBOutlet weak var view_driver_info:UIView! {
         didSet {
             view_driver_info.backgroundColor = navigation_color
+            view_driver_info.applyGradient()
         }
     }
     

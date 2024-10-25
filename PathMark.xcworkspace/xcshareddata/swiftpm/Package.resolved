@@ -1,5 +1,4 @@
 {
-  "originHash" : "60c944b6f6ed960fbbb7b97f703f31abff62a3eb87fae1e899ad290153dacc4e",
   "pins" : [
     {
       "identity" : "facebook-ios-sdk",
@@ -11,5 +10,5 @@
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }

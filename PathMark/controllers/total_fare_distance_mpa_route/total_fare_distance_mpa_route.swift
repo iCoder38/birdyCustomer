@@ -487,7 +487,7 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
     
     @objc func validation_before_confirm_booking() {
         
-        if (self.str_active_ride == "1") {
+        /*if (self.str_active_ride == "1") {
             
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
@@ -522,7 +522,7 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
             
             
             
-        }
+        }*/
         
         
         

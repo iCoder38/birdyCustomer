@@ -163,8 +163,8 @@ class add_contacts: UIViewController , UITextFieldDelegate {
         self.btn_submit.addTarget(self, action: #selector(check_validate), for: .touchUpInside)
         
         self.btn_country.addTarget(self, action: #selector(before_open_popup), for: .touchUpInside)
-        self.txt_country.text = "Bangladesh"
-        self.txt_phone_code.text = "+880"
+//        self.txt_country.text = "Bangladesh"
+//        self.txt_phone_code.text = "+880"
         self.txt_phone.delegate = self
         
         if (self.dict_emergency == nil) {
@@ -360,7 +360,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
         if (self.dict_emergency == nil) {
             print("add contact")
             
-            if (self.txt_phone.text!.count == 11) {
+            if (self.txt_phone.text!.count == 10) {
                 self.add_emergency_phone()
             }/* else if (self.txt_phone.text!.count == 11) {
                 self.add_emergency_phone()
@@ -393,7 +393,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
         } else {
             print("edit contact")
             
-            if (self.txt_phone.text!.count == 11) {
+            if (self.txt_phone.text!.count == 10) {
                 self.check_edit_or_add_contact_WB()
             }/* else if (self.txt_phone.text!.count == 11) {
                 self.check_edit_or_add_contact_WB()
@@ -717,7 +717,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
 
             // make sure the result is under 16 characters
-            return updatedText.count <= 11
+            return updatedText.count <= 10
             
         
         }  else {

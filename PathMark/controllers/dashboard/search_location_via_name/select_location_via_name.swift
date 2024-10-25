@@ -154,8 +154,20 @@ class select_location_via_name: UIViewController,UITextFieldDelegate, CLLocation
                 
                 debugPrint("Center location address: \(fullAddress)")
                 
+                UserDefaults.standard.set("\(latitude),\(longitude)", forKey: "key_map_view_lat_long")
+                UserDefaults.standard.set(fullAddress, forKey: "key_map_view_address")
                 
-                if let country = address.country {
+                self.txtSearchGoogleLocation.text = String(fullAddress)
+                
+                // Optionally, add data to the database
+                let randomCGFloat = Int.random(in: 1...1000)
+                self.db.insert(id: randomCGFloat, name: fullAddress,
+                               lat_long: "\(latitude),\(longitude)",
+                               age: 2)
+                
+                self.view.bringSubviewToFront(self.btnAddLocation)
+                
+                /*if let country = address.country {
                     print("Country: \(country)")
                     
                     // Check if the country is Bangladesh
@@ -308,7 +320,7 @@ class select_location_via_name: UIViewController,UITextFieldDelegate, CLLocation
                     let cancel = NewYorkButton(title: "dismiss", style: .cancel)
                     alert.addButtons([cancel])
                     self.present(alert, animated: true)
-                }
+                }*/
 
                 
                 

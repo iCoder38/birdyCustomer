@@ -299,7 +299,7 @@ extension rating_review: UITableViewDataSource , UITableViewDelegate {
         cell.lbl_user_name.text = "\(item!["userName"]!)"
         // cell.lbl_distance.text = "\(item!["totalDistance"]!)"
         cell.lbl_time.text = (item!["message"] as! String)
-        cell.lbl_time.textColor = .black
+        cell.lbl_time.textColor = .white
         cell.lbl_time.isHidden = false
         cell.lbl_time.backgroundColor = .clear
         

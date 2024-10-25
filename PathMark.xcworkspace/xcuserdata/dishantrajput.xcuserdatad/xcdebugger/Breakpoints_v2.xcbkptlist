@@ -30,8 +30,8 @@
             filePath = "PathMark/controllers/third_party/side_bar_menu/MenuControllerVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "618"
-            endingLineNumber = "618"
+            startingLineNumber = "620"
+            endingLineNumber = "620"
             landmarkName = "validation_before_logout()"
             landmarkType = "7">
          </BreakpointContent>

@@ -1090,6 +1090,7 @@ class edit_profile_table_cell: UITableViewCell {
     @IBOutlet weak var header_half_view_navigation_bar:UIView! {
         didSet {
             header_half_view_navigation_bar.backgroundColor = navigation_color
+            header_half_view_navigation_bar.applyGradient()
         }
     }
     

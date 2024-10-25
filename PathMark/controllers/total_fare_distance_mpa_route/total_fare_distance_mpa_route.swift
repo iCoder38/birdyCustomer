@@ -867,7 +867,7 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                                 self.lblTime.text = String(self.str_total_duration)
                                 
                                 // let formattedNumber1 = String(format: "%.2f", "\(dict["distance"]!)")
-                                self.lblDistance.text = "\(dict["distance"]!) Mi"
+                                self.lblDistance.text = "\(dict["distance"]!) km"
                                 
                                 /*self.tbleView.delegate = self
                                 self.tbleView.dataSource = self

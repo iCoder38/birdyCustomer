@@ -1192,11 +1192,16 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 
             } else if "\(item!["rideStatus"]!)" == "3" || "\(item!["rideStatus"]!)" == "1" || "\(item!["rideStatus"]!)" == "2" {
                 
-                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_status_id") as? ride_status
+                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "cardPayment_id") as? cardPayment
+                push!.get_full_data_for_payment = (item! as NSDictionary)
+                push!.str_from_history = "yes"
+                self.navigationController?.pushViewController(push!, animated: true)
+                
+                /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_status_id") as? ride_status
                 push!.dict_get_all_data_from_notification = (item! as NSDictionary)
                 push!.str_from_history = "yes"
                 
-                self.navigationController?.pushViewController(push!, animated: true)
+                self.navigationController?.pushViewController(push!, animated: true)*/
             }
             
         }

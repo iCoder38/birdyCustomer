@@ -65,7 +65,13 @@ class cardPayment: UIViewController, UITextFieldDelegate {
         
         self.btnBack.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         
+        
+        self.booking_history_details_WB(str_show_loader: "yes")
     }
+    
+    
+    
+    
     
     @objc func validation_before_submit() {
         let indexPath = IndexPath.init(row: 0, section: 0)
@@ -518,6 +524,336 @@ class cardPayment: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+    @objc func booking_history_details_WB(str_show_loader:String) {
+        
+        if (str_show_loader == "yes") {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
+        }
+        
+        
+        self.view.endEditing(true)
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+                
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                    
+                }
+                
+                parameters = [
+                    "action"        : "bookingdetail",
+                    "bookingId"     : "\(self.self.get_full_data_for_payment["bookingId"]!)",
+                    "userId"        : String(myString),
+                    "language"      : String(lan),
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON {
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                        
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        var message : String!
+                        message = (JSON["msg"] as? String)
+                        
+                        print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var dict: Dictionary<AnyHashable, Any>
+                            dict = JSON["data"] as! Dictionary<AnyHashable, Any>
+                            print(dict as Any)
+                            
+                            let amount:Double!
+                            let bookingFee:Double!
+                            let cancellationFees:Double!
+                            let discountAmount:Double!
+                            let promotionalDiscount:Double!
+                            let complete_cal:Double!
+                            
+                            if "\(self.get_full_data_for_payment["estimatedPrice"]!)" == "" {
+                                amount = self.convertToDouble("0.0")
+                            } else if "\(self.get_full_data_for_payment["estimatedPrice"]!)" == "0" {
+                                amount = self.convertToDouble("0.0")
+                            } else {
+                                amount = self.convertToDouble("\(self.get_full_data_for_payment["estimatedPrice"]!)")
+                            }
+                            
+                            
+                            if (self.get_full_data_for_payment["bookingFee"] == nil) {
+                                bookingFee = self.convertToDouble("0.0")
+                            } else {
+                                if "\(self.get_full_data_for_payment["bookingFee"]!)" == "" {
+                                    bookingFee = self.convertToDouble("0.0")
+                                } else if "\(self.get_full_data_for_payment["bookingFee"]!)" == "0" {
+                                    bookingFee = self.convertToDouble("0.0")
+                                } else {
+                                    bookingFee = self.convertToDouble("\(self.get_full_data_for_payment["bookingFee"]!)")
+                                }
+                            }
+                            
+                            
+                            
+                            if (self.get_full_data_for_payment["last_cancel_amount"] == nil) {
+                                cancellationFees = self.convertToDouble("0.0")
+                            } else {
+                                if "\(self.get_full_data_for_payment["last_cancel_amount"]!)" == "" {
+                                    cancellationFees = self.convertToDouble("0.0")
+                                } else if "\(self.get_full_data_for_payment["last_cancel_amount"]!)" == "0" {
+                                    cancellationFees = self.convertToDouble("0.0")
+                                } else {
+                                    cancellationFees = self.convertToDouble("\(self.get_full_data_for_payment["last_cancel_amount"]!)")
+                                }
+                            }
+                            
+                            
+                            
+                            
+                            if (self.get_full_data_for_payment["discountAmount"] == nil) {
+                                discountAmount = self.convertToDouble("0.0")
+                            } else {
+                                
+                                if "\(self.get_full_data_for_payment["discountAmount"]!)" == "" {
+                                    discountAmount = self.convertToDouble("0.0")
+                                } else if "\(self.get_full_data_for_payment["discountAmount"]!)" == "0" {
+                                    discountAmount = self.convertToDouble("0.0")
+                                } else {
+                                    discountAmount = self.convertToDouble("\(self.get_full_data_for_payment["discountAmount"]!)")
+                                }
+                            }
+                            
+                            
+                            
+                            if (self.get_full_data_for_payment["promotional_discount"] == nil) {
+                                promotionalDiscount = self.convertToDouble("0.0")
+                            } else {
+                                if "\(self.get_full_data_for_payment["promotional_discount"]!)" == "" {
+                                    promotionalDiscount = self.convertToDouble("0.0")
+                                } else if "\(self.get_full_data_for_payment["promotional_discount"]!)" == "0" {
+                                    promotionalDiscount = self.convertToDouble("0.0")
+                                } else {
+                                    promotionalDiscount = self.convertToDouble("\(self.get_full_data_for_payment["promotional_discount"]!)")
+                                }
+                            }
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            print(amount as Any)
+                            print(bookingFee as Any)
+                            print(cancellationFees as Any)
+                            print(discountAmount as Any)
+                            print(promotionalDiscount as Any)
+                            //                            print(complete_cal as Any)
+                            
+                            let totalAmount =  amount + bookingFee + cancellationFees! - discountAmount! - promotionalDiscount!
+                            print(totalAmount as Any)
+                            print(totalAmount as Any)
+                            
+                            // let pro_dis = convertToDouble("\(self.dict_get_booking_details["promotional_discount"]!)")
+                            // print(pro_dis as Any)
+                            // complete_cal = totalAmount - pro_dis!
+                            // print("Complete cal: \(complete_cal!)")
+                            
+                            // let final_fare = self.convertToDouble("\(self.get_full_data_for_payment["FinalFare"]!)")
+                            // print("Final fare: \(final_fare!)")
+                            
+                            // let f_f_total = final_fare! - pro_dis!
+                            // print("total: \(f_f_total)")
+                            // self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
+                            
+                            
+                            // cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
+                            
+                            
+                            //                                let doubleStr = String(format: "%.2f", totalAmount)
+                            //                                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(doubleStr)"
+                            //                                cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(doubleStr)"
+                            //                                
+                            //                                if "\(self.dict_get_booking_details["discountAmount"]!)" == "" {
+                            //                                    cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) 0"
+                            //                                } else if "\(self.dict_get_booking_details["discountAmount"]!)" == "0" {
+                            //                                    cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) 0"
+                            //                                } else {
+                            //                                    cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["discountAmount"]!)"
+                            //                                }
+                            
+                            /*if "\(self.dict_get_booking_details["promotional_discount"]!)" != "" {
+                             
+                             
+                             } else {
+                             print("NO promotional_discount")
+                             
+                             self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+                             cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+                             cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+                             
+                             let doubleStr = String(format: "%.2f", totalAmount)
+                             self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(doubleStr)"
+                             cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(doubleStr)"
+                             cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(doubleStr)"
+                             
+                             if "\(self.dict_get_booking_details["discountAmount"]!)" == "" {
+                             cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) 0"
+                             } else if "\(self.dict_get_booking_details["discountAmount"]!)" == "0" {
+                             cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) 0"
+                             } else {
+                             cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["discountAmount"]!)"
+                             }
+                             
+                             
+                             }*/
+                            
+                            //                            }
+                            
+                            
+                            
+                            /*// self.dict_get_booking_details = JSON
+                             self.str_starrating = "\(dict["bookingrating"]!)"
+                             self.tbleView.delegate = self
+                             self.tbleView.dataSource = self
+                             self.tbleView.reloadData()*/
+                            
+                        } else if message == String(not_authorize_api) {
+                            self.login_refresh_token_wb2()
+                            
+                        } else {
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func login_refresh_token_wb2() {
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
+            print(get_login_details as Any)
+            
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
+            
+            print("parameters-------\(String(describing: parameters))")
+            
+            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
+                response in
+                
+                switch(response.result) {
+                case .success(_):
+                    if let data = response.value {
+                        
+                        let JSON = data as! NSDictionary
+                        print(JSON)
+                        
+                        var strSuccess : String!
+                        strSuccess = JSON["status"] as? String
+                        
+                        if strSuccess.lowercased() == "success" {
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            self.booking_history_details_WB(str_show_loader: "no")
+                            
+                        } else {
+                            ERProgressHud.sharedInstance.hide()
+                        }
+                        
+                    }
+                    
+                case .failure(_):
+                    print("Error message:\(String(describing: response.error))")
+                    ERProgressHud.sharedInstance.hide()
+                    self.please_check_your_internet_connection()
+                    
+                    break
+                }
+            }
+        }
+        
+    }
+    
+    
 }
 
 //MARK:- TABLE VIEW -
@@ -743,5 +1079,7 @@ class cardPayment_table_cell: UITableViewCell {
             btn_submit.layer.shadowRadius = 2
         }
     }
+    
+    
     
 }

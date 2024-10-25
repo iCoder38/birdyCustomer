@@ -7113,7 +7113,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="393" height="160"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQv-gx-U5c">
-                                                            <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="458" height="80"/>
                                                             <color key="backgroundColor" systemColor="systemTealColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="80" id="35j-7s-Brf"/>
@@ -7137,7 +7137,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="Ib2-iW-kwz" secondAttribute="trailingMargin" constant="8" id="UQG-CL-Cl7"/>
                                                         <constraint firstAttribute="top" secondItem="Ib2-iW-kwz" secondAttribute="topMargin" constant="-8" id="YMD-94-3h3"/>
                                                         <constraint firstItem="6h5-BE-59L" firstAttribute="centerX" secondItem="Ib2-iW-kwz" secondAttribute="centerX" id="ZWG-au-zCS"/>
-                                                        <constraint firstAttribute="trailing" secondItem="hQv-gx-U5c" secondAttribute="trailing" id="vM0-ja-U4r"/>
+                                                        <constraint firstAttribute="trailing" secondItem="hQv-gx-U5c" secondAttribute="trailing" constant="-65" id="vM0-ja-U4r"/>
                                                         <constraint firstAttribute="leading" secondItem="Ib2-iW-kwz" secondAttribute="leadingMargin" constant="-8" id="zNd-Zv-YTN"/>
                                                     </constraints>
                                                 </view>
@@ -7323,7 +7323,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cm-zL-Azs" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="13857" y="4"/>
+            <point key="canvasLocation" x="13855.725190839694" y="3.5211267605633805"/>
         </scene>
         <!--Map view add address-->
         <scene sceneID="5Yi-iY-TI8">
@@ -10453,7 +10453,7 @@
         <image name="location" catalog="system" width="128" height="119"/>
         <image name="location_48" width="21.333333969116211" height="21.333333969116211"/>
         <image name="lockr" width="24" height="24"/>
-        <image name="logo-white" width="64" height="64"/>
+        <image name="logo-white" width="1024" height="1024"/>
         <image name="logo33" width="300" height="301"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="menu" width="256" height="256"/>

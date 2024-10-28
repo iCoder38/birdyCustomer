@@ -92,7 +92,7 @@ class select_profile: UIViewController {
             if (language == "en") {
                 btn_create_ac_account.setTitle("Create an account", for: .normal)
                 btn_login.setTitle("Login", for: .normal)
-                lbl_title.text = "Hello, welcome to zarib app"
+                lbl_title.text = "Hello, welcome to Ride with us."
                 lbl_sub_title.text = "Get started now"
             } else {
                 btn_create_ac_account.setTitle("অ্যাকাউন্ট তৈরি করুন", for: .normal)

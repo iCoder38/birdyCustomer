@@ -448,6 +448,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="800"/>
                                 <color key="backgroundColor" red="0.58450383979999998" green="0.65720130210000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVb-3Y-tbL" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="89" width="393" height="711"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="noj-dI-G6z">
                                 <rect key="frame" x="0.0" y="0.0" width="426" height="88"/>
                                 <subviews>
@@ -592,10 +596,10 @@
                                 </state>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="TiC-UX-VwF">
-                                <rect key="frame" x="0.0" y="540" width="393" height="200"/>
+                                <rect key="frame" x="0.0" y="443" width="393" height="297"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="GIT-Te-XcW"/>
+                                    <constraint firstAttribute="height" constant="297" id="GIT-Te-XcW"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="dashboard_table_cell" rowHeight="80" id="DRb-H9-Ezi" customClass="dashboard_table_cell" customModule="PathMark" customModuleProvider="target">
@@ -677,8 +681,11 @@
                             <constraint firstItem="nHk-6a-9Z6" firstAttribute="trailing" secondItem="Pnm-Ei-adJ" secondAttribute="trailing" constant="24" id="MHh-PX-hsC"/>
                             <constraint firstItem="GZq-F4-niw" firstAttribute="trailing" secondItem="nHk-6a-9Z6" secondAttribute="trailing" id="PWB-Cn-9gT"/>
                             <constraint firstItem="rea-YK-Bc6" firstAttribute="width" secondItem="tYo-DY-7SX" secondAttribute="width" id="Rbt-Bh-fBA"/>
+                            <constraint firstItem="xVb-3Y-tbL" firstAttribute="trailing" secondItem="nHk-6a-9Z6" secondAttribute="trailing" id="arw-js-tFI"/>
                             <constraint firstItem="rea-YK-Bc6" firstAttribute="leading" secondItem="tYo-DY-7SX" secondAttribute="trailing" constant="1" id="cIn-qE-e5v"/>
+                            <constraint firstItem="xVb-3Y-tbL" firstAttribute="leading" secondItem="nHk-6a-9Z6" secondAttribute="leading" id="ghU-jR-DSd"/>
                             <constraint firstItem="TiC-UX-VwF" firstAttribute="trailing" secondItem="nHk-6a-9Z6" secondAttribute="trailing" id="hlb-AI-G2Y"/>
+                            <constraint firstAttribute="bottom" secondItem="xVb-3Y-tbL" secondAttribute="bottom" id="jhO-oE-X0F"/>
                             <constraint firstItem="TiC-UX-VwF" firstAttribute="leading" secondItem="nHk-6a-9Z6" secondAttribute="leading" id="jpK-ou-5uq"/>
                             <constraint firstItem="GZq-F4-niw" firstAttribute="leading" secondItem="nHk-6a-9Z6" secondAttribute="leading" id="kLd-Br-ogu"/>
                             <constraint firstItem="tYo-DY-7SX" firstAttribute="top" secondItem="TiC-UX-VwF" secondAttribute="bottom" id="lZA-3g-4hY"/>
@@ -686,6 +693,7 @@
                             <constraint firstAttribute="bottom" secondItem="rea-YK-Bc6" secondAttribute="bottom" id="nXO-ZL-GXx"/>
                             <constraint firstItem="noj-dI-G6z" firstAttribute="top" secondItem="nfX-Nr-b1U" secondAttribute="top" id="nov-38-U10"/>
                             <constraint firstItem="Pnm-Ei-adJ" firstAttribute="top" secondItem="enb-Oy-ZJe" secondAttribute="bottom" constant="8" symbolic="YES" id="sEM-dB-MQd"/>
+                            <constraint firstItem="xVb-3Y-tbL" firstAttribute="top" secondItem="noj-dI-G6z" secondAttribute="bottom" constant="1" id="sFA-L4-juP"/>
                             <constraint firstItem="GZq-F4-niw" firstAttribute="top" secondItem="nfX-Nr-b1U" secondAttribute="top" id="sy4-8a-gYV"/>
                             <constraint firstItem="rea-YK-Bc6" firstAttribute="height" secondItem="tYo-DY-7SX" secondAttribute="height" id="udz-xX-M44"/>
                             <constraint firstItem="noj-dI-G6z" firstAttribute="leading" secondItem="nHk-6a-9Z6" secondAttribute="leading" id="yQ6-xh-edd"/>
@@ -701,6 +709,7 @@
                         <outlet property="btn_schedule_a_ride_now" destination="rea-YK-Bc6" id="2xT-RK-uPv"/>
                         <outlet property="lbl_my_full_address" destination="rLy-jK-UhJ" id="sjJ-Jx-Ese"/>
                         <outlet property="lbl_select_destination" destination="0vQ-0b-Jug" id="bGA-oy-k2L"/>
+                        <outlet property="mapView" destination="xVb-3Y-tbL" id="OFH-BB-7yY"/>
                         <outlet property="tbleView" destination="TiC-UX-VwF" id="4A9-E3-5gu"/>
                         <outlet property="viewPlace" destination="Pnm-Ei-adJ" id="4ky-Ib-PIE"/>
                         <outlet property="view_navigation_bar" destination="noj-dI-G6z" id="tmd-Zs-gAV"/>
@@ -3496,7 +3505,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Egc-mW-o8b">
-                                                                    <rect key="frame" x="36" y="7.3333333333333517" width="16" height="15.666666666666666"/>
+                                                                    <rect key="frame" x="36" y="7.3333333333333526" width="16" height="15.666666666666661"/>
                                                                     <color key="tintColor" systemColor="systemYellowColor"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="16" id="Hdr-DM-il6"/>
@@ -10448,7 +10457,7 @@
         <image name="home" width="24" height="24"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="language_white" width="32" height="32"/>
-        <image name="list.bullet" catalog="system" width="32" height="32"/>
+        <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="location" catalog="system" width="128" height="119"/>
         <image name="location_48" width="21.333333969116211" height="21.333333969116211"/>
@@ -10459,13 +10468,13 @@
         <image name="menu" width="256" height="256"/>
         <image name="message" catalog="system" width="128" height="116"/>
         <image name="message.fill" catalog="system" width="128" height="114"/>
-        <image name="new-password" width="138" height="138"/>
+        <image name="new-password" width="300" height="311"/>
         <image name="paperclip" catalog="system" width="121" height="128"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="phone" catalog="system" width="128" height="115"/>
         <image name="phone.fill" catalog="system" width="128" height="114"/>
-        <image name="photo" width="140" height="140"/>
+        <image name="photo" width="180" height="181"/>
         <image name="pin.fill" catalog="system" width="116" height="128"/>
         <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>

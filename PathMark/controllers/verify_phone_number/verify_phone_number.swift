@@ -387,7 +387,7 @@ extension verify_phone_number: UITableViewDataSource  , UITableViewDelegate {
         backgroundView.backgroundColor = .clear
         cell.selectedBackgroundView = backgroundView
 
-        cell.otpTextFieldView.backgroundColor = .clear
+        cell.otpTextFieldView.backgroundColor = .white
         cell.otpTextFieldView.fieldsCount = 6
         cell.otpTextFieldView.fieldBorderWidth = 2
         cell.otpTextFieldView.defaultBorderColor = UIColor.black
@@ -399,7 +399,6 @@ extension verify_phone_number: UITableViewDataSource  , UITableViewDelegate {
         cell.otpTextFieldView.shouldAllowIntermediateEditing = false
         cell.otpTextFieldView.delegate = self
         cell.otpTextFieldView.initializeUI()
-        
         
         cell.lblDummyOTP.text = String(self.getOPT)
         
@@ -475,7 +474,11 @@ extension verify_phone_number: UITableViewDataSource  , UITableViewDelegate {
 
 class verify_phone_number_table_cell: UITableViewCell {
     @IBOutlet weak var lblDummyOTP:UILabel!
-    @IBOutlet var otpTextFieldView: OTPFieldView!
+    @IBOutlet var otpTextFieldView: OTPFieldView! {
+        didSet {
+            
+        }
+    }
 
     
     

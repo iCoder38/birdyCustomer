@@ -50,18 +50,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    view_navigation_title.text = "Create an account"
-                } else {
-                    view_navigation_title.text = "অ্যাকাউন্ট তৈরি করুন"
-                }
-                
-                view_navigation_title.textColor = .white
-            }
+            view_navigation_title.text = "Create an account"
         }
     }
     
@@ -185,14 +174,14 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         self.view.endEditing(true)
         
         /*if (self.str_user_select_image == "0") {
-            
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Profile Picture"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            
-            return
-        }*/
+         
+         let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Profile Picture"), style: .alert)
+         let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+         alert.addButtons([cancel])
+         self.present(alert, animated: true)
+         
+         return
+         }*/
         
         
         
@@ -229,56 +218,56 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             return
             
         }/*  else if (cell.txt_address.text! == "") {
-            
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter address"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
-            
-            return
-            
-        }*/  else if (cell.txtPassword.text! == "") {
-            
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter password"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
-            
-            return
-            
-        }  else if (cell.txt_confirm_password.text! == "") {
-            
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter confirm password"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
-            
-            return
-            
-        }  else if (cell.txt_confirm_password.text! != cell.txtPassword.text!) {
-            
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Password not matched"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
-            
-            return
-            
-        } else if (cell.txt_country.text! == "") {
-            
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter country name"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
-            
-            return
-            
-        }/* else if (cell.txt_phone_number.text!.count != 10) {
+          
+          let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter address"), style: .alert)
+          let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+          alert.addButtons([cancel])
+          self.present(alert, animated: true)
+          ERProgressHud.sharedInstance.hide()
+          
+          return
+          
+          }*/  else if (cell.txtPassword.text! == "") {
+              
+              let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter password"), style: .alert)
+              let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+              alert.addButtons([cancel])
+              self.present(alert, animated: true)
+              ERProgressHud.sharedInstance.hide()
+              
+              return
+              
+          }  else if (cell.txt_confirm_password.text! == "") {
+              
+              let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter confirm password"), style: .alert)
+              let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+              alert.addButtons([cancel])
+              self.present(alert, animated: true)
+              ERProgressHud.sharedInstance.hide()
+              
+              return
+              
+          }  else if (cell.txt_confirm_password.text! != cell.txtPassword.text!) {
+              
+              let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Password not matched"), style: .alert)
+              let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+              alert.addButtons([cancel])
+              self.present(alert, animated: true)
+              ERProgressHud.sharedInstance.hide()
+              
+              return
+              
+          } else if (cell.txt_country.text! == "") {
+              
+              let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter country name"), style: .alert)
+              let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+              alert.addButtons([cancel])
+              self.present(alert, animated: true)
+              ERProgressHud.sharedInstance.hide()
+              
+              return
+              
+          }/* else if (cell.txt_phone_number.text!.count != 10) {
             
             let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid phone number"), style: .alert)
             let cancel = NewYorkButton(title: "dismiss", style: .cancel)
@@ -288,62 +277,59 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
             return
             
-        } */else {
-            
-            /*if (cell.txt_phone_number.text!.count == 10) {
+            } */else {
                 
-                if (self.arr_country_array == nil) {
-                    phone_number_code = "+880"
-                    self.str_country_id = "18"
-                    
-                } else {
-                    for indexx in 0..<self.arr_country_array.count {
-                        
-                        let item = self.arr_country_array[indexx] as? [String:Any]
-                        print(item as Any)
-                        
-                        if (cell.txt_country.text! == (item!["name"] as! String)) {
-                            print("yes matched")
-                            phone_number_code = (item!["phonecode"] as! String)
-                            self.str_country_id = "\(item!["id"]!)"
-                        }
-                        
-                    }
-                }
-                
-            }  else */if (cell.txt_phone_number.text!.count == 10) {
-                
-                if (self.arr_country_array == nil) {
-                    phone_number_code = "+880"
-                    self.str_country_id = "18"
-                } else {
-                    for indexx in 0..<self.arr_country_array.count {
-                        
-                        let item = self.arr_country_array[indexx] as? [String:Any]
-                        print(item as Any)
-                        
-                        if (cell.txt_country.text! == (item!["name"] as! String)) {
-                            print("yes matched")
-                            phone_number_code = (item!["phonecode"] as! String)
-                            self.str_country_id = "\(item!["id"]!)"
-                        }
-                        
-                    }
-                }
-                
-            } else {
-                
-                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid phone number"), style: .alert)
-                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-                alert.addButtons([cancel])
-                self.present(alert, animated: true)
-                ERProgressHud.sharedInstance.hide()
-
-                return
+                /*if (cell.txt_phone_number.text!.count == 10) {
+                 
+                 if (self.arr_country_array == nil) {
+                 phone_number_code = "+880"
+                 self.str_country_id = "18"
+                 
+                 } else {
+                 for indexx in 0..<self.arr_country_array.count {
+                 
+                 let item = self.arr_country_array[indexx] as? [String:Any]
+                 print(item as Any)
+                 
+                 if (cell.txt_country.text! == (item!["name"] as! String)) {
+                 print("yes matched")
+                 phone_number_code = (item!["phonecode"] as! String)
+                 self.str_country_id = "\(item!["id"]!)"
+                 }
+                 
+                 }
+                 }
+                 
+                 }  else */if (cell.txt_phone_number.text!.count == 10) {
+                     
+                     
+                     for indexx in 0..<self.arr_country_array.count {
+                         
+                         let item = self.arr_country_array[indexx] as? [String:Any]
+                         print(item as Any)
+                         
+                         if (cell.txt_country.text! == (item!["name"] as! String)) {
+                             print("yes matched")
+                             phone_number_code = (item!["phonecode"] as! String)
+                             self.str_country_id = "\(item!["id"]!)"
+                         }
+                         
+                     }
+                     
+                     
+                 } else {
+                     
+                     let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid phone number"), style: .alert)
+                     let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                     alert.addButtons([cancel])
+                     self.present(alert, animated: true)
+                     ERProgressHud.sharedInstance.hide()
+                     
+                     return
+                     
+                 }
                 
             }
-            
-        }
         
         // self.show_loading_UI()
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -360,7 +346,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         
         if (self.str_user_select_image == "0") {
-             
+            
             var str_device_token:String! = ""
             
             if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
@@ -371,23 +357,23 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             // self.show_loading_UI()
             
             var parameters:Dictionary<AnyHashable, Any>!
-  
-                parameters = [
-                    "action"        : "registration",
-                    "fullName"      : String(cell.txt_full_name.text!),
-                    "email"         : String(cell.txtEmailAddress.text!),
-                    "countryCode"   : String(phone_number_code),
-                    "contactNumber" : String(cell.txt_phone_number.text!),
-                    "password"      : String(cell.txtPassword.text!),
-                    "countryName"   : String(cell.txt_country.text!),
-                   
-                    "countryId"     : String(self.str_country_id),
-                    "role"          : String("Member"),
-                    // "address"  : String(""),
-                    "longitude"     : String(""),
-                    "device"        : String(""),
-                    "deviceToken"   : String(str_device_token),
-                ]
+            
+            parameters = [
+                "action"        : "registration",
+                "fullName"      : String(cell.txt_full_name.text!),
+                "email"         : String(cell.txtEmailAddress.text!),
+                "countryCode"   : String(phone_number_code),
+                "contactNumber" : String(cell.txt_phone_number.text!),
+                "password"      : String(cell.txtPassword.text!),
+                "countryName"   : String(cell.txt_country.text!),
+                
+                "countryId"     : String(self.str_country_id),
+                "role"          : String("Member"),
+                // "address"  : String(""),
+                "longitude"     : String(""),
+                "device"        : String(""),
+                "deviceToken"   : String(str_device_token),
+            ]
             
             print("parameters-------\(String(describing: parameters))")
             
@@ -1149,9 +1135,9 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         // cell.txt_nid_number.delegate = self
         
         cell.txt_country.delegate = self
-        cell.txt_country.text = "Bangladesh"
+//        cell.txt_country.text = "Bangladesh"
         
-        cell.txt_phone_code.text = "+880"
+//        cell.txt_phone_code.text = "+880"
         
         //  cell.btn_accept_terms.addTarget(self, action: #selector(accept_terms_click_method), for: .touchUpInside)
         
@@ -1186,7 +1172,7 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
                                   tfAppearance: .dark,
                                   tfKeyboardType: .emailAddress,
                                   tfBackgroundColor: .white,
-                                  tfPlaceholderText: "Bangladesh")
+                                  tfPlaceholderText: "Country")
                 
                 
                 Utils.textFieldUI(textField: cell.txtEmailAddress,
@@ -1242,7 +1228,7 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
                                   tfAppearance: .dark,
                                   tfKeyboardType: .numberPad,
                                   tfBackgroundColor: .white,
-                                  tfPlaceholderText: "+880")
+                                  tfPlaceholderText: "+1")
                 
                 if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                     print(language as Any)

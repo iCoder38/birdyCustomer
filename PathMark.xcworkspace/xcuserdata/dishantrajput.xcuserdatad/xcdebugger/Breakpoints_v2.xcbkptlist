@@ -526,10 +526,42 @@
             filePath = "PathMark/controllers/dashboard/dashboard.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1013"
-            endingLineNumber = "1013"
+            startingLineNumber = "1086"
+            endingLineNumber = "1086"
             landmarkName = "schedule_a_ride_click_method()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "02AA5E4C-E40D-4D8D-90CE-0C864A5CB2E1 - 1a3957abe728c0d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMark.dashboard.schedule_a_ride_click_method() -&gt; ()"
+                  moduleName = "PathMark"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/dashboard/dashboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1086"
+                  endingLineNumber = "1086"
+                  offsetFromSymbolStart = "1472">
+               </Location>
+               <Location
+                  uuid = "02AA5E4C-E40D-4D8D-90CE-0C864A5CB2E1 - 1a3957abe728c0d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMark.dashboard.schedule_a_ride_click_method() -&gt; ()"
+                  moduleName = "PathMark"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/dashboard/dashboard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1086"
+                  endingLineNumber = "1086"
+                  offsetFromSymbolStart = "1128">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -654,8 +686,8 @@
             filePath = "PathMark/controllers/dashboard/dashboard.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "467"
-            endingLineNumber = "467"
+            startingLineNumber = "540"
+            endingLineNumber = "540"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>

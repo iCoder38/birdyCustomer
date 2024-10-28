@@ -863,7 +863,21 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                                 let miles = self.convertKmToMiles(kilometers: kilometers!)
                                 // print("\(kilometers) kilometers is equal to \(miles) miles")
                                 
-                                self.lblWallet.text = "$\(self.str_total_rupees!)"
+                                //let doubleStr = String(format: "%.2f", self.str_total_rupees!)
+                                
+                                // print(self.str_total_rupees as Any)
+                                
+                                if let latitude = Double(self.str_total_rupees!) {
+                                                                        
+                                    let formattedlatitude = String(format: "%.2f", latitude)
+                                    self.lblWallet.text = "$\(formattedlatitude)"
+                                    
+                                } else {
+                                    print("Invalid number format")
+                                }
+                                
+                                
+                                
                                 self.lblTime.text = String(self.str_total_duration)
                                 
                                 // let formattedNumber1 = String(format: "%.2f", "\(dict["distance"]!)")

@@ -14,6 +14,7 @@ import CoreLocation
 import ZKCarousel
 
 import Alamofire
+import GoogleMaps
 
 class dashboard: UIViewController , CLLocationManagerDelegate {
     
@@ -35,6 +36,10 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     var loginUserLatitudeFrom:String!
     var loginUserLongitudeFrom:String!
     var loginUserAddressFrom:String!
+    
+    var strSelectCarCategory:String!
+    
+    @IBOutlet weak var mapView: GMSMapView!
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -349,14 +354,82 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         
         self.btn_push_to_map.addTarget(self, action: #selector(please_select_atleast_one_vehicle), for: .touchUpInside)
         self.btn_push_to_map_down.addTarget(self, action: #selector(please_select_atleast_one_vehicle2), for: .touchUpInside)
-       
+        
         // book a ride now
         self.btn_book_a_ride_now.addTarget(self, action: #selector(bookARideNowClickMethod), for: .touchUpInside)
         
         
-        self.getUsersCurrentLatLong()
+        // Configure Location Manager
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        // Set initial map settings
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
+        
+        
         
     }
+    
+    // Location Manager Delegate method
+        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            
+            if let location = locations.last {
+                
+                userLatitude = location.coordinate.latitude
+                userLongitude = location.coordinate.longitude
+                
+                loginUserLatitudeTo = "\(userLatitude!)"
+                loginUserLongitudeTo = "\(userLongitude!)"
+                
+                // get user's latitude and longitude
+                print("Latitude: \(userLatitude ?? 0.0), Longitude: \(userLongitude ?? 0.0)")
+                
+                let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
+                mapView.animate(to: camera)
+                
+                // get user's full address
+                getAddressFromLocation(location)
+                
+                // Stop updating location to save battery life
+                locationManager.stopUpdatingLocation()
+                
+                findDriversWB(str_show_loader: "yes")
+                
+            }
+            
+            /*guard let location = locations.first else { return }
+            
+            // Parse latitude and longitude
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
+            
+            self.strSaveLatitude = "\(latitude)"
+            self.strSaveLongitude = "\(longitude)"
+            
+            
+            // Update camera position to current location
+            let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
+            mapView.animate(to: camera)
+            
+            // Add marker for current location
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            marker.title = "You are here"
+            marker.map = mapView
+            
+            // Stop updating location to save battery
+            locationManager.stopUpdatingLocation()*/
+        }
+        
+        // Handle authorization status change
+        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            if status == .authorizedWhenInUse {
+                locationManager.startUpdatingLocation()
+                mapView.isMyLocationEnabled = true
+            }
+        }
     
     @objc func bookARideNowClickMethod() {
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "total_fare_distance_mpa_route_id") as? total_fare_distance_mpa_route
@@ -745,7 +818,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         // locationManager.requestAlwaysAuthorization()
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    /*func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             
             userLatitude = location.coordinate.latitude
@@ -766,9 +839,9 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
             findDriversWB(str_show_loader: "yes")
             
         }
-    }
+    }*/
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    /*func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse, .authorizedAlways:
             locationManager.startUpdatingLocation()
@@ -778,7 +851,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         default:
             break
         }
-    }
+    }*/
     
     // Handle location errors
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -1633,6 +1706,15 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
         cell.imgProfile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         cell.imgProfile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo"))
          
+        if (self.strSelectCarCategory == "\(indexPath.row)") {
+            cell.viewBG.layer.borderColor = UIColor.red.cgColor
+            cell.viewBG.layer.borderWidth = 1
+        } else {
+            cell.viewBG.layer.borderColor = UIColor.clear.cgColor
+            cell.viewBG.layer.borderWidth = 1
+        }
+        
+        
         return cell
     }
     
@@ -1640,9 +1722,13 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        print(indexPath.row as Any)
+        self.strSelectCarCategory = "\(indexPath.row)"
+        
         let item = self.arrCarCategories[indexPath.row] as? [String:Any]
         self.strUserSelectCarCategory = "\(item!["id"]!)"
         
+        self.tbleView.reloadData()
         
     }
     

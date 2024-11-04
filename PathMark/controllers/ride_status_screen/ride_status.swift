@@ -396,12 +396,12 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
                 self.hide_loading_UI()
                 
                 if (isRideCodeHidden == true) {
-                    self.btnConfirmBooking.isHidden = false
+                    self.btnConfirmBooking.isHidden = true
                     self.btnConfirmBooking.setTitle("Driver arrived", for: .normal)
                     self.btnConfirmBooking.tag = 100
                     
                 } else {
-                    self.btnConfirmBooking.isHidden = false
+                    self.btnConfirmBooking.isHidden = true
                     self.btnConfirmBooking.addTarget(self, action: #selector(confirmBookingSetOTP), for: .touchUpInside)
                     
                 }
@@ -579,10 +579,10 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
                     }
                     
                     if (isRideCodeHidden == true) {
-                        self.btnConfirmBooking.isHidden = false
+                        self.btnConfirmBooking.isHidden = true
                         
                     } else {
-                        self.btnConfirmBooking.isHidden = false
+                        self.btnConfirmBooking.isHidden = true
                         self.btnConfirmBooking.addTarget(self, action: #selector(confirmBookingSetOTP), for: .touchUpInside)
                         
                     }
@@ -1965,7 +1965,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
                             ERProgressHud.sharedInstance.hide()
                             
                             self.isRideCodeHidden = false
-                            self.btnConfirmBooking.isHidden = false
+                            self.btnConfirmBooking.isHidden = true
                             self.btnConfirmBooking.tag = 100
                             self.btnConfirmBooking.setTitle("Driver arrived", for: .normal)
                             

@@ -18,6 +18,11 @@ import GoogleMaps
 
 class dashboard: UIViewController , CLLocationManagerDelegate {
     
+//    func didSelectCard(_ card: [String : Any]) {
+//        <#code#>
+//    }
+    
+    
     // MARK:- SAVE LOCATION STRING -
     var strSaveLatitude:String!
     var strSaveLongitude:String!
@@ -373,85 +378,87 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     }
     
     // Location Manager Delegate method
-        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if let location = locations.last {
             
-            if let location = locations.last {
-                
-                userLatitude = location.coordinate.latitude
-                userLongitude = location.coordinate.longitude
-                
-                loginUserLatitudeTo = "\(userLatitude!)"
-                loginUserLongitudeTo = "\(userLongitude!)"
-                
-                // get user's latitude and longitude
-                print("Latitude: \(userLatitude ?? 0.0), Longitude: \(userLongitude ?? 0.0)")
-                
-                let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
-                mapView.animate(to: camera)
-                
-                // get user's full address
-                getAddressFromLocation(location)
-                
-                // Stop updating location to save battery life
-                locationManager.stopUpdatingLocation()
-                
-                findDriversWB(str_show_loader: "yes")
-                
-            }
+            userLatitude = location.coordinate.latitude
+            userLongitude = location.coordinate.longitude
             
-            /*guard let location = locations.first else { return }
+            loginUserLatitudeTo = "\(userLatitude!)"
+            loginUserLongitudeTo = "\(userLongitude!)"
             
-            // Parse latitude and longitude
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
+            // get user's latitude and longitude
+            print("Latitude: \(userLatitude ?? 0.0), Longitude: \(userLongitude ?? 0.0)")
             
-            self.strSaveLatitude = "\(latitude)"
-            self.strSaveLongitude = "\(longitude)"
-            
-            
-            // Update camera position to current location
             let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
             mapView.animate(to: camera)
             
-            // Add marker for current location
-            let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            marker.title = "You are here"
-            marker.map = mapView
+            // get user's full address
+            getAddressFromLocation(location)
             
-            // Stop updating location to save battery
-            locationManager.stopUpdatingLocation()*/
+            // Stop updating location to save battery life
+            locationManager.stopUpdatingLocation()
+            
+            findDriversWB(str_show_loader: "yes")
+            
         }
         
-        // Handle authorization status change
-        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-            if status == .authorizedWhenInUse {
-                locationManager.startUpdatingLocation()
-                mapView.isMyLocationEnabled = true
-            }
-        }
-    
-    @objc func bookARideNowClickMethod() {
-        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "total_fare_distance_mpa_route_id") as? total_fare_distance_mpa_route
-       
-        // login user location
-        push!.my_location_lat = String(self.loginUserLatitudeTo)
-        push!.my_location_long = String(self.loginUserLongitudeTo)
-        
-        // destination lat long
-        push!.searched_place_location_lat = String(self.loginUserLatitudeFrom)
-        push!.searched_place_location_long = String(self.loginUserLongitudeFrom)
-        
-        // id
-        push!.str_get_category_id = String(self.strUserSelectCarCategory)
-        
-        // address
-        push!.str_to_location =  String(self.loginUserAddressTo)
-        push!.str_from_location =  String(self.loginUserAddressFrom)
-        
-        self.navigationController?.pushViewController(push!, animated: true)
+        /*guard let location = locations.first else { return }
+         
+         // Parse latitude and longitude
+         let latitude = location.coordinate.latitude
+         let longitude = location.coordinate.longitude
+         
+         self.strSaveLatitude = "\(latitude)"
+         self.strSaveLongitude = "\(longitude)"
+         
+         
+         // Update camera position to current location
+         let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
+         mapView.animate(to: camera)
+         
+         // Add marker for current location
+         let marker = GMSMarker()
+         marker.position = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+         marker.title = "You are here"
+         marker.map = mapView
+         
+         // Stop updating location to save battery
+         locationManager.stopUpdatingLocation()*/
     }
     
+    // Handle authorization status change
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+            mapView.isMyLocationEnabled = true
+        }
+    }
+    
+    @objc func bookARideNowClickMethod() {
+        // showFullScreenPopup()
+        
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "total_fare_distance_mpa_route_id") as? total_fare_distance_mpa_route
+         
+         // login user location
+         push!.my_location_lat = String(self.loginUserLatitudeTo)
+         push!.my_location_long = String(self.loginUserLongitudeTo)
+         
+         // destination lat long
+         push!.searched_place_location_lat = String(self.loginUserLatitudeFrom)
+         push!.searched_place_location_long = String(self.loginUserLongitudeFrom)
+         
+         // id
+         push!.str_get_category_id = String(self.strUserSelectCarCategory)
+         
+         // address
+         push!.str_to_location =  String(self.loginUserAddressTo)
+         push!.str_from_location =  String(self.loginUserAddressFrom)
+         
+         self.navigationController?.pushViewController(push!, animated: true)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -519,8 +526,8 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 if let address = UserDefaults.standard.string(forKey: "key_map_view_address") {
                     print(address)
                     
-                    //                    let indexPath = IndexPath.init(row: 0, section: 0)
-                    //                    let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
+                    // let indexPath = IndexPath.init(row: 0, section: 0)
+                    // let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
                     
                     self.lbl_select_destination.text = String(address)
                     self.loginUserAddressFrom = String(address)
@@ -537,11 +544,11 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         UserDefaults.standard.set("", forKey: "keyUserSelectWhichProfile")
         UserDefaults.standard.set(nil, forKey: "keyUserSelectWhichProfile")
         
-        print(loginUserLatitudeTo as Any)
+        /*print(loginUserLatitudeTo as Any)
         print(loginUserLongitudeTo as Any)
         
         print(loginUserLatitudeFrom as Any)
-        print(loginUserLongitudeFrom as Any)
+        print(loginUserLongitudeFrom as Any)*/
         
         if (self.loginUserLatitudeTo != nil && self.loginUserLatitudeFrom != nil) {
             self.checkCarCategoriesWB(str_show_loader: "yes")
@@ -754,9 +761,9 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                             ERProgressHud.sharedInstance.hide()
                             
                             /*self.tbleView.isHidden = false
-                            self.tbleView.delegate = self
-                            self.tbleView.dataSource = self
-                            self.tbleView.reloadData()*/
+                             self.tbleView.delegate = self
+                             self.tbleView.dataSource = self
+                             self.tbleView.reloadData()*/
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_wb()
@@ -819,39 +826,39 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     }
     
     /*func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            
-            userLatitude = location.coordinate.latitude
-            userLongitude = location.coordinate.longitude
-            
-            loginUserLatitudeTo = "\(userLatitude!)"
-            loginUserLongitudeTo = "\(userLongitude!)"
-            
-            // get user's latitude and longitude
-            print("Latitude: \(userLatitude ?? 0.0), Longitude: \(userLongitude ?? 0.0)")
-            
-            // get user's full address
-            getAddressFromLocation(location)
-            
-            // Stop updating location to save battery life
-            locationManager.stopUpdatingLocation()
-            
-            findDriversWB(str_show_loader: "yes")
-            
-        }
-    }*/
+     if let location = locations.last {
+     
+     userLatitude = location.coordinate.latitude
+     userLongitude = location.coordinate.longitude
+     
+     loginUserLatitudeTo = "\(userLatitude!)"
+     loginUserLongitudeTo = "\(userLongitude!)"
+     
+     // get user's latitude and longitude
+     print("Latitude: \(userLatitude ?? 0.0), Longitude: \(userLongitude ?? 0.0)")
+     
+     // get user's full address
+     getAddressFromLocation(location)
+     
+     // Stop updating location to save battery life
+     locationManager.stopUpdatingLocation()
+     
+     findDriversWB(str_show_loader: "yes")
+     
+     }
+     }*/
     
     /*func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedWhenInUse, .authorizedAlways:
-            locationManager.startUpdatingLocation()
-        case .denied, .restricted:
-            // Handle the case where user denied or restricted location access
-            print("Location access denied or restricted")
-        default:
-            break
-        }
-    }*/
+     switch status {
+     case .authorizedWhenInUse, .authorizedAlways:
+     locationManager.startUpdatingLocation()
+     case .denied, .restricted:
+     // Handle the case where user denied or restricted location access
+     print("Location access denied or restricted")
+     default:
+     break
+     }
+     }*/
     
     // Handle location errors
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -1040,7 +1047,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     @objc func push_to_car_map_click_method() {
         
         self.str_vehicle_type = "CAR"
-//        self.tbleView.reloadData()
+        //        self.tbleView.reloadData()
         /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
          push!.str_user_select_vehicle = "CAR"
          self.navigationController?.pushViewController(push!, animated: true)*/
@@ -1050,7 +1057,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     @objc func push_to_bike_map_click_method() {
         
         self.str_vehicle_type = "BIKE"
-//        self.tbleView.reloadData()
+        //        self.tbleView.reloadData()
         /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
          push!.str_user_select_vehicle = "BIKE"
          self.navigationController?.pushViewController(push!, animated: true)*/
@@ -1062,7 +1069,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         
         
         self.str_vehicle_type = "INTERCITY"
-//        self.tbleView.reloadData()
+        //        self.tbleView.reloadData()
         
         
         /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
@@ -1301,7 +1308,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
             print(pageNumber)
             
             self.strIndex = Int(pageNumber)
-//            self.tbleView.reloadData()
+            //            self.tbleView.reloadData()
         }
         
     }
@@ -1547,7 +1554,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                             ar = (JSON["data"] as! Array<Any>) as NSArray
                             self.arr_banner.addObjects(from: ar as! [Any])
                             
-//                            self.tbleView.reloadData()
+                            //                            self.tbleView.reloadData()
                             
                             ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)

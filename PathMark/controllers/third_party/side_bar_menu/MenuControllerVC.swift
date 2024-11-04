@@ -24,6 +24,7 @@ class MenuControllerVC: UIViewController {
         didSet {
             navigationBar.backgroundColor = navigation_color
             navigationBar.backgroundColor = .black
+            navigationBar.applyGradient()
         }
     }
     

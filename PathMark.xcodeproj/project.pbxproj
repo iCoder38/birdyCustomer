@@ -59,6 +59,7 @@
 		B99223172A8E4991005AA868 /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99223152A8E4991005AA868 /* CarouselView.swift */; };
 		B996591C2AA74F03009A2D93 /* payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B996591B2AA74F03009A2D93 /* payment.swift */; };
 		B996591E2AA75CCD009A2D93 /* double-check.gif in Resources */ = {isa = PBXBuildFile; fileRef = B996591D2AA75CCD009A2D93 /* double-check.gif */; };
+		B9997D5A2CD8B0CA0090E3F1 /* saveCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9997D592CD8B0CA0090E3F1 /* saveCards.swift */; };
 		B99D3F692C7EEBB00039DC6A /* select_vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99D3F682C7EEBB00039DC6A /* select_vehicle.swift */; };
 		B9A011632A9F1AB7001B4658 /* ride_history_details.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A011622A9F1AB7001B4658 /* ride_history_details.swift */; };
 		B9A2F6832B2B439700A7CC5F /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = B9A2F6822B2B439700A7CC5F /* FacebookAEM */; };
@@ -190,6 +191,7 @@
 		B99223152A8E4991005AA868 /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		B996591B2AA74F03009A2D93 /* payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = payment.swift; sourceTree = "<group>"; };
 		B996591D2AA75CCD009A2D93 /* double-check.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "double-check.gif"; sourceTree = "<group>"; };
+		B9997D592CD8B0CA0090E3F1 /* saveCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveCards.swift; sourceTree = "<group>"; };
 		B99D3F682C7EEBB00039DC6A /* select_vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = select_vehicle.swift; sourceTree = "<group>"; };
 		B9A011622A9F1AB7001B4658 /* ride_history_details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ride_history_details.swift; sourceTree = "<group>"; };
 		B9A8EE612BFE207D00169855 /* select_profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = select_profile.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				B97AE2002AA85072005EE5FF /* success_payment */,
 				B99223102A8E4611005AA868 /* help */,
 				B96B4B712A5BD0BA0038B82F /* get_started_now.swift */,
+				B9997D592CD8B0CA0090E3F1 /* saveCards.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -1202,6 +1205,7 @@
 				B9038E0F2A5D45FB0041A5B4 /* LeftPaddingTextField.swift in Sources */,
 				B943FE542B26EA03000A20FA /* BooCheckChat.swift in Sources */,
 				B99223162A8E4991005AA868 /* CarouselCell.swift in Sources */,
+				B9997D5A2CD8B0CA0090E3F1 /* saveCards.swift in Sources */,
 				B9038E132A5D45FB0041A5B4 /* NewYorkAlertController.swift in Sources */,
 				B99223172A8E4991005AA868 /* CarouselView.swift in Sources */,
 				B9038E122A5D45FB0041A5B4 /* NewYorkButton.swift in Sources */,
@@ -1429,10 +1433,10 @@
 				INFOPLIST_FILE = PathMark/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Ride with us";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Zarib would like to access your camera to upload profile picture.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Zarib would like to access your location for Customer's current location. ";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Zarib would like to access your location for Customer's current location.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Zarib would like to access your location for Customer's current location.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Ride with us would like to access your camera to upload profile picture.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Ride with us would like to access your location for Customer's current location. ";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Ride with us would like to access your location for Customer's current location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Ride with us would like to access your location for Customer's current location.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1474,10 +1478,10 @@
 				INFOPLIST_FILE = PathMark/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Ride with us";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Zarib would like to access your camera to upload profile picture.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Zarib would like to access your location for Customer's current location. ";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Zarib would like to access your location for Customer's current location.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Zarib would like to access your location for Customer's current location.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Ride with us would like to access your camera to upload profile picture.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Ride with us would like to access your location for Customer's current location. ";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Ride with us would like to access your location for Customer's current location.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Ride with us would like to access your location for Customer's current location.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

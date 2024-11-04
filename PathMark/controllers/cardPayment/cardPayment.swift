@@ -853,6 +853,20 @@ class cardPayment: UIViewController, UITextFieldDelegate {
         
     }
     
+    @objc func checkBoxClickMethod() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! cardPayment_table_cell
+        
+        if (cell.btnCheckBox.tag == 1) {
+            cell.btnCheckBox.tag = 0
+            cell.btnCheckBox.backgroundColor = .white
+        } else {
+            cell.btnCheckBox.tag = 1
+            cell.btnCheckBox.backgroundColor = .systemGreen
+            let generator = UIImpactFeedbackGenerator(style: .soft)
+            generator.impactOccurred()
+        }
+    }
     
 }
 
@@ -890,6 +904,8 @@ extension cardPayment: UITableViewDataSource , UITableViewDelegate {
         cell.btn_submit.setTitle("Pay: \(self.get_full_data_for_payment["estimatedPrice"]!)", for: .normal)
         cell.btn_submit.addTarget(self, action: #selector(validation_before_submit), for: .touchUpInside)
         
+        cell.btnCheckBox.addTarget(self, action: #selector(checkBoxClickMethod), for: .touchUpInside)
+        
         // cell.txt_tip.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         return cell
@@ -907,6 +923,17 @@ extension cardPayment: UITableViewDataSource , UITableViewDelegate {
 
 
 class cardPayment_table_cell: UITableViewCell {
+    
+    @IBOutlet weak var btnCheckBox:UIButton! {
+        didSet {
+            btnCheckBox.tag = 0
+            btnCheckBox.backgroundColor = .white
+            btnCheckBox.layer.cornerRadius = 8
+            btnCheckBox.clipsToBounds = true
+            btnCheckBox.layer.borderColor = UIColor.black.cgColor
+            btnCheckBox.layer.borderWidth = 0.8
+        }
+    }
     
     @IBOutlet weak var txt_card_holder_name:UITextField! {
         didSet {

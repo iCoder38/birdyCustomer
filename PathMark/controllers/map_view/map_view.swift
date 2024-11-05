@@ -347,6 +347,8 @@ class map_view: UIViewController , UITextFieldDelegate, CLLocationManagerDelegat
         // self.mapView.isHidden = true
         self.btnRideNow.isHidden = true
         
+        list_of_all_category_WB()
+        
         // print(persons[0].name)
         // print(persons[1].name)
         

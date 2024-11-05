@@ -81,6 +81,7 @@ class MenuControllerVC: UIViewController {
                               "Edit Profile",
                               "Bookings",
                               "Emergency Contacts",
+                                 "Add card",
                               "Manage Address",
                               "Review & Rating",
                               "About",
@@ -106,6 +107,7 @@ class MenuControllerVC: UIViewController {
                               "home",
                               "booking",
                               "emergency_contacts",
+                              "card",
                               "trip",
                               "lock_24",
                               "logo-white",
@@ -455,6 +457,16 @@ extension MenuControllerVC: UITableViewDataSource {
             self.revealViewController().setFront(navController, animated: true)
             self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
              
+    } else if self.arr_customer_title_en[indexPath.row] == "Add card" {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
+        self.view.window?.rootViewController = sw
+        let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "cardPayment_id") as? cardPayment
+        destinationController?.isFromMenu = true
+        let navigationController = UINavigationController(rootViewController: destinationController!)
+        sw.setFront(navigationController, animated: true)
+        
     } else if self.arr_customer_title_en[indexPath.row] == "Dashboard" {
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

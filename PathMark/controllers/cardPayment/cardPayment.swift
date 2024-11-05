@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 
-class cardPayment: UIViewController, UITextFieldDelegate {
+class cardPayment: UIViewController, UITextFieldDelegate, FullScreenPopupDelegate {
     
     var get_full_data_for_payment:NSDictionary!
     var str_from_history:String!
@@ -25,6 +25,9 @@ class cardPayment: UIViewController, UITextFieldDelegate {
     var str_reason_select2:String!
     var txt_view2:String!
     
+    var isSaveCard:Bool! = false
+    var isFromMenu:Bool!
+    
     @IBOutlet weak var navigationBar:UIView! {
         didSet {
             navigationBar.backgroundColor = navigation_color
@@ -40,7 +43,7 @@ class cardPayment: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var lblNavigationTitle:UILabel! {
         didSet {
-            lblNavigationTitle.text = "Payment"
+            
             lblNavigationTitle.textColor = NAVIGATION_TITLE_COLOR
             lblNavigationTitle.backgroundColor = .clear
         }
@@ -58,26 +61,37 @@ class cardPayment: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(self.get_full_data_for_payment as Any)
-        
         self.view.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        self.btnBack.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
+        if (isFromMenu == false) {
+            lblNavigationTitle.text = "Payment"
+            self.btnBack.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
+            self.booking_history_details_WB(str_show_loader: "yes")
+        } else {
+            lblNavigationTitle.text = "Add / Saved card"
+            sideBarMenuClick()
+        }
         
-        
-        self.booking_history_details_WB(str_show_loader: "yes")
     }
     
-    
-    
-    
+    @objc func sideBarMenuClick() {
+        
+        if revealViewController() != nil {
+            
+            self.btnBack.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+            
+            revealViewController().rearViewRevealWidth = 300
+            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            
+        }
+    }
     
     @objc func validation_before_submit() {
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! cardPayment_table_cell
         
-       if (cell.txt_card_number.text == "") {
+        if (cell.txt_card_number.text == "") {
             self.alert_popup_appear()
         } else if (cell.txt_card_expiry_year.text == "") {
             self.alert_popup_appear()
@@ -86,11 +100,17 @@ class cardPayment: UIViewController, UITextFieldDelegate {
         } else if (cell.txt_card_cvv.text == "") {
             self.alert_popup_appear()
         } else {
-            self.payment_WB(str_show_loader: "yes")
+            if (self.isFromMenu == true) {
+                self.addCardWB(str_show_loader: "yes")
+            } else {
+                self.payment_WB(str_show_loader: "yes")
+            }
+            
         }
     }
     
     @objc func alert_popup_appear() {
+        ERProgressHud.sharedInstance.hide()
         let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Field should not be empty."), style: .alert)
         let cancel = NewYorkButton(title: "dismiss", style: .cancel)
         alert.addButtons([cancel])
@@ -131,16 +151,16 @@ class cardPayment: UIViewController, UITextFieldDelegate {
                 
                 /*
                  [action] => updatepayment
-                     [userId] => 275
-                     [bookingId] => 918
-                     [TIP] => 0
-                     [discountAmount] =>
-                     [couponCode] =>
-                     [totalAmount] => 97
-                     [paymentMethod] => Cash
-                     [transactionId] => Cash_1726073132638
-                     [paymentID] =>
-                     [language] => bn
+                 [userId] => 275
+                 [bookingId] => 918
+                 [TIP] => 0
+                 [discountAmount] =>
+                 [couponCode] =>
+                 [totalAmount] => 97
+                 [paymentMethod] => Cash
+                 [transactionId] => Cash_1726073132638
+                 [paymentID] =>
+                 [language] => bn
                  */
                 parameters = [
                     "action"        : "updatepayment",
@@ -179,18 +199,24 @@ class cardPayment: UIViewController, UITextFieldDelegate {
                             print("yes")
                             
                             let str_token = (JSON["AuthToken"] as! String)
-                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             
-                             ERProgressHud.sharedInstance.hide()
+                            ERProgressHud.sharedInstance.hide()
                             
-                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(message), style: .alert)
+                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_status_id") as? ride_status
+                            push!.dict_get_all_data_from_notification = self.get_full_data_for_payment
+                            push!.str_from_history = "no"
+                            self.navigationController?.pushViewController(push!, animated: true)
+                            
+                            
+                            /*let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(message), style: .alert)
                             let cancel = NewYorkButton(title: "dismiss", style: .cancel)
                             alert.addButtons([cancel])
                             self.present(alert, animated: true)
                             
                             let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
-                            self.navigationController?.pushViewController(push!, animated: true)
+                            self.navigationController?.pushViewController(push!, animated: true)*/
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_wb()
@@ -283,163 +309,163 @@ class cardPayment: UIViewController, UITextFieldDelegate {
     }
     
     /*@objc func decline_ride_WB(str_show_loader:String) {
-         if (str_show_loader == "yes") {
-            // ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-        }
-        
-        
-        self.view.endEditing(true)
-        
-        var parameters:Dictionary<AnyHashable, Any>!
-        
-        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-            print(person)
-            
-            let x : Int = person["userId"] as! Int
-            let myString = String(x)
-            
-            var ar : NSArray!
-            ar = (person["carinfromation"] as! Array<Any>) as NSArray
-            
-            let arr_mut_order_history:NSMutableArray! = []
-            arr_mut_order_history.addObjects(from: ar as! [Any])
-            
-            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
-                print(token_id_is as Any)
-                
-                let headers: HTTPHeaders = [
-                    "token":String(token_id_is),
-                ]
-                 
-                parameters = [
-                    "action"        : "ridecancel",
-                    "userId"        : String(myString),
-                    "bookingId"     : String(self.str_booking_id),
-                    "userType"      : String("Member"),
-                    "cancelReason"  : String(self.str_reason_select2),
-                    "cancelComment" : String(self.txt_view2)
-                ]
-                
-                print(parameters as Any)
-                
-                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON { [self]
-                    response in
-                    // debugPrint(response.result)
-                    
-                    switch response.result {
-                    case let .success(value):
-                        
-                        let JSON = value as! NSDictionary
-                        print(JSON as Any)
-                        
-                        var strSuccess : String!
-                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
-                        
-                        var message : String!
-                        message = (JSON["msg"] as? String)
-                        
-                        print(strSuccess as Any)
-                        if strSuccess == String("success") {
-                            print("yes")
-                            
-                            let str_token = (JSON["AuthToken"] as! String)
-                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-                            
-                            // ERProgressHud.sharedInstance.hide()
-                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
-                            self.navigationController?.pushViewController(push!, animated: true)
-                            
-                        } else if message == String(not_authorize_api) {
-                            self.login_refresh_token_wb2()
-                            
-                        } else {
-                            
-                            print("no")
-                            ERProgressHud.sharedInstance.hide()
-                            
-                            var strSuccess2 : String!
-                            strSuccess2 = JSON["msg"]as Any as? String
-                            
-                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
-                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-                            alert.addButtons([cancel])
-                            self.present(alert, animated: true)
-                            
-                        }
-                        
-                    case let .failure(error):
-                        print(error)
-                        ERProgressHud.sharedInstance.hide()
-                        
-                        self.please_check_your_internet_connection()
-                        
-                    }
-                }
-            }
-        }
-          
-    }*/
+     if (str_show_loader == "yes") {
+     // ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+     }
+     
+     
+     self.view.endEditing(true)
+     
+     var parameters:Dictionary<AnyHashable, Any>!
+     
+     if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+     print(person)
+     
+     let x : Int = person["userId"] as! Int
+     let myString = String(x)
+     
+     var ar : NSArray!
+     ar = (person["carinfromation"] as! Array<Any>) as NSArray
+     
+     let arr_mut_order_history:NSMutableArray! = []
+     arr_mut_order_history.addObjects(from: ar as! [Any])
+     
+     if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+     print(token_id_is as Any)
+     
+     let headers: HTTPHeaders = [
+     "token":String(token_id_is),
+     ]
+     
+     parameters = [
+     "action"        : "ridecancel",
+     "userId"        : String(myString),
+     "bookingId"     : String(self.str_booking_id),
+     "userType"      : String("Member"),
+     "cancelReason"  : String(self.str_reason_select2),
+     "cancelComment" : String(self.txt_view2)
+     ]
+     
+     print(parameters as Any)
+     
+     AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON { [self]
+     response in
+     // debugPrint(response.result)
+     
+     switch response.result {
+     case let .success(value):
+     
+     let JSON = value as! NSDictionary
+     print(JSON as Any)
+     
+     var strSuccess : String!
+     strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+     
+     var message : String!
+     message = (JSON["msg"] as? String)
+     
+     print(strSuccess as Any)
+     if strSuccess == String("success") {
+     print("yes")
+     
+     let str_token = (JSON["AuthToken"] as! String)
+     UserDefaults.standard.set("", forKey: str_save_last_api_token)
+     UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+     
+     // ERProgressHud.sharedInstance.hide()
+     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
+     self.navigationController?.pushViewController(push!, animated: true)
+     
+     } else if message == String(not_authorize_api) {
+     self.login_refresh_token_wb2()
+     
+     } else {
+     
+     print("no")
+     ERProgressHud.sharedInstance.hide()
+     
+     var strSuccess2 : String!
+     strSuccess2 = JSON["msg"]as Any as? String
+     
+     let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+     let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+     alert.addButtons([cancel])
+     self.present(alert, animated: true)
+     
+     }
+     
+     case let .failure(error):
+     print(error)
+     ERProgressHud.sharedInstance.hide()
+     
+     self.please_check_your_internet_connection()
+     
+     }
+     }
+     }
+     }
+     
+     }*/
     
     /*@objc func login_refresh_token_wb2() {
-        
-        var parameters:Dictionary<AnyHashable, Any>!
-        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
-            print(get_login_details as Any)
-            
-            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-                
-                let x : Int = person["userId"] as! Int
-                let myString = String(x)
-                
-                parameters = [
-                    "action"    : "gettoken",
-                    "userId"    : String(myString),
-                    "email"     : (get_login_details["email"] as! String),
-                    "role"      : "Member"
-                ]
-            }
-            
-            print("parameters-------\(String(describing: parameters))")
-            
-            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
-                response in
-                
-                switch(response.result) {
-                case .success(_):
-                    if let data = response.value {
-                        
-                        let JSON = data as! NSDictionary
-                        print(JSON)
-                        
-                        var strSuccess : String!
-                        strSuccess = JSON["status"] as? String
-                        
-                        if strSuccess.lowercased() == "success" {
-                            
-                            let str_token = (JSON["AuthToken"] as! String)
-                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-                            
-                            self.decline_ride_WB(str_show_loader: "no")
-                            
-                        } else {
-                            ERProgressHud.sharedInstance.hide()
-                        }
-                        
-                    }
-                    
-                case .failure(_):
-                    print("Error message:\(String(describing: response.error))")
-                    ERProgressHud.sharedInstance.hide()
-                    self.please_check_your_internet_connection()
-                    
-                    break
-                }
-            }
-        }
-        
-    }*/
+     
+     var parameters:Dictionary<AnyHashable, Any>!
+     if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
+     print(get_login_details as Any)
+     
+     if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+     
+     let x : Int = person["userId"] as! Int
+     let myString = String(x)
+     
+     parameters = [
+     "action"    : "gettoken",
+     "userId"    : String(myString),
+     "email"     : (get_login_details["email"] as! String),
+     "role"      : "Member"
+     ]
+     }
+     
+     print("parameters-------\(String(describing: parameters))")
+     
+     AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
+     response in
+     
+     switch(response.result) {
+     case .success(_):
+     if let data = response.value {
+     
+     let JSON = data as! NSDictionary
+     print(JSON)
+     
+     var strSuccess : String!
+     strSuccess = JSON["status"] as? String
+     
+     if strSuccess.lowercased() == "success" {
+     
+     let str_token = (JSON["AuthToken"] as! String)
+     UserDefaults.standard.set("", forKey: str_save_last_api_token)
+     UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+     
+     self.decline_ride_WB(str_show_loader: "no")
+     
+     } else {
+     ERProgressHud.sharedInstance.hide()
+     }
+     
+     }
+     
+     case .failure(_):
+     print("Error message:\(String(describing: response.error))")
+     ERProgressHud.sharedInstance.hide()
+     self.please_check_your_internet_connection()
+     
+     break
+     }
+     }
+     }
+     
+     }*/
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -451,14 +477,14 @@ class cardPayment: UIViewController, UITextFieldDelegate {
         
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! cardPayment_table_cell
-
+        
         
         if (textField == cell.txt_card_number) {
             
             let currentText = textField.text ?? ""
             guard let stringRange = Range(range, in: currentText) else { return false }
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-
+            
             // make sure the result is under 16 characters
             return updatedText.count <= 16
             
@@ -467,7 +493,7 @@ class cardPayment: UIViewController, UITextFieldDelegate {
             let currentText = textField.text ?? ""
             guard let stringRange = Range(range, in: currentText) else { return false }
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-
+            
             // make sure the result is under 16 characters
             return updatedText.count <= 2
             
@@ -476,7 +502,7 @@ class cardPayment: UIViewController, UITextFieldDelegate {
             let currentText = textField.text ?? ""
             guard let stringRange = Range(range, in: currentText) else { return false }
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-
+            
             // make sure the result is under 16 characters
             return updatedText.count <= 2
             
@@ -485,7 +511,7 @@ class cardPayment: UIViewController, UITextFieldDelegate {
             let currentText = textField.text ?? ""
             guard let stringRange = Range(range, in: currentText) else { return false }
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-
+            
             // make sure the result is under 16 characters
             return updatedText.count <= 3
             
@@ -494,7 +520,7 @@ class cardPayment: UIViewController, UITextFieldDelegate {
             let currentText = textField.text ?? ""
             guard let stringRange = Range(range, in: currentText) else { return false }
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-
+            
             // make sure the result is under 16 characters
             return updatedText.count <= 30
             
@@ -718,7 +744,7 @@ class cardPayment: UIViewController, UITextFieldDelegate {
                             //                                let doubleStr = String(format: "%.2f", totalAmount)
                             //                                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(doubleStr)"
                             //                                cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(doubleStr)"
-                            //                                
+                            //
                             //                                if "\(self.dict_get_booking_details["discountAmount"]!)" == "" {
                             //                                    cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) 0"
                             //                                } else if "\(self.dict_get_booking_details["discountAmount"]!)" == "0" {
@@ -857,15 +883,253 @@ class cardPayment: UIViewController, UITextFieldDelegate {
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! cardPayment_table_cell
         
-        if (cell.btnCheckBox.tag == 1) {
-            cell.btnCheckBox.tag = 0
-            cell.btnCheckBox.backgroundColor = .white
-        } else {
+        if (isFromMenu == true) {
             cell.btnCheckBox.tag = 1
             cell.btnCheckBox.backgroundColor = .systemGreen
-            let generator = UIImpactFeedbackGenerator(style: .soft)
-            generator.impactOccurred()
+            isSaveCard = true
+        } else {
+            if (cell.btnCheckBox.tag == 1) {
+                cell.btnCheckBox.tag = 0
+                cell.btnCheckBox.backgroundColor = .white
+                isSaveCard = false
+                debugPrint("off")
+            } else {
+                cell.btnCheckBox.tag = 1
+                cell.btnCheckBox.backgroundColor = .systemGreen
+                let generator = UIImpactFeedbackGenerator(style: .soft)
+                generator.impactOccurred()
+                isSaveCard = true
+                debugPrint("on")
+            }
         }
+        
+        
+    }
+    
+    
+    @objc func saveAndPay() {
+        if (isSaveCard == false) {
+            validation_before_submit()
+        } else {
+            self.addCardWB(str_show_loader: "yes")
+        }
+        
+    }
+    
+    @objc func addCardWB(str_show_loader:String) {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! cardPayment_table_cell
+        
+        if (str_show_loader == "yes") {
+            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        }
+        
+        
+        self.view.endEditing(true)
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            var ar : NSArray!
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            
+            let arr_mut_order_history:NSMutableArray! = []
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+                
+                parameters = [
+                    "action"        : "cardadd",
+                    "userId"        : String(myString),
+                    "c_no"          : String(cell.txt_card_number.text!),
+                    "exp_m"         : String(cell.txt_card_expiry_month.text!),
+                    "exp_y"         : String(cell.txt_card_expiry_year.text!),
+                    
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON { [self]
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                        
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        var message : String!
+                        message = (JSON["msg"] as? String)
+                        
+                        print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            
+                            if (isFromMenu == true) {
+                                ERProgressHud.sharedInstance.hide()
+                                cell.txt_card_cvv.text = ""
+                                cell.txt_card_number.text = ""
+                                cell.txt_card_expiry_year.text = ""
+                                cell.txt_card_expiry_month.text = ""
+                                // cell.txt_card_holder_name.text = ""
+                                
+                            } else {
+                                self.validation_before_submit()
+                            }
+                            
+                            
+                        } else if message == String(not_authorize_api) {
+                            self.login_refresh_token_wb3()
+                            
+                        } else {
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func login_refresh_token_wb3() {
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
+            print(get_login_details as Any)
+            
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : "Member"
+                ]
+            }
+            
+            print("parameters-------\(String(describing: parameters))")
+            
+            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
+                response in
+                
+                switch(response.result) {
+                case .success(_):
+                    if let data = response.value {
+                        
+                        let JSON = data as! NSDictionary
+                        print(JSON)
+                        
+                        var strSuccess : String!
+                        strSuccess = JSON["status"] as? String
+                        
+                        if strSuccess.lowercased() == "success" {
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            self.addCardWB(str_show_loader: "yes")
+                            
+                        } else {
+                            ERProgressHud.sharedInstance.hide()
+                        }
+                        
+                    }
+                    
+                case .failure(_):
+                    print("Error message:\(String(describing: response.error))")
+                    ERProgressHud.sharedInstance.hide()
+                    self.please_check_your_internet_connection()
+                    
+                    break
+                }
+            }
+        }
+        
+    }
+    
+    @objc func btnSavedCard() {
+        self.showFullScreenPopup()
+    }
+    
+    @objc private func showFullScreenPopup() {
+        let popupVC = FullScreenPopupViewController()
+        popupVC.delegate = self // Set the delegate
+        let navController = UINavigationController(rootViewController: popupVC)
+        navController.modalPresentationStyle = .fullScreen
+        
+        present(navController, animated: true, completion: nil)
+    }
+    
+    // Delegate method implementation
+    func didSelectCard(_ card: [String: Any]) {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! cardPayment_table_cell
+        // Handle the selected card data here
+        debugPrint("Selected Card:", card)
+        
+        cell.txt_card_number.text = "\(card["c_no"]!)"
+        cell.txt_card_expiry_month.text = "\(card["exp_m"]!)"
+        cell.txt_card_expiry_year.text = "\(card["exp_y"]!)"
+        
+        // Example: Display card details in an alert
+        if let cardNumber = card["c_no"] as? String,
+           let expiryMonth = card["exp_m"] as? String,
+           let expiryYear = card["exp_y"] as? String {
+            // ["created": Nov 4th, 2024, 10:25 pm, "cardId": 12, "exp_y": 25, "exp_m": 12, "c_no": 5252525252525252]
+            // cell.txt_card_number.text = String(cardNumber)
+            // cell.txt_card_expiry_month.text = String(expiryMonth)
+            // cell.txt_card_expiry_year.text = String(expiryYear)
+            // print("inside")
+            
+            let message = "Card Number: \(cardNumber)\nExpiry: \(expiryMonth)/\(expiryYear)"
+            showAlert(title: "Selected Card", message: message)
+        }
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true, completion: nil)
     }
     
 }
@@ -895,18 +1159,18 @@ extension cardPayment: UITableViewDataSource , UITableViewDelegate {
         cell.txt_card_expiry_year.delegate = self
         cell.txt_card_cvv.delegate = self
         cell.txt_card_number.delegate = self
-        // cell.txt_tip.delegate = self
         
-//        self.str_discounted_amount = String(self.str_get_total_price)
-        
-//        self.str_final_price_to_pay = String(self.str_get_total_price)
-        
-        cell.btn_submit.setTitle("Pay: \(self.get_full_data_for_payment["estimatedPrice"]!)", for: .normal)
-        cell.btn_submit.addTarget(self, action: #selector(validation_before_submit), for: .touchUpInside)
-        
-        cell.btnCheckBox.addTarget(self, action: #selector(checkBoxClickMethod), for: .touchUpInside)
-        
-        // cell.txt_tip.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        if (isFromMenu == true) {
+            cell.btn_submit.setTitle("Add card", for: .normal)
+            cell.btn_submit.addTarget(self, action: #selector(saveAndPay), for: .touchUpInside)
+            cell.btnCheckBox.backgroundColor = .systemGreen
+        } else {
+            cell.btn_submit.setTitle("Pay: \(self.get_full_data_for_payment["estimatedPrice"]!)", for: .normal)
+            cell.btn_submit.addTarget(self, action: #selector(saveAndPay), for: .touchUpInside)
+            cell.btnCheckBox.addTarget(self, action: #selector(checkBoxClickMethod), for: .touchUpInside)
+        }
+
+        cell.btnSavedCard.addTarget(self, action: #selector(btnSavedCard), for: .touchUpInside)
         
         return cell
     }
@@ -1090,6 +1354,21 @@ class cardPayment_table_cell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var btnSavedCard:UIButton! {
+        didSet {
+            Utils.buttonStyle(button: btnSavedCard,
+                              bCornerRadius: 12,
+                              bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
+                              bTitle: "Saved cards",
+                              bTitleColor: .black)
+            
+            btnSavedCard.layer.masksToBounds = false
+            btnSavedCard.layer.shadowColor = UIColor.black.cgColor
+            btnSavedCard.layer.shadowOffset =  CGSize.zero
+            btnSavedCard.layer.shadowOpacity = 0.5
+            btnSavedCard.layer.shadowRadius = 2
+        }
+    }
     
     @IBOutlet weak var btn_submit:UIButton! {
         didSet {

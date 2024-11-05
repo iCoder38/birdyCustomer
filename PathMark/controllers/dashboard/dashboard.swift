@@ -134,11 +134,13 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
             btn_car_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
         }
     }
+    
     @IBOutlet weak var btn_bike_checkmark:UIButton! {
         didSet {
             btn_bike_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
         }
     }
+    
     @IBOutlet weak var btn_intercity_checkmark:UIButton! {
         didSet {
             btn_intercity_checkmark.setImage(UIImage(named: "un_check"), for: .normal)
@@ -170,6 +172,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
             btn_bike.layer.cornerRadius = 12
         }
     }
+    
     @IBOutlet weak var btn_intercity:UIButton! {
         didSet {
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -720,6 +723,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 // loginUserLongitudeTo = "\(userLongitude!)"
                 
                 var parameters:Dictionary<AnyHashable, Any>!
+                
                 parameters = [
                     "action"        : "finddriver",
                     "userId"        : String(myString),
@@ -929,7 +933,6 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         
         UserDefaults.standard.set("userLocationTo", forKey: "keyUserSelectWhichProfile")
         
-        
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "search_location_id") as? search_location
         push!.userSelectedIs = "1"
         self.navigationController?.pushViewController(push!, animated: true)
@@ -1044,38 +1047,17 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
          self.present(alert, animated: true)*/
         
     }
+    
     @objc func push_to_car_map_click_method() {
-        
         self.str_vehicle_type = "CAR"
-        //        self.tbleView.reloadData()
-        /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
-         push!.str_user_select_vehicle = "CAR"
-         self.navigationController?.pushViewController(push!, animated: true)*/
-        
     }
     
     @objc func push_to_bike_map_click_method() {
-        
         self.str_vehicle_type = "BIKE"
-        //        self.tbleView.reloadData()
-        /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
-         push!.str_user_select_vehicle = "BIKE"
-         self.navigationController?.pushViewController(push!, animated: true)*/
-        
     }
     
     @objc func push_to_intercity_map_click_method() {
-        
-        
-        
         self.str_vehicle_type = "INTERCITY"
-        //        self.tbleView.reloadData()
-        
-        
-        /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
-         push!.str_user_select_vehicle = "INTERCITY"
-         self.navigationController?.pushViewController(push!, animated: true)*/
-        
     }
     
     @objc func schedule_a_ride_click_method() {
@@ -1125,9 +1107,9 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
             self.str_select_option = "book"
             // self.tbleView.reloadData()
             
-            debugPrint(self.str_vehicle_type as Any)
-            debugPrint(self.str_select_option as Any)
-            debugPrint(self.loginUserLatitudeFrom as Any)
+            // debugPrint(self.str_vehicle_type as Any)
+            // debugPrint(self.str_select_option as Any)
+            // debugPrint(self.loginUserLatitudeFrom as Any)
             
             self.pushAfterEverything(vehicleType: String(self.str_vehicle_type),
                                      vehicleOption: String(self.str_select_option))
@@ -1358,8 +1340,10 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                     "action"        : "editprofile",
                     "userId"        : String(myString),
                     "deviceToken"   : String(self.str_token_id),
+                    
                     // "latitude"      : "28.663360225298394", // String(self.strSaveLatitude),
                     // "longitude"     : "77.32386478305855", // String(self.strSaveLongitude),
+                    
                     "latitude"      : String(self.loginUserLatitudeTo),
                     "longitude"     : String(self.loginUserLongitudeTo),
                     "device"        : String("iOS")
@@ -1525,7 +1509,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 
                 parameters = [
                     "action"    : "couponlist",
-                    "language"  :String(self.str_selected_language_is)
+                    "language"  : String(self.str_selected_language_is)
                 ]
                 
                 print(parameters as Any)
@@ -1696,23 +1680,29 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
         cell.lblName.text = (item!["name"] as! String)
         cell.lblName.textColor = .black
         
-        
         let lat1 = Double(self.loginUserLatitudeTo!)
         let lon1 = Double(self.loginUserLongitudeTo!)
 
         let lat2 = Double(self.loginUserLatitudeFrom!)
         let lon2 = Double(self.loginUserLongitudeFrom!)
 
-        let distance = getDistanceInMiles(lat1: lat1!, lon1: lon1!, lat2: lat2!, lon2: lon2!)
-       
+        let distance = getDistanceInMiles(lat1: lat1!,
+                                          lon1: lon1!,
+                                          lat2: lat2!,
+                                          lon2: lon2!)
+        
+        // print(distance as Any)
+        
         let multiplePriceWithDistance = Double(distance) * Double("\(item!["perMile"]!)")!
         let myString = String(format: "%.2f", multiplePriceWithDistance)
         cell.lblPrice.text = "$\(myString)"
         cell.lblPrice.textColor = .black
+//        cell.lblPrice.isHidden = true
         
         cell.imgProfile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-        cell.imgProfile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo"))
-         
+        cell.imgProfile.sd_setImage(with: URL(string: (item!["image"] as! String)),
+                                    placeholderImage: UIImage(named: "logo"))
+        
         if (self.strSelectCarCategory == "\(indexPath.row)") {
             cell.viewBG.layer.borderColor = UIColor.red.cgColor
             cell.viewBG.layer.borderWidth = 1

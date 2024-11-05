@@ -117,9 +117,24 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
         }
     }
     
-    @IBOutlet weak var lblWallet:UILabel!
-    @IBOutlet weak var lblTime:UILabel!
-    @IBOutlet weak var lblDistance:UILabel!
+    @IBOutlet weak var lblWallet:UILabel! {
+        didSet {
+            lblWallet.numberOfLines = 0
+            lblWallet.textAlignment = .center
+        }
+    }
+    @IBOutlet weak var lblTime:UILabel! {
+        didSet {
+            lblTime.numberOfLines = 0
+            lblTime.textAlignment = .center
+        }
+    }
+    @IBOutlet weak var lblDistance:UILabel! {
+        didSet {
+            lblDistance.numberOfLines = 0
+            lblDistance.textAlignment = .center
+        }
+    }
     
     
     @IBOutlet weak var navigationBar:UIView! {
@@ -870,7 +885,7 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                                 if let latitude = Double(self.str_total_rupees!) {
                                                                         
                                     let formattedlatitude = String(format: "%.2f", latitude)
-                                    self.lblWallet.text = "$\(formattedlatitude)"
+                                    self.lblWallet.text = "$\(formattedlatitude)\nAmount"
                                     
                                 } else {
                                     print("Invalid number format")
@@ -878,10 +893,10 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
                                 
                                 
                                 
-                                self.lblTime.text = String(self.str_total_duration)
+                                self.lblTime.text = "\(self.str_total_duration!)\nDuration"
                                 
                                 // let formattedNumber1 = String(format: "%.2f", "\(dict["distance"]!)")
-                                self.lblDistance.text = "\(dict["distance"]!) km"
+                                self.lblDistance.text = "\(dict["distance"]!) km\nDistance"
                                 
                                 /*self.tbleView.delegate = self
                                 self.tbleView.dataSource = self

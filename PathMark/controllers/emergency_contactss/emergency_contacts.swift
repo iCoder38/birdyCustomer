@@ -540,11 +540,28 @@ class emergency_contacts_table_cell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var lbl_name:UILabel!
-    @IBOutlet weak var lbl_phone:UILabel!
-    @IBOutlet weak var lbl_relation:UILabel!
+    @IBOutlet weak var lbl_name:UILabel! {
+        didSet {
+            lbl_name.textColor = .white
+        }
+    }
     
-    @IBOutlet weak var btn_setting:UIButton!
+    @IBOutlet weak var lbl_phone:UILabel! {
+        didSet {
+            lbl_phone.textColor = .white
+        }
+    }
+    @IBOutlet weak var lbl_relation:UILabel! {
+        didSet {
+            lbl_relation.textColor = .white
+        }
+    }
+    
+    @IBOutlet weak var btn_setting:UIButton! {
+        didSet {
+            btn_setting.tintColor = .white
+        }
+    }
     
 }
 

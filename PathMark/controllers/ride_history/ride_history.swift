@@ -1109,6 +1109,7 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "cardPayment_id") as? cardPayment
                         push!.get_full_data_for_payment = (item! as NSDictionary)
                         push!.str_from_history = "yes"
+                        push!.isFromMenu = false
                         self.navigationController?.pushViewController(push!, animated: true)
                     } else {
                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_status_id") as? ride_status
@@ -1186,14 +1187,15 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 } else {
                     
                     // dummy
-                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "cardPayment_id") as? cardPayment
+                    /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "cardPayment_id") as? cardPayment
                     push!.get_full_data_for_payment = (item! as NSDictionary)
                     push!.str_from_history = "yes"
-                    self.navigationController?.pushViewController(push!, animated: true)
-                    
-                    /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_history_details_id") as? ride_history_details
-                    push!.dict_get_booking_details = (item! as NSDictionary)
+                    push!.isFromMenu = false
                     self.navigationController?.pushViewController(push!, animated: true)*/
+                    
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_history_details_id") as? ride_history_details
+                    push!.dict_get_booking_details = (item! as NSDictionary)
+                    self.navigationController?.pushViewController(push!, animated: true)
                     
                 }
                 
@@ -1204,6 +1206,7 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "cardPayment_id") as? cardPayment
                     push!.get_full_data_for_payment = (item! as NSDictionary)
                     push!.str_from_history = "yes"
+                    push!.isFromMenu = false
                     self.navigationController?.pushViewController(push!, animated: true)
                     
                 } else {

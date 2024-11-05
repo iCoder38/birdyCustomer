@@ -265,10 +265,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.handleNotificationWhenDriverCancel()
         } else if (dict["type"] as! String) == "Chat" {
             self.handleNotificationWhenDriverChat()
-        }/* else if (dict["type"] as! String) == "Payment" {
-            self.handleNotificationWhenDriverChat()
-        }*/
+        } else if (dict["type"] as! String) == "Payment" {
+            // self.handleNotificationWhenYouPaid()
+        }
     
+    }
+    
+    @objc func handleNotificationWhenYouPaid() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let destinationController = storyboard.instantiateViewController(withIdentifier:"ride_status_id") as? ride_status
+        
+        destinationController?.dict_get_all_data_from_notification = dict as NSDictionary
+        destinationController?.isFromMenuAfterPaymentSuccess = true
+        
+        let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+        
+        let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+        
+        let mainRevealController = SWRevealViewController()
+        
+        mainRevealController.rearViewController = rearViewController
+        mainRevealController.frontViewController = frontNavigationController
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+        }
+        
+        window?.makeKeyAndVisible()
     }
     
     @objc func handleNotificationWhenDriverRideStart() {
@@ -415,6 +439,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         destinationController?.get_full_data_for_payment = dict
         destinationController?.str_from_history = "no"
+        destinationController?.isFromMenu = false
         
         let frontNavigationController = UINavigationController(rootViewController: destinationController!)
         

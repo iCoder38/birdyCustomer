@@ -12,6 +12,10 @@ class add_contacts: UIViewController , UITextFieldDelegate {
 
     var dict_emergency:NSDictionary!
     var arr_country_array:NSArray!
+    
+    var strCountryId:String!
+    var strCountryName:String!
+    
     @IBOutlet weak var btn_back:UIButton! {
         didSet {
             btn_back.tintColor = .white
@@ -167,6 +171,8 @@ class add_contacts: UIViewController , UITextFieldDelegate {
 //        self.txt_phone_code.text = "+880"
         self.txt_phone.delegate = self
         
+        print(self.dict_emergency as Any)
+        
         if (self.dict_emergency == nil) {
             print("add contact")
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -198,6 +204,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
             print("edit contact")
             
             
+            
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
                 
@@ -223,12 +230,14 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                 
             }
             
-            
             self.txt_full_name.text = (self.dict_emergency["Name"] as! String)
             self.txt_email.text = (self.dict_emergency["email"] as! String)
             self.txt_phone.text = (self.dict_emergency["phone"] as! String)
+            self.txt_country.text = (self.dict_emergency["countryName"] as! String)
+            self.txt_phone_code.text = "+\(self.dict_emergency["countryCode"]!)"
             
-            
+//            self.strCountryName = "\(self.dict_emergency["countryId"]!)"
+            self.strCountryId = "\(self.dict_emergency["countryId"]!)"
             
             if ("\(self.dict_emergency["relation"]!)" == "0") {
                 
@@ -240,11 +249,9 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                         
                     } else {
                         self.txt_relation.text = "বন্ধু"
-                        
                     }
                     
                 }
-                
                 
                 self.str_relation_text = "0"
             } else if ("\(self.dict_emergency["relation"]!)" == "1") {
@@ -255,10 +262,8 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                     
                     if (language == "en") {
                         self.txt_relation.text = "Family"
-                        
                     } else {
                         self.txt_relation.text = "পরিবার"
-                        
                     }
                     
                 }
@@ -273,36 +278,33 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                         
                     } else {
                         self.txt_relation.text = "অন্যান্য"
-                        
                     }
                     
                 }
                 self.str_relation_text = "2"
             }
             
+            // self.get_country_list_WB()
         }
         
         self.btn_relation.addTarget(self, action: #selector(open_relation_drop_down), for: .touchUpInside)
         
     }
+    
     @objc func before_open_popup() {
         self.get_country_list_WB()
     }
+    
     @objc func country_click_method() {
          
-        print(self.arr_country_array as Any)
-        
         var arr_mut:NSMutableArray = []
         
         for index in 0..<self.arr_country_array.count {
-            
-            // print(self.arr_country_array[index])
             
             let item = self.arr_country_array[index] as? [String:Any]
             print(item as Any)
             
             arr_mut.add(item!["name"] as! String)
-            
         }
         
         if let swiftArray = arr_mut as NSArray as? [String] {
@@ -310,25 +312,22 @@ class add_contacts: UIViewController , UITextFieldDelegate {
             RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: swiftArray, selectedIndex: 0) { (selctedText, atIndex) in
                 self.txt_country.text = String(selctedText)
                 
-                //
                 for indexx in 0..<self.arr_country_array.count {
                     
                     let item = self.arr_country_array[indexx] as? [String:Any]
                     // print(item as Any)
                     
                     if (self.txt_country.text! == (item!["name"] as! String)) {
-                        print("yes matched")
+                        // print("yes matched")
+                        self.strCountryId = "\(item!["id"]!)"
                         self.txt_phone_code.text = (item!["phonecode"] as! String)
                     }
-                    
                 }
-                
-                
             }
-            
         }
         
     }
+    
     @objc func open_relation_drop_down() {
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
@@ -478,6 +477,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                     "phone"     : String(self.txt_phone.text!),
                     "relation"  : String(self.str_relation_text),
                     "email"     : String(self.txt_email.text!),
+                    "countryId" : String(self.strCountryId),
                     "language"  : String(lan)
                 ]
                 
@@ -590,6 +590,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                     "phone"     : String(self.txt_phone.text!),
                     "relation"  : String(self.str_relation_text),
                     "email"     : String(self.txt_email.text!),
+                    "countryId" : String(self.strCountryId),
                     "language"  : String(lan)
                 ]
                 
@@ -645,17 +646,16 @@ class add_contacts: UIViewController , UITextFieldDelegate {
         
         self.view.endEditing(true)
         
-          if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-                } else {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
-                }
-                
-             
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            } else {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
             }
+            
+        }
         
         let params = payload_country_list(action: "countrylist")
         
@@ -681,8 +681,22 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                     print("yes")
                     
                     self.arr_country_array = (JSON["data"] as! NSArray)
-                    
                     self.country_click_method()
+                    
+                    // self.strCountryId
+                    
+                    for indexx in 0..<self.arr_country_array.count {
+                        
+                        let item = self.arr_country_array[indexx] as? [String:Any]
+                        // print(item as Any)
+                        
+                        if (self.txt_country.text! == (item!["name"] as! String)) {
+                            // print("yes matched")
+                            self.strCountryId = "\(item!["id"]!)"
+                            self.txt_phone_code.text = (item!["phonecode"] as! String)
+                        }
+                        
+                    }
                     
                 } else {
                     
@@ -708,6 +722,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
             }
         }
     }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if (textField == self.txt_phone) {

@@ -400,7 +400,6 @@ extension verify_phone_number: UITableViewDataSource  , UITableViewDelegate {
         cell.otpTextFieldView.delegate = self
         cell.otpTextFieldView.initializeUI()
         
-        
         cell.lblDummyOTP.text = String(self.getOPT)
         
         return cell

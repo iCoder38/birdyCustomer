@@ -321,9 +321,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     @objc func handleNotificationWhenDriverRideEnd() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let destinationController = storyboard.instantiateViewController(withIdentifier:"ride_status_id") as? ride_status
+        let destinationController = storyboard.instantiateViewController(withIdentifier:"success_payment_id") as? success_payment
         
-        destinationController?.dict_get_all_data_from_notification = dict as NSDictionary
+        destinationController?.get_booking_details = dict as NSDictionary
         
         let frontNavigationController = UINavigationController(rootViewController: destinationController!)
         

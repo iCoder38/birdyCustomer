@@ -366,6 +366,8 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         // book a ride now
         self.btn_book_a_ride_now.addTarget(self, action: #selector(bookARideNowClickMethod), for: .touchUpInside)
         
+        // schedule a ride
+        self.btn_schedule_a_ride_now.addTarget(self, action: #selector(schedule_a_ride_click_method), for: .touchUpInside)
         
         // Configure Location Manager
         locationManager.delegate = self
@@ -442,24 +444,27 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     @objc func bookARideNowClickMethod() {
         // showFullScreenPopup()
         
-        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "total_fare_distance_mpa_route_id") as? total_fare_distance_mpa_route
-         
-         // login user location
-         push!.my_location_lat = String(self.loginUserLatitudeTo)
-         push!.my_location_long = String(self.loginUserLongitudeTo)
-         
-         // destination lat long
-         push!.searched_place_location_lat = String(self.loginUserLatitudeFrom)
-         push!.searched_place_location_long = String(self.loginUserLongitudeFrom)
-         
-         // id
-         push!.str_get_category_id = String(self.strUserSelectCarCategory)
-         
-         // address
-         push!.str_to_location =  String(self.loginUserAddressTo)
-         push!.str_from_location =  String(self.loginUserAddressFrom)
-         
-         self.navigationController?.pushViewController(push!, animated: true)
+        if (self.strUserSelectCarCategory != nil) {
+            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "total_fare_distance_mpa_route_id") as? total_fare_distance_mpa_route
+             
+             // login user location
+             push!.my_location_lat = String(self.loginUserLatitudeTo)
+             push!.my_location_long = String(self.loginUserLongitudeTo)
+             
+             // destination lat long
+             push!.searched_place_location_lat = String(self.loginUserLatitudeFrom)
+             push!.searched_place_location_long = String(self.loginUserLongitudeFrom)
+             
+             // id
+             push!.str_get_category_id = String(self.strUserSelectCarCategory)
+             
+             // address
+             push!.str_to_location =  String(self.loginUserAddressTo)
+             push!.str_from_location =  String(self.loginUserAddressFrom)
+             
+             self.navigationController?.pushViewController(push!, animated: true)
+        }
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -601,9 +606,12 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 
                 var parameters:Dictionary<AnyHashable, Any>!
                 parameters = [
-                    "action"        : "category",
-                    "TYPE"        : String("CAR"),
-                    
+                    "action"            : "listbyprice",
+                    "TYPE"              : String("CAR"),
+                    "userId"            : String(myString),
+                    "pickuplatLong"     : String(self.loginUserLatitudeTo)+","+String(self.loginUserLongitudeTo),
+                    "droplatLong"       : String(self.loginUserLatitudeFrom)+","+String(self.loginUserLongitudeFrom),
+                    "language"          : String("en")
                 ]
                 
                 print(parameters as Any)
@@ -628,9 +636,9 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                         if strSuccess == String("success") {
                             print("yes")
                             
-                            let str_token = (JSON["AuthToken"] as! String)
+                            /*let str_token = (JSON["AuthToken"] as! String)
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)*/
                             
                             self.arrCarCategories.removeAllObjects()
                             var ar : NSArray!
@@ -1061,28 +1069,23 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     }
     
     @objc func schedule_a_ride_click_method() {
-        if (self.str_vehicle_type == "0") {
-            debugPrint("Please select car type")
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please select car type"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
+       
+        if (self.strUserSelectCarCategory != nil) {
+            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_a_ride_id") as? schedule_a_ride
             
-        } else {
-            self.str_select_option = "schedule"
-            // self.tbleView.reloadData()
+            push!.str_get_category_id = String(self.strUserSelectCarCategory)
+           
+            push!.str_to_location   = String(self.loginUserAddressFrom)
+            push!.str_from_location = String(self.loginUserAddressTo)
             
-            debugPrint(self.str_vehicle_type as Any)
-            debugPrint(self.str_select_option as Any)
-            debugPrint(self.loginUserLatitudeFrom as Any)
+            push!.my_location_lat   = String(self.loginUserLatitudeTo)
+            push!.my_location_long  = String(self.loginUserLongitudeTo)
             
+            push!.searched_place_location_lat   = String(self.loginUserLatitudeFrom)
+            push!.searched_place_location_long  = String(self.loginUserLongitudeFrom)
             
-            
+            self.navigationController?.pushViewController(push!, animated: true)
         }
-        
-        
-        // let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_a_ride_id") as? schedule_a_ride
-        // self.navigationController?.pushViewController(push!, animated: true)
         
     }
     
@@ -1693,9 +1696,9 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
         
         // print(distance as Any)
         
-        let multiplePriceWithDistance = Double(distance) * Double("\(item!["perMile"]!)")!
-        let myString = String(format: "%.2f", multiplePriceWithDistance)
-        cell.lblPrice.text = "$\(myString)"
+        let multiplePriceWithDistance = Double("\(item!["total"]!)")!
+//        let myString = String(format: "%.2f", multiplePriceWithDistance)
+        cell.lblPrice.text = "$\(multiplePriceWithDistance)"
         cell.lblPrice.textColor = .black
 //        cell.lblPrice.isHidden = true
         
@@ -1723,7 +1726,8 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
         self.strSelectCarCategory = "\(indexPath.row)"
         
         let item = self.arrCarCategories[indexPath.row] as? [String:Any]
-        self.strUserSelectCarCategory = "\(item!["id"]!)"
+        // print(item as Any)
+        self.strUserSelectCarCategory = "\(item!["ID"]!)"
         
         self.tbleView.reloadData()
         

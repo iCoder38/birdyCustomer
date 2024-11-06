@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import SDWebImage
 
 class ride_history: UIViewController {
 
@@ -675,6 +676,10 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                     }
                 }
             }
+            
+            cell.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+            cell.img_profile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo"))
+            
             return cell
         } else {
             
@@ -871,6 +876,9 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             
             cell.lbl_status_for_complete.font = UIFont(name:"Poppins-SemiBold", size: 16.0)
             cell.lbl_date_for_complete.text = "\(item!["bookingDate"]!)"
+            
+            cell.img_profile_for_complete.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+            cell.img_profile_for_complete.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo"))
             
             return cell
             

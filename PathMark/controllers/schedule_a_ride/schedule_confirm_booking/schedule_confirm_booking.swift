@@ -81,7 +81,6 @@ class schedule_confirm_booking: UIViewController , CLLocationManagerDelegate , M
     @IBOutlet weak var lblNavigationTitle:UILabel! {
         didSet {
              
-            
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
                 

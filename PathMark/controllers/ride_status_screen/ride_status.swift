@@ -23,6 +23,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     var str_vehicle_type:String!
     
     var dict_get_all_data_from_notification:NSDictionary!
+    var dictDynamicDictionary:NSDictionary!
     
     let locationManager = CLLocationManager()
     
@@ -96,9 +97,27 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     
     var isFromMenuAfterPaymentSuccess:Bool!
     
+    @IBOutlet weak var viewBottom:UIView! {
+        didSet {
+            viewBottom.backgroundColor = .white
+            viewBottom.layer.cornerRadius = 12
+            viewBottom.clipsToBounds = true
+            
+        }
+    }
+    
+    @IBOutlet weak var lblTotalTime:UILabel! {
+        didSet {
+            lblTotalTime.backgroundColor = .black
+            lblTotalTime.textColor = .yellow
+            lblTotalTime.layer.cornerRadius = 12
+            lblTotalTime.clipsToBounds = true
+        }
+    }
+    
     @IBOutlet weak var navigationBar:UIView! {
         didSet {
-            navigationBar.backgroundColor = navigation_color
+            navigationBar.applyGradient()
         }
     }
     
@@ -126,9 +145,11 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     
     @IBOutlet weak var btnConfirmBooking:UIButton! {
         didSet {
-            btnConfirmBooking.isHidden = true
+            btnConfirmBooking.isHidden = false
             btnConfirmBooking.backgroundColor = .systemGreen
-            btnConfirmBooking.setTitle("Confirm booking", for: .normal)
+            btnConfirmBooking.setTitle("", for: .normal)
+            btnConfirmBooking.layer.cornerRadius = 12
+            btnConfirmBooking.clipsToBounds = true
         }
     }
     
@@ -193,7 +214,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     
     @IBOutlet weak var btn_chat:UIButton! {
         didSet {
-            btn_chat.backgroundColor = .red
+            btn_chat.backgroundColor = .clear
         }
     }
     
@@ -214,6 +235,8 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     @IBOutlet weak var img_profile:UIImageView! {
         didSet {
             img_profile.image = UIImage(named: "1024")
+            img_profile.layer.cornerRadius = 12
+            img_profile.clipsToBounds = true
         }
     }
     
@@ -235,756 +258,759 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         self.view.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        if (self.dict_get_all_data_from_notification["type"] != nil) {
-            
-            if (self.dict_get_all_data_from_notification["type"] as! String == "Chat") {
-                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
-                
-                push!.str_back_home = "home"
-                push!.get_all_data = self.dict_get_all_data_from_notification
-                push!.str_booking_id = "\(self.dict_get_all_data_from_notification["bookingId"]!)"
-                
-                self.navigationController?.pushViewController(push!, animated: true)
-                
-                return
-            }
-            
+        /*if (self.dict_get_all_data_from_notification["type"] != nil) {
+         
+         if (self.dict_get_all_data_from_notification["type"] as! String == "Chat") {
+         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
+         
+         push!.str_back_home = "home"
+         push!.get_all_data = self.dict_get_all_data_from_notification
+         push!.str_booking_id = "\(self.dict_get_all_data_from_notification["bookingId"]!)"
+         
+         self.navigationController?.pushViewController(push!, animated: true)
+         
+         return
+         }
+         
+         }
+         
+         // keyboard
+         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+         
+         // self.btnBack.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
+         self.btn_share.addTarget(self, action: #selector(share_click_method), for: .touchUpInside)
+         
+         self.btn_chat.backgroundColor = .clear
+         self.btn_chat.addTarget(self, action: #selector(chat_click_method), for: .touchUpInside)
+         
+         self.btn_home.addTarget(self, action: #selector(home_click_method), for: .touchUpInside)
+         
+         // self.btnConfirmBooking.addTarget(self, action: #selector(validation_before_confirm_booking), for: .touchUpInside)
+         
+         // self.show_loading_UI()
+         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+         
+         self.tbleView.delegate = self
+         self.tbleView.dataSource = self
+         
+         self.tbleView.reloadData()
+         
+         self.btn_cancel_ride.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+         
+         /*
+          DriverImage = "";
+          RequestDropAddress = "Modinagar Modinagar";
+          RequestDropLatLong = "28.835619,77.569403";
+          RequestPickupAddress = "Sector 10 Dwarka South West Delhi New Delhi,New Delhi,India";
+          RequestPickupLatLong = "28.587152917200502,77.06061415697155";
+          VehicleColor = red;
+          aps =     {
+          alert = "iDriver5 has confirmed your booling.";
+          };
+          bookingId = 87;
+          driverContact = 8287632345;
+          driverId = 13;
+          driverLatitude = "28.587238814653944";
+          driverName = iDriver5;
+          driverlongitude = "77.06062328401764";
+          "gcm.message_id" = 1693292390930120;
+          "google.c.a.e" = 1;
+          "google.c.fid" = cwFMTZl0K0fpkfcPMinYSO;
+          "google.c.sender.id" = 750959835757;
+          message = "iDriver5 has confirmed your booling.";
+          rating = 0;
+          type = confirm;
+          vehicleNumber = dl007;
+          // str_from_history
+          */
+         
+         print("=============================================")
+         print("=============================================")
+         print(self.dict_get_all_data_from_notification as Any)
+         print("=============================================")
+         print("=============================================")
+         
+         if (isFromMenuAfterPaymentSuccess == true) {
+         
+         } else {
+         if self.dict_get_all_data_from_notification["RideCode"] != nil {
+         let myString = "\(self.dict_get_all_data_from_notification["RideCode"]!)"
+         if (myString.count < 4) {
+         debugPrint("Yes, Ride code is less then 4")
+         isRideCodeHidden = true
+         } else {
+         debugPrint("Ride code is valid")
+         isRideCodeHidden = false
+         }
+         }
+         
+         
+         
+         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+         print(language as Any)
+         
+         if (language == "en") {
+         self.btn_call_driver.setTitle(" Call driver", for: .normal)
+         self.btn_cancel_ride.setTitle(" cancel ride", for: .normal)
+         } else {
+         self.btn_call_driver.setTitle(" ড্রাইভারকে কল করুন", for: .normal)
+         self.btn_cancel_ride.setTitle(" যাত্রা বাতিল করুন", for: .normal)
+         }
+         
+         } else {
+         print("=============================")
+         print("LOGIN : Select language error")
+         print("=============================")
+         UserDefaults.standard.set("en", forKey: str_language_convert)
+         }
+         
+         if (self.str_from_history == "yes") {
+         // print("\(self.dict_get_all_data_from_notification["rideStatus"]!)")
+         
+         if ("\(self.dict_get_all_data_from_notification["rideStatus"]!)" == "3") {
+         self.btnConfirmBooking.isHidden = true
+         self.navigationBar.backgroundColor = navigation_color
+         
+         self.btn_booking_confirmed.isHidden = true
+         // self.lbl_OTP.isHidden = true
+         
+         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+         print(language as Any)
+         
+         if (language == "en") {
+         self.lblNavigationTitle.text = "Enjoy your ride"
+         self.lbl_message.text = "Enjoy your ride"
+         
+         } else {
+         self.lblNavigationTitle.text = "আপনার রাইড উপভোগ করুন"
+         self.lbl_message.text = "আপনার রাইড উপভোগ করুন"
+         }
+         
+         } else {
+         print("=============================")
+         print("LOGIN : Select language error")
+         print("=============================")
+         UserDefaults.standard.set("en", forKey: str_language_convert)
+         }
+         
+         } else if ("\(self.dict_get_all_data_from_notification["rideStatus"]!)" == "2") {
+         
+         self.navigationBar.backgroundColor = navigation_color
+         
+         self.btn_booking_confirmed.isHidden = true
+         
+         // self.lbl_OTP.isHidden = true
+         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+         print(language as Any)
+         
+         if (language == "en") {
+         self.lblNavigationTitle.text = "Driver has Arrived"
+         self.lbl_message.text = "Confirm booking"
+         
+         } else {
+         self.lblNavigationTitle.text = "ড্রাইভার এসেছিল"
+         self.lbl_message.text = "ড্রাইভার এসেছিল"
+         }
+         
+         } else {
+         print("=============================")
+         print("LOGIN : Select language error")
+         print("=============================")
+         UserDefaults.standard.set("en", forKey: str_language_convert)
+         }
+         self.hide_loading_UI()
+         
+         if (isRideCodeHidden == true) {
+         self.btnConfirmBooking.isHidden = true
+         self.btnConfirmBooking.setTitle("Driver arrived", for: .normal)
+         self.btnConfirmBooking.tag = 100
+         
+         } else {
+         self.btnConfirmBooking.isHidden = true
+         self.btnConfirmBooking.addTarget(self, action: #selector(confirmBookingSetOTP), for: .touchUpInside)
+         
+         }
+         
+         }  else if ("\(self.dict_get_all_data_from_notification["rideStatus"]!)" == "1") {
+         // self.lblNavigationTitle.text = "Booking Confirmed"
+         self.navigationBar.backgroundColor = navigation_color
+         
+         self.btnConfirmBooking.isHidden = true
+         
+         // self.btn_booking_confirmed.isHidden = false
+         // self.lbl_message.text = "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ . وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ"
+         
+         
+         // self.lbl_OTP.text = "OTP : \(self.dict_get_all_data_from_notification["RideCode"]!)"
+         
+         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+         print(language as Any)
+         
+         if (language == "en") {
+         self.lblNavigationTitle.text = "Booking Confirmed"
+         
+         
+         } else {
+         self.lblNavigationTitle.text = "বুকিং নিশ্চিত করা হয়েছে"
+         }
+         
+         } else {
+         print("=============================")
+         print("LOGIN : Select language error")
+         print("=============================")
+         UserDefaults.standard.set("en", forKey: str_language_convert)
+         }
+         
+         }
+         
+         
+         
+         self.lbl_car_details.text = (self.dict_get_all_data_from_notification["vehicleNumber"] as! String)+" ("+(self.dict_get_all_data_from_notification["VehicleColor"] as! String)+" )"
+         
+         print(self.self.dict_get_all_data_from_notification as Any)
+         
+         self.lbl_driver_name.text = (self.dict_get_all_data_from_notification["fullName"] as! String)
+         self.lbl_driver_rating.text = "\(self.dict_get_all_data_from_notification["AVGRating"]!)"
+         
+         self.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+         self.img_profile.sd_setImage(with: URL(string: (self.dict_get_all_data_from_notification["image"] as! String)), placeholderImage: UIImage(named: "logo"))
+         
+         //
+         // star manage
+         if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" == "0" {
+         
+         self.img_star_one.image = UIImage(systemName: "star")
+         self.img_star_two.image = UIImage(systemName: "star")
+         self.img_star_three.image = UIImage(systemName: "star")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" > "1" &&
+         "\(self.dict_get_all_data_from_notification["AVGRating"]!)" < "2" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.leadinghalf.filled")
+         self.img_star_three.image = UIImage(systemName: "star")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" == "2" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         
+         } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" > "2" &&
+         "\(self.dict_get_all_data_from_notification["AVGRating"]!)" < "3" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star.leadinghalf.filled")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" == "3" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star.fill")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" > "3" &&
+         "\(self.dict_get_all_data_from_notification["AVGRating"]!)" < "4" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star.fill")
+         self.img_star_four.image = UIImage(systemName: "star.leadinghalf.filled")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" == "5" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star.fill")
+         self.img_star_four.image = UIImage(systemName: "star.fill")
+         self.img_star_five.image = UIImage(systemName: "star.fill")
+         
+         }
+         
+         } else {
+         // print("\(self.dict_get_all_data_from_notification["rideStatus"]!)")
+         if (self.dict_get_all_data_from_notification == nil) {
+         
+         } else {
+         
+         if (self.dict_get_all_data_from_notification["type"] as! String) == "confirm" {
+         
+         self.navigationBar.backgroundColor = navigation_color
+         // UIColor.init(red: 104.0/255.0, green: 218.0/255.0, blue: 134.0/255.0, alpha: 1)
+         
+         // self.btn_booking_confirmed.isHidden = false
+         self.lbl_message.isHidden = false
+         
+         // self.lbl_OTP.isHidden = true
+         // self.lbl_OTP.text = "OTP : \(self.dict_get_all_data_from_notification["RideCode"]!)"
+         
+         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+         print(language as Any)
+         
+         if (language == "en") {
+         self.btn_booking_confirmed.setTitle("Booking Confirmed", for: .normal)
+         self.lblNavigationTitle.text = "Booking Confirmed."
+         
+         } else {
+         self.btn_booking_confirmed.setTitle("বুকিং নিশ্চিত করা হয়েছে", for: .normal)
+         self.lblNavigationTitle.text = "বুকিং নিশ্চিত করা হয়েছে."
+         }
+         
+         } else {
+         print("=============================")
+         print("LOGIN : Select language error")
+         print("=============================")
+         UserDefaults.standard.set("en", forKey: str_language_convert)
+         }
+         
+         } else if (self.dict_get_all_data_from_notification["type"] as! String) == "arrived" {
+         
+         // self.lbl_OTP.isHidden = false
+         // self.lbl_OTP.text = "OTP : \(self.dict_get_all_data_from_notification["RideCode"]!)"
+         
+         
+         self.navigationBar.backgroundColor = navigation_color
+         
+         self.btn_booking_confirmed.isHidden = true
+         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+         print(language as Any)
+         
+         if (language == "en") {
+         self.lblNavigationTitle.text = "Driver has Arrived"
+         self.lbl_message.text = "Confirm booking"
+         
+         } else {
+         self.lblNavigationTitle.text = "ড্রাইভার এসেছিল"
+         self.lbl_message.text = "ড্রাইভার এসেছিল"
+         }
+         
+         } else {
+         print("=============================")
+         print("LOGIN : Select language error")
+         print("=============================")
+         UserDefaults.standard.set("en", forKey: str_language_convert)
+         }
+         
+         if (isRideCodeHidden == true) {
+         self.btnConfirmBooking.isHidden = true
+         
+         } else {
+         self.btnConfirmBooking.isHidden = true
+         self.btnConfirmBooking.addTarget(self, action: #selector(confirmBookingSetOTP), for: .touchUpInside)
+         
+         }
+         
+         }  else if (self.dict_get_all_data_from_notification["type"] as! String) == "ridestart" {
+         // self.lbl_OTP.isHidden = true
+         
+         
+         self.navigationBar.backgroundColor = navigation_color
+         self.btn_cancel_ride.isHidden = true
+         
+         self.btn_booking_confirmed.isHidden = true
+         
+         
+         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+         print(language as Any)
+         
+         if (language == "en") {
+         self.lblNavigationTitle.text = "Enjoy your ride"
+         self.lbl_message.text = "Enjoy your ride"
+         
+         } else {
+         self.lblNavigationTitle.text = "আপনার রাইড উপভোগ করুন"
+         self.lbl_message.text = "আপনার রাইড উপভোগ করুন  "
+         }
+         
+         } else {
+         print("=============================")
+         print("LOGIN : Select language error")
+         print("=============================")
+         UserDefaults.standard.set("en", forKey: str_language_convert)
+         }
+         
+         self.btnConfirmBooking.isHidden = true
+         
+         }  else if (self.dict_get_all_data_from_notification["type"] as! String) == "rideend1" {
+         // self.lbl_OTP.isHidden = true
+         
+         self.lblNavigationTitle.text = "Ride Complete - Please pay"
+         self.navigationBar.backgroundColor = navigation_color
+         self.btn_cancel_ride.isHidden = true
+         
+         self.btn_booking_confirmed.isHidden = true
+         self.lbl_message.text = "Ride Complete - Please pay"
+         
+         // NEW
+         if self.dict_get_all_data_from_notification["Last_cancel_amount"] == nil {
+         
+         if self.dict_get_all_data_from_notification["last_cancel_amount"] == nil {
+         
+         // BOTH LAST CANCEL AMOUNT IS NIL
+         print(self.dict_get_all_data_from_notification as Any)
+         
+         /*let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Ride done"), style: .alert)
+          let pay = NewYorkButton(title: "Pay : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) {
+          _ in
+          let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
+          
+          push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
+          push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
+          push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
+          
+          self.navigationController?.pushViewController(push!, animated: true)
+          }
+          let cancel = NewYorkButton(title: "Home", style: .default) {
+          _ in
+          let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
+          self.navigationController?.pushViewController(push!, animated: true)
+          }
+          alert.addButtons([pay,cancel])
+          self.present(alert, animated: true)*/
+         
+         
+         let alert = UIAlertController(title: "Alert", message: String("Ride done"), preferredStyle: .alert)
+         
+         // Add actions
+         let okAction = UIAlertAction(title: "Pay : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) { _ in
+         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
+         
+         push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
+         push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
+         push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
+         
+         self.navigationController?.pushViewController(push!, animated: true)
+         }
+         let cancelAction = UIAlertAction(title: "Home", style: .cancel) { _ in
+         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
+         self.navigationController?.pushViewController(push!, animated: true)
+         }
+         
+         alert.addAction(okAction)
+         alert.addAction(cancelAction)
+         
+         // Present the alert
+         self.present(alert, animated: true, completion: nil)
+         
+         } else {
+         let a = Double("\(self.dict_get_all_data_from_notification["last_cancel_amount"]!)")
+         let b = Double("\(self.dict_get_all_data_from_notification["FinalFare"]!)")
+         var sum = a! + b!
+         print(sum as Any)
+         
+         
+         
+         print(self.dict_get_all_data_from_notification as Any)
+         
+         
+         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+         print(language as Any)
+         
+         if (language == "en") {
+         /*let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Ride done")+"\n\nLast cancel ride amount: "+"\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["last_cancel_amount"]!)", style: .alert)
+          let pay = NewYorkButton(title: "Pay : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) {
+          _ in
+          let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
+          
+          push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
+          push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
+          push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
+          
+          self.navigationController?.pushViewController(push!, animated: true)
+          }
+          
+          let cancel = NewYorkButton(title: "Home", style: .default) {
+          _ in
+          let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
+          self.navigationController?.pushViewController(push!, animated: true)
+          }
+          alert.addButtons([pay,cancel])
+          self.present(alert, animated: true)*/
+         
+         let alert = UIAlertController(title: "Alert", message: String("Ride done")+"\n\nLast cancel ride amount: "+"\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["last_cancel_amount"]!)", preferredStyle: .alert)
+         
+         // Add actions
+         let okAction = UIAlertAction(title: "Pay : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) { _ in
+         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
+         
+         push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
+         push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
+         push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
+         
+         self.navigationController?.pushViewController(push!, animated: true)
+         }
+         let cancelAction = UIAlertAction(title: "Home", style: .cancel) { _ in
+         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
+         self.navigationController?.pushViewController(push!, animated: true)
+         }
+         
+         alert.addAction(okAction)
+         alert.addAction(cancelAction)
+         
+         // Present the alert
+         self.present(alert, animated: true, completion: nil)
+         
+         
+         } else {
+         /*let alert = NewYorkAlertController(title: nil, message: "\n\nশেষ বাতিল রাইড পরিমাণ: "+"\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["last_cancel_amount"]!)", style: .alert)
+          let pay = NewYorkButton(title: "বেতন : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) {
+          _ in
+          let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
+          
+          push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
+          push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
+          push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
+          
+          self.navigationController?.pushViewController(push!, animated: true)
+          }
+          
+          let cancel = NewYorkButton(title: "হোম", style: .default) {
+          _ in
+          let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
+          self.navigationController?.pushViewController(push!, animated: true)
+          }
+          alert.addButtons([pay,cancel])
+          self.present(alert, animated: true)
+          */
+         let alert = UIAlertController(title: "Alert", message: "\n\nশেষ বাতিল রাইড পরিমাণ: "+"\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["last_cancel_amount"]!)", preferredStyle: .alert)
+         
+         // Add actions
+         let okAction = UIAlertAction(title: "বেতন : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) { _ in
+         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
+         
+         push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
+         push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
+         push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
+         
+         self.navigationController?.pushViewController(push!, animated: true)
+         }
+         let cancelAction = UIAlertAction(title: "হোম", style: .cancel) { _ in
+         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
+         self.navigationController?.pushViewController(push!, animated: true)
+         }
+         
+         alert.addAction(okAction)
+         alert.addAction(cancelAction)
+         
+         // Present the alert
+         self.present(alert, animated: true, completion: nil)
+         
+         }
+         
+         }
+         
+         /*self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(sum)"
+          self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(sum)"*/
+         }
+         
+         } else {
+         print(self.dict_get_all_data_from_notification as Any)
+         let a = Double("\(self.dict_get_all_data_from_notification["Last_cancel_amount"]!)")
+         let b = Double("\(self.dict_get_all_data_from_notification["FinalFare"]!)")
+         var sum = a! + b!
+         print(sum as Any)
+         
+         
+         
+         /*var total_Amount_is:String!
+          
+          let cancellationFees:Double!
+          
+          if let amount = self.convertToDouble("\(self.dict_get_all_data_from_notification["FinalFare"]!)"),
+          let bookingFees = self.convertToDouble("\(self.dict_get_all_data_from_notification["bookingFee"]!)") {
+          
+          if "\(self.dict_get_all_data_from_notification["Last_cancel_amount"]!)" == "" {
+          cancellationFees = convertToDouble("0.0")
+          } else if "\(self.dict_get_all_data_from_notification["Last_cancel_amount"]!)" == "" {
+          cancellationFees = convertToDouble("0.0")
+          } else {
+          cancellationFees = convertToDouble("\(self.dict_get_all_data_from_notification["Last_cancel_amount"]!)")
+          }
+          
+          let totalAmount = amount + bookingFees + cancellationFees!
+          
+          if "\(self.dict_get_all_data_from_notification["Promotional_total"]!)" != "" {
+          let pro_dis = convertToDouble("\(self.dict_get_all_data_from_notification["Promotional_total"]!)")
+          print(pro_dis as Any)
+          let complete_cal = totalAmount - pro_dis!
+          print("Complete cal: \(complete_cal)")
+          
+          // self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(complete_cal)"
+          // // self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(complete_cal)"
+          
+          // also manage trip fare
+          // self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["FinalFare"]!)"
+          
+          let final_fare = convertToDouble("\(self.dict_get_all_data_from_notification["FinalFare"]!)")
+          print("Final fare: \(final_fare!)")
+          
+          let f_f_total = final_fare! - pro_dis!
+          // self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
+          total_Amount_is = "\(f_f_total)"
+          } else {
+          total_Amount_is = "\(totalAmount)"
+          // self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+          // self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+          }
+          
+          } else {
+          print("Invalid number format in one of the strings.")
+          }*/
+         
+         self.str_booking_id = "\(self.dict_get_all_data_from_notification["bookingId"]!)"
+         
+         let delayInSeconds = Double(500) / 1000.0
+         DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+         // Call the hitWebservice function after the delay
+         self.booking_history_details_WB(str_show_loader: "yes")
+         }
+         
+         /*self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(sum)"
+          self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(sum)"*/
+         }
+         self.btnConfirmBooking.isHidden = true
+         } else if (self.dict_get_all_data_from_notification["type"] as! String) == "Chat" {
+         
+         
+         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
+         
+         push!.str_back_home = "home"
+         push!.get_all_data = self.dict_get_all_data_from_notification
+         push!.str_booking_id = "\(self.dict_get_all_data_from_notification["bookingId"]!)"
+         
+         self.navigationController?.pushViewController(push!, animated: true)
+         
+         return
+         }
+         
+         
+         self.lbl_car_details.text = (self.dict_get_all_data_from_notification["vehicleNumber"] as! String)
+         // +" ("+(self.dict_get_all_data_from_notification["VehicleColor"] as! String)+" )"
+         
+         // print(self.self.dict_get_all_data_from_notification as Any)
+         
+         self.lbl_driver_name.text = (self.dict_get_all_data_from_notification["driverName"] as! String)
+         self.lbl_driver_rating.text = "\(self.dict_get_all_data_from_notification["rating"]!)"
+         
+         self.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+         self.img_profile.sd_setImage(with: URL(string: (self.dict_get_all_data_from_notification["DriverImage"] as! String)), placeholderImage: UIImage(named: "logo"))
+         
+         
+         
+         
+         
+         
+         // star manage
+         if "\(self.dict_get_all_data_from_notification["rating"]!)" == "0" {
+         
+         self.img_star_one.image = UIImage(systemName: "star")
+         self.img_star_two.image = UIImage(systemName: "star")
+         self.img_star_three.image = UIImage(systemName: "star")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["rating"]!)" > "1" &&
+         "\(self.dict_get_all_data_from_notification["rating"]!)" < "2" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.leadinghalf.filled")
+         self.img_star_three.image = UIImage(systemName: "star")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["rating"]!)" == "2" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         
+         } else if "\(self.dict_get_all_data_from_notification["rating"]!)" > "2" &&
+         "\(self.dict_get_all_data_from_notification["rating"]!)" < "3" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star.leadinghalf.filled")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["rating"]!)" == "3" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star.fill")
+         self.img_star_four.image = UIImage(systemName: "star")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["rating"]!)" > "3" &&
+         "\(self.dict_get_all_data_from_notification["rating"]!)" < "4" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star.fill")
+         self.img_star_four.image = UIImage(systemName: "star.leadinghalf.filled")
+         self.img_star_five.image = UIImage(systemName: "star")
+         
+         } else if "\(self.dict_get_all_data_from_notification["rating"]!)" == "5" {
+         
+         self.img_star_one.image = UIImage(systemName: "star.fill")
+         self.img_star_two.image = UIImage(systemName: "star.fill")
+         self.img_star_three.image = UIImage(systemName: "star.fill")
+         self.img_star_four.image = UIImage(systemName: "star.fill")
+         self.img_star_five.image = UIImage(systemName: "star.fill")
+         
+         }
+         }
+         }
+         
+         
+         //
+         print(self.dict_get_all_data_from_notification as Any)
+         
+         if (self.dict_get_all_data_from_notification["type"] != nil) {
+         if(self.dict_get_all_data_from_notification["type"] as! String == "rideend") {
+         debugPrint("COMPLETED: RIDE END % Show popup now")
+         
+         
+         /*let delayInSeconds = Double(500) / 1000.0
+          DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+          // Call the hitWebservice function after the delay
+          debugPrint("Show popup now")
+          // self.booking_history_details_WB(str_show_loader: "yes")
+          }*/
+         
+         self.handleEveythingFromGoogleMapInit()
+         
+         } else {
+         debugPrint("DATA IS NOT NIL")
+         
+         self.handleEveythingFromGoogleMapInit()
+         }
+         } else {
+         self.handleEveythingFromGoogleMapInit()
+         }
+         
+         }*/
+        
+        let delayInSeconds = Double(500) / 1000.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+            self.booking_history_details_WB(str_show_loader: "no")
         }
-        
-        // keyboard
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        // self.btnBack.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
-        self.btn_share.addTarget(self, action: #selector(share_click_method), for: .touchUpInside)
-        
-        self.btn_chat.backgroundColor = .clear
-        self.btn_chat.addTarget(self, action: #selector(chat_click_method), for: .touchUpInside)
-        
-        self.btn_home.addTarget(self, action: #selector(home_click_method), for: .touchUpInside)
-        
-        // self.btnConfirmBooking.addTarget(self, action: #selector(validation_before_confirm_booking), for: .touchUpInside)
-        
-        // self.show_loading_UI()
-        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-        
-        self.tbleView.delegate = self
-        self.tbleView.dataSource = self
-        
-        self.tbleView.reloadData()
-        
-        self.btn_cancel_ride.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
-        
-        /*
-         DriverImage = "";
-         RequestDropAddress = "Modinagar Modinagar";
-         RequestDropLatLong = "28.835619,77.569403";
-         RequestPickupAddress = "Sector 10 Dwarka South West Delhi New Delhi,New Delhi,India";
-         RequestPickupLatLong = "28.587152917200502,77.06061415697155";
-         VehicleColor = red;
-         aps =     {
-         alert = "iDriver5 has confirmed your booling.";
-         };
-         bookingId = 87;
-         driverContact = 8287632345;
-         driverId = 13;
-         driverLatitude = "28.587238814653944";
-         driverName = iDriver5;
-         driverlongitude = "77.06062328401764";
-         "gcm.message_id" = 1693292390930120;
-         "google.c.a.e" = 1;
-         "google.c.fid" = cwFMTZl0K0fpkfcPMinYSO;
-         "google.c.sender.id" = 750959835757;
-         message = "iDriver5 has confirmed your booling.";
-         rating = 0;
-         type = confirm;
-         vehicleNumber = dl007;
-         // str_from_history
-         */
-        
-        print("=============================================")
-        print("=============================================")
-        print(self.dict_get_all_data_from_notification as Any)
-        print("=============================================")
-        print("=============================================")
-        
-        if (isFromMenuAfterPaymentSuccess == true) {
-            
-        } else {
-            if self.dict_get_all_data_from_notification["RideCode"] != nil {
-                let myString = "\(self.dict_get_all_data_from_notification["RideCode"]!)"
-                if (myString.count < 4) {
-                    debugPrint("Yes, Ride code is less then 4")
-                    isRideCodeHidden = true
-                } else {
-                    debugPrint("Ride code is valid")
-                    isRideCodeHidden = false
-                }
-            }
-            
-            
-            
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    self.btn_call_driver.setTitle(" Call driver", for: .normal)
-                    self.btn_cancel_ride.setTitle(" cancel ride", for: .normal)
-                } else {
-                    self.btn_call_driver.setTitle(" ড্রাইভারকে কল করুন", for: .normal)
-                    self.btn_cancel_ride.setTitle(" যাত্রা বাতিল করুন", for: .normal)
-                }
-                
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
-            
-            if (self.str_from_history == "yes") {
-                // print("\(self.dict_get_all_data_from_notification["rideStatus"]!)")
-                
-                if ("\(self.dict_get_all_data_from_notification["rideStatus"]!)" == "3") {
-                    self.btnConfirmBooking.isHidden = true
-                    self.navigationBar.backgroundColor = navigation_color
-                    
-                    self.btn_booking_confirmed.isHidden = true
-                    // self.lbl_OTP.isHidden = true
-                    
-                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                        print(language as Any)
-                        
-                        if (language == "en") {
-                            self.lblNavigationTitle.text = "Enjoy your ride"
-                            self.lbl_message.text = "Enjoy your ride"
-                            
-                        } else {
-                            self.lblNavigationTitle.text = "আপনার রাইড উপভোগ করুন"
-                            self.lbl_message.text = "আপনার রাইড উপভোগ করুন"
-                        }
-                        
-                    } else {
-                        print("=============================")
-                        print("LOGIN : Select language error")
-                        print("=============================")
-                        UserDefaults.standard.set("en", forKey: str_language_convert)
-                    }
-                    
-                } else if ("\(self.dict_get_all_data_from_notification["rideStatus"]!)" == "2") {
-                    
-                    self.navigationBar.backgroundColor = navigation_color
-                    
-                    self.btn_booking_confirmed.isHidden = true
-                    
-                    // self.lbl_OTP.isHidden = true
-                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                        print(language as Any)
-                        
-                        if (language == "en") {
-                            self.lblNavigationTitle.text = "Driver has Arrived"
-                            self.lbl_message.text = "Confirm booking"
-                            
-                        } else {
-                            self.lblNavigationTitle.text = "ড্রাইভার এসেছিল"
-                            self.lbl_message.text = "ড্রাইভার এসেছিল"
-                        }
-                        
-                    } else {
-                        print("=============================")
-                        print("LOGIN : Select language error")
-                        print("=============================")
-                        UserDefaults.standard.set("en", forKey: str_language_convert)
-                    }
-                    self.hide_loading_UI()
-                    
-                    if (isRideCodeHidden == true) {
-                        self.btnConfirmBooking.isHidden = true
-                        self.btnConfirmBooking.setTitle("Driver arrived", for: .normal)
-                        self.btnConfirmBooking.tag = 100
-                        
-                    } else {
-                        self.btnConfirmBooking.isHidden = true
-                        self.btnConfirmBooking.addTarget(self, action: #selector(confirmBookingSetOTP), for: .touchUpInside)
-                        
-                    }
-                    
-                }  else if ("\(self.dict_get_all_data_from_notification["rideStatus"]!)" == "1") {
-                    // self.lblNavigationTitle.text = "Booking Confirmed"
-                    self.navigationBar.backgroundColor = navigation_color
-                    
-                    self.btnConfirmBooking.isHidden = true
-                    
-                    self.btn_booking_confirmed.isHidden = false
-                     // self.lbl_message.text = "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ . وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ"
-                    
-                    
-                    // self.lbl_OTP.text = "OTP : \(self.dict_get_all_data_from_notification["RideCode"]!)"
-                    
-                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                        print(language as Any)
-                        
-                        if (language == "en") {
-                            self.lblNavigationTitle.text = "Booking Confirmed"
-                            
-                            
-                        } else {
-                            self.lblNavigationTitle.text = "বুকিং নিশ্চিত করা হয়েছে"
-                        }
-                        
-                    } else {
-                        print("=============================")
-                        print("LOGIN : Select language error")
-                        print("=============================")
-                        UserDefaults.standard.set("en", forKey: str_language_convert)
-                    }
-                    
-                }
-                
-                
-                
-                self.lbl_car_details.text = (self.dict_get_all_data_from_notification["vehicleNumber"] as! String)+" ("+(self.dict_get_all_data_from_notification["VehicleColor"] as! String)+" )"
-                
-                print(self.self.dict_get_all_data_from_notification as Any)
-                
-                self.lbl_driver_name.text = (self.dict_get_all_data_from_notification["fullName"] as! String)
-                self.lbl_driver_rating.text = "\(self.dict_get_all_data_from_notification["AVGRating"]!)"
-                
-                self.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-                self.img_profile.sd_setImage(with: URL(string: (self.dict_get_all_data_from_notification["image"] as! String)), placeholderImage: UIImage(named: "logo"))
-                
-                //
-                // star manage
-                if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" == "0" {
-                    
-                    self.img_star_one.image = UIImage(systemName: "star")
-                    self.img_star_two.image = UIImage(systemName: "star")
-                    self.img_star_three.image = UIImage(systemName: "star")
-                    self.img_star_four.image = UIImage(systemName: "star")
-                    self.img_star_five.image = UIImage(systemName: "star")
-                    
-                } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" > "1" &&
-                            "\(self.dict_get_all_data_from_notification["AVGRating"]!)" < "2" {
-                    
-                    self.img_star_one.image = UIImage(systemName: "star.fill")
-                    self.img_star_two.image = UIImage(systemName: "star.leadinghalf.filled")
-                    self.img_star_three.image = UIImage(systemName: "star")
-                    self.img_star_four.image = UIImage(systemName: "star")
-                    self.img_star_five.image = UIImage(systemName: "star")
-                    
-                } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" == "2" {
-                    
-                    self.img_star_one.image = UIImage(systemName: "star.fill")
-                    self.img_star_two.image = UIImage(systemName: "star.fill")
-                    self.img_star_three.image = UIImage(systemName: "star")
-                    self.img_star_four.image = UIImage(systemName: "star")
-                    self.img_star_five.image = UIImage(systemName: "star")
-                    
-                    
-                } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" > "2" &&
-                            "\(self.dict_get_all_data_from_notification["AVGRating"]!)" < "3" {
-                    
-                    self.img_star_one.image = UIImage(systemName: "star.fill")
-                    self.img_star_two.image = UIImage(systemName: "star.fill")
-                    self.img_star_three.image = UIImage(systemName: "star.leadinghalf.filled")
-                    self.img_star_four.image = UIImage(systemName: "star")
-                    self.img_star_five.image = UIImage(systemName: "star")
-                    
-                } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" == "3" {
-                    
-                    self.img_star_one.image = UIImage(systemName: "star.fill")
-                    self.img_star_two.image = UIImage(systemName: "star.fill")
-                    self.img_star_three.image = UIImage(systemName: "star.fill")
-                    self.img_star_four.image = UIImage(systemName: "star")
-                    self.img_star_five.image = UIImage(systemName: "star")
-                    
-                } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" > "3" &&
-                            "\(self.dict_get_all_data_from_notification["AVGRating"]!)" < "4" {
-                    
-                    self.img_star_one.image = UIImage(systemName: "star.fill")
-                    self.img_star_two.image = UIImage(systemName: "star.fill")
-                    self.img_star_three.image = UIImage(systemName: "star.fill")
-                    self.img_star_four.image = UIImage(systemName: "star.leadinghalf.filled")
-                    self.img_star_five.image = UIImage(systemName: "star")
-                    
-                } else if "\(self.dict_get_all_data_from_notification["AVGRating"]!)" == "5" {
-                    
-                    self.img_star_one.image = UIImage(systemName: "star.fill")
-                    self.img_star_two.image = UIImage(systemName: "star.fill")
-                    self.img_star_three.image = UIImage(systemName: "star.fill")
-                    self.img_star_four.image = UIImage(systemName: "star.fill")
-                    self.img_star_five.image = UIImage(systemName: "star.fill")
-                    
-                }
-                
-            } else {
-                // print("\(self.dict_get_all_data_from_notification["rideStatus"]!)")
-                if (self.dict_get_all_data_from_notification == nil) {
-                    
-                } else {
-                    
-                    if (self.dict_get_all_data_from_notification["type"] as! String) == "confirm" {
-                        
-                        self.navigationBar.backgroundColor = navigation_color
-                        // UIColor.init(red: 104.0/255.0, green: 218.0/255.0, blue: 134.0/255.0, alpha: 1)
-                        
-                        self.btn_booking_confirmed.isHidden = false
-                        self.lbl_message.isHidden = false
-                        
-                        // self.lbl_OTP.isHidden = true
-                        // self.lbl_OTP.text = "OTP : \(self.dict_get_all_data_from_notification["RideCode"]!)"
-                        
-                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                            print(language as Any)
-                            
-                            if (language == "en") {
-                                self.btn_booking_confirmed.setTitle("Booking Confirmed", for: .normal)
-                                self.lblNavigationTitle.text = "Booking Confirmed."
-                                
-                            } else {
-                                self.btn_booking_confirmed.setTitle("বুকিং নিশ্চিত করা হয়েছে", for: .normal)
-                                self.lblNavigationTitle.text = "বুকিং নিশ্চিত করা হয়েছে."
-                            }
-                            
-                        } else {
-                            print("=============================")
-                            print("LOGIN : Select language error")
-                            print("=============================")
-                            UserDefaults.standard.set("en", forKey: str_language_convert)
-                        }
-                        
-                    } else if (self.dict_get_all_data_from_notification["type"] as! String) == "arrived" {
-                        
-                        // self.lbl_OTP.isHidden = false
-                        // self.lbl_OTP.text = "OTP : \(self.dict_get_all_data_from_notification["RideCode"]!)"
-                        
-                        
-                        self.navigationBar.backgroundColor = navigation_color
-                        
-                        self.btn_booking_confirmed.isHidden = true
-                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                            print(language as Any)
-                            
-                            if (language == "en") {
-                                self.lblNavigationTitle.text = "Driver has Arrived"
-                                self.lbl_message.text = "Confirm booking"
-                                
-                            } else {
-                                self.lblNavigationTitle.text = "ড্রাইভার এসেছিল"
-                                self.lbl_message.text = "ড্রাইভার এসেছিল"
-                            }
-                            
-                        } else {
-                            print("=============================")
-                            print("LOGIN : Select language error")
-                            print("=============================")
-                            UserDefaults.standard.set("en", forKey: str_language_convert)
-                        }
-                        
-                        if (isRideCodeHidden == true) {
-                            self.btnConfirmBooking.isHidden = true
-                            
-                        } else {
-                            self.btnConfirmBooking.isHidden = true
-                            self.btnConfirmBooking.addTarget(self, action: #selector(confirmBookingSetOTP), for: .touchUpInside)
-                            
-                        }
-                        
-                    }  else if (self.dict_get_all_data_from_notification["type"] as! String) == "ridestart" {
-                        // self.lbl_OTP.isHidden = true
-                        
-                        
-                        self.navigationBar.backgroundColor = navigation_color
-                        self.btn_cancel_ride.isHidden = true
-                        
-                        self.btn_booking_confirmed.isHidden = true
-                        
-                        
-                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                            print(language as Any)
-                            
-                            if (language == "en") {
-                                self.lblNavigationTitle.text = "Enjoy your ride"
-                                self.lbl_message.text = "Enjoy your ride"
-                                
-                            } else {
-                                self.lblNavigationTitle.text = "আপনার রাইড উপভোগ করুন"
-                                self.lbl_message.text = "আপনার রাইড উপভোগ করুন  "
-                            }
-                            
-                        } else {
-                            print("=============================")
-                            print("LOGIN : Select language error")
-                            print("=============================")
-                            UserDefaults.standard.set("en", forKey: str_language_convert)
-                        }
-                        
-                        self.btnConfirmBooking.isHidden = true
-                        
-                    }  else if (self.dict_get_all_data_from_notification["type"] as! String) == "rideend1" {
-                        // self.lbl_OTP.isHidden = true
-                        
-                        self.lblNavigationTitle.text = "Ride Complete - Please pay"
-                        self.navigationBar.backgroundColor = navigation_color
-                        self.btn_cancel_ride.isHidden = true
-                        
-                        self.btn_booking_confirmed.isHidden = true
-                        self.lbl_message.text = "Ride Complete - Please pay"
-                        
-                        // NEW
-                        if self.dict_get_all_data_from_notification["Last_cancel_amount"] == nil {
-                            
-                            if self.dict_get_all_data_from_notification["last_cancel_amount"] == nil {
-                                
-                                // BOTH LAST CANCEL AMOUNT IS NIL
-                                print(self.dict_get_all_data_from_notification as Any)
-                                
-                                /*let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Ride done"), style: .alert)
-                                 let pay = NewYorkButton(title: "Pay : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) {
-                                 _ in
-                                 let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
-                                 
-                                 push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
-                                 push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
-                                 push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
-                                 
-                                 self.navigationController?.pushViewController(push!, animated: true)
-                                 }
-                                 let cancel = NewYorkButton(title: "Home", style: .default) {
-                                 _ in
-                                 let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
-                                 self.navigationController?.pushViewController(push!, animated: true)
-                                 }
-                                 alert.addButtons([pay,cancel])
-                                 self.present(alert, animated: true)*/
-                                
-                                
-                                let alert = UIAlertController(title: "Alert", message: String("Ride done"), preferredStyle: .alert)
-                                
-                                // Add actions
-                                let okAction = UIAlertAction(title: "Pay : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) { _ in
-                                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
-                                    
-                                    push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
-                                    push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
-                                    push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
-                                    
-                                    self.navigationController?.pushViewController(push!, animated: true)
-                                }
-                                let cancelAction = UIAlertAction(title: "Home", style: .cancel) { _ in
-                                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
-                                    self.navigationController?.pushViewController(push!, animated: true)
-                                }
-                                
-                                alert.addAction(okAction)
-                                alert.addAction(cancelAction)
-                                
-                                // Present the alert
-                                self.present(alert, animated: true, completion: nil)
-                                
-                            } else {
-                                let a = Double("\(self.dict_get_all_data_from_notification["last_cancel_amount"]!)")
-                                let b = Double("\(self.dict_get_all_data_from_notification["FinalFare"]!)")
-                                var sum = a! + b!
-                                print(sum as Any)
-                                
-                                
-                                
-                                print(self.dict_get_all_data_from_notification as Any)
-                                
-                                
-                                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                                    print(language as Any)
-                                    
-                                    if (language == "en") {
-                                        /*let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Ride done")+"\n\nLast cancel ride amount: "+"\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["last_cancel_amount"]!)", style: .alert)
-                                         let pay = NewYorkButton(title: "Pay : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) {
-                                         _ in
-                                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
-                                         
-                                         push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
-                                         push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
-                                         push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
-                                         
-                                         self.navigationController?.pushViewController(push!, animated: true)
-                                         }
-                                         
-                                         let cancel = NewYorkButton(title: "Home", style: .default) {
-                                         _ in
-                                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
-                                         self.navigationController?.pushViewController(push!, animated: true)
-                                         }
-                                         alert.addButtons([pay,cancel])
-                                         self.present(alert, animated: true)*/
-                                        
-                                        let alert = UIAlertController(title: "Alert", message: String("Ride done")+"\n\nLast cancel ride amount: "+"\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["last_cancel_amount"]!)", preferredStyle: .alert)
-                                        
-                                        // Add actions
-                                        let okAction = UIAlertAction(title: "Pay : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) { _ in
-                                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
-                                            
-                                            push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
-                                            push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
-                                            push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
-                                            
-                                            self.navigationController?.pushViewController(push!, animated: true)
-                                        }
-                                        let cancelAction = UIAlertAction(title: "Home", style: .cancel) { _ in
-                                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
-                                            self.navigationController?.pushViewController(push!, animated: true)
-                                        }
-                                        
-                                        alert.addAction(okAction)
-                                        alert.addAction(cancelAction)
-                                        
-                                        // Present the alert
-                                        self.present(alert, animated: true, completion: nil)
-                                        
-                                        
-                                    } else {
-                                        /*let alert = NewYorkAlertController(title: nil, message: "\n\nশেষ বাতিল রাইড পরিমাণ: "+"\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["last_cancel_amount"]!)", style: .alert)
-                                         let pay = NewYorkButton(title: "বেতন : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) {
-                                         _ in
-                                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
-                                         
-                                         push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
-                                         push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
-                                         push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
-                                         
-                                         self.navigationController?.pushViewController(push!, animated: true)
-                                         }
-                                         
-                                         let cancel = NewYorkButton(title: "হোম", style: .default) {
-                                         _ in
-                                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
-                                         self.navigationController?.pushViewController(push!, animated: true)
-                                         }
-                                         alert.addButtons([pay,cancel])
-                                         self.present(alert, animated: true)
-                                         */
-                                        let alert = UIAlertController(title: "Alert", message: "\n\nশেষ বাতিল রাইড পরিমাণ: "+"\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["last_cancel_amount"]!)", preferredStyle: .alert)
-                                        
-                                        // Add actions
-                                        let okAction = UIAlertAction(title: "বেতন : \(self.dict_get_all_data_from_notification["FinalFare"]!)", style: .default) { _ in
-                                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
-                                            
-                                            push!.str_booking_id2 = "\(self.dict_get_all_data_from_notification!["bookingId"]!)"
-                                            push!.str_get_total_price2 = "\(self.dict_get_all_data_from_notification!["FinalFare"]!)"
-                                            push!.get_full_data_for_payment2 = self.dict_get_all_data_from_notification
-                                            
-                                            self.navigationController?.pushViewController(push!, animated: true)
-                                        }
-                                        let cancelAction = UIAlertAction(title: "হোম", style: .cancel) { _ in
-                                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id") as? dashboard
-                                            self.navigationController?.pushViewController(push!, animated: true)
-                                        }
-                                        
-                                        alert.addAction(okAction)
-                                        alert.addAction(cancelAction)
-                                        
-                                        // Present the alert
-                                        self.present(alert, animated: true, completion: nil)
-                                        
-                                    }
-                                    
-                                }
-                                
-                                /*self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(sum)"
-                                 self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(sum)"*/
-                            }
-                            
-                        } else {
-                            print(self.dict_get_all_data_from_notification as Any)
-                            let a = Double("\(self.dict_get_all_data_from_notification["Last_cancel_amount"]!)")
-                            let b = Double("\(self.dict_get_all_data_from_notification["FinalFare"]!)")
-                            var sum = a! + b!
-                            print(sum as Any)
-                            
-                            
-                            
-                            /*var total_Amount_is:String!
-                             
-                             let cancellationFees:Double!
-                             
-                             if let amount = self.convertToDouble("\(self.dict_get_all_data_from_notification["FinalFare"]!)"),
-                             let bookingFees = self.convertToDouble("\(self.dict_get_all_data_from_notification["bookingFee"]!)") {
-                             
-                             if "\(self.dict_get_all_data_from_notification["Last_cancel_amount"]!)" == "" {
-                             cancellationFees = convertToDouble("0.0")
-                             } else if "\(self.dict_get_all_data_from_notification["Last_cancel_amount"]!)" == "" {
-                             cancellationFees = convertToDouble("0.0")
-                             } else {
-                             cancellationFees = convertToDouble("\(self.dict_get_all_data_from_notification["Last_cancel_amount"]!)")
-                             }
-                             
-                             let totalAmount = amount + bookingFees + cancellationFees!
-                             
-                             if "\(self.dict_get_all_data_from_notification["Promotional_total"]!)" != "" {
-                             let pro_dis = convertToDouble("\(self.dict_get_all_data_from_notification["Promotional_total"]!)")
-                             print(pro_dis as Any)
-                             let complete_cal = totalAmount - pro_dis!
-                             print("Complete cal: \(complete_cal)")
-                             
-                             // self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(complete_cal)"
-                             // // self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(complete_cal)"
-                             
-                             // also manage trip fare
-                             // self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_all_data_from_notification["FinalFare"]!)"
-                             
-                             let final_fare = convertToDouble("\(self.dict_get_all_data_from_notification["FinalFare"]!)")
-                             print("Final fare: \(final_fare!)")
-                             
-                             let f_f_total = final_fare! - pro_dis!
-                             // self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
-                             total_Amount_is = "\(f_f_total)"
-                             } else {
-                             total_Amount_is = "\(totalAmount)"
-                             // self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
-                             // self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
-                             }
-                             
-                             } else {
-                             print("Invalid number format in one of the strings.")
-                             }*/
-                            
-                            self.str_booking_id = "\(self.dict_get_all_data_from_notification["bookingId"]!)"
-                            
-                            let delayInSeconds = Double(500) / 1000.0
-                            DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
-                                // Call the hitWebservice function after the delay
-                                self.booking_history_details_WB(str_show_loader: "yes")
-                            }
-                            
-                            /*self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(sum)"
-                             self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(sum)"*/
-                        }
-                        self.btnConfirmBooking.isHidden = true
-                    } else if (self.dict_get_all_data_from_notification["type"] as! String) == "Chat" {
-                        
-                        
-                        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
-                        
-                        push!.str_back_home = "home"
-                        push!.get_all_data = self.dict_get_all_data_from_notification
-                        push!.str_booking_id = "\(self.dict_get_all_data_from_notification["bookingId"]!)"
-                        
-                        self.navigationController?.pushViewController(push!, animated: true)
-                        
-                        return
-                    }
-                    
-                    
-                    self.lbl_car_details.text = (self.dict_get_all_data_from_notification["vehicleNumber"] as! String)
-                    // +" ("+(self.dict_get_all_data_from_notification["VehicleColor"] as! String)+" )"
-                    
-                    // print(self.self.dict_get_all_data_from_notification as Any)
-                    
-                    self.lbl_driver_name.text = (self.dict_get_all_data_from_notification["driverName"] as! String)
-                    self.lbl_driver_rating.text = "\(self.dict_get_all_data_from_notification["rating"]!)"
-                    
-                    self.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-                    self.img_profile.sd_setImage(with: URL(string: (self.dict_get_all_data_from_notification["DriverImage"] as! String)), placeholderImage: UIImage(named: "logo"))
-                    
-                    
-                    
-                    
-                    
-                    
-                    // star manage
-                    if "\(self.dict_get_all_data_from_notification["rating"]!)" == "0" {
-                        
-                        self.img_star_one.image = UIImage(systemName: "star")
-                        self.img_star_two.image = UIImage(systemName: "star")
-                        self.img_star_three.image = UIImage(systemName: "star")
-                        self.img_star_four.image = UIImage(systemName: "star")
-                        self.img_star_five.image = UIImage(systemName: "star")
-                        
-                    } else if "\(self.dict_get_all_data_from_notification["rating"]!)" > "1" &&
-                                "\(self.dict_get_all_data_from_notification["rating"]!)" < "2" {
-                        
-                        self.img_star_one.image = UIImage(systemName: "star.fill")
-                        self.img_star_two.image = UIImage(systemName: "star.leadinghalf.filled")
-                        self.img_star_three.image = UIImage(systemName: "star")
-                        self.img_star_four.image = UIImage(systemName: "star")
-                        self.img_star_five.image = UIImage(systemName: "star")
-                        
-                    } else if "\(self.dict_get_all_data_from_notification["rating"]!)" == "2" {
-                        
-                        self.img_star_one.image = UIImage(systemName: "star.fill")
-                        self.img_star_two.image = UIImage(systemName: "star.fill")
-                        self.img_star_three.image = UIImage(systemName: "star")
-                        self.img_star_four.image = UIImage(systemName: "star")
-                        self.img_star_five.image = UIImage(systemName: "star")
-                        
-                        
-                    } else if "\(self.dict_get_all_data_from_notification["rating"]!)" > "2" &&
-                                "\(self.dict_get_all_data_from_notification["rating"]!)" < "3" {
-                        
-                        self.img_star_one.image = UIImage(systemName: "star.fill")
-                        self.img_star_two.image = UIImage(systemName: "star.fill")
-                        self.img_star_three.image = UIImage(systemName: "star.leadinghalf.filled")
-                        self.img_star_four.image = UIImage(systemName: "star")
-                        self.img_star_five.image = UIImage(systemName: "star")
-                        
-                    } else if "\(self.dict_get_all_data_from_notification["rating"]!)" == "3" {
-                        
-                        self.img_star_one.image = UIImage(systemName: "star.fill")
-                        self.img_star_two.image = UIImage(systemName: "star.fill")
-                        self.img_star_three.image = UIImage(systemName: "star.fill")
-                        self.img_star_four.image = UIImage(systemName: "star")
-                        self.img_star_five.image = UIImage(systemName: "star")
-                        
-                    } else if "\(self.dict_get_all_data_from_notification["rating"]!)" > "3" &&
-                                "\(self.dict_get_all_data_from_notification["rating"]!)" < "4" {
-                        
-                        self.img_star_one.image = UIImage(systemName: "star.fill")
-                        self.img_star_two.image = UIImage(systemName: "star.fill")
-                        self.img_star_three.image = UIImage(systemName: "star.fill")
-                        self.img_star_four.image = UIImage(systemName: "star.leadinghalf.filled")
-                        self.img_star_five.image = UIImage(systemName: "star")
-                        
-                    } else if "\(self.dict_get_all_data_from_notification["rating"]!)" == "5" {
-                        
-                        self.img_star_one.image = UIImage(systemName: "star.fill")
-                        self.img_star_two.image = UIImage(systemName: "star.fill")
-                        self.img_star_three.image = UIImage(systemName: "star.fill")
-                        self.img_star_four.image = UIImage(systemName: "star.fill")
-                        self.img_star_five.image = UIImage(systemName: "star.fill")
-                        
-                    }
-                }
-            }
-            
-            
-            //
-            print(self.dict_get_all_data_from_notification as Any)
-            
-            if (self.dict_get_all_data_from_notification["type"] != nil) {
-                if(self.dict_get_all_data_from_notification["type"] as! String == "rideend") {
-                    debugPrint("COMPLETED: RIDE END % Show popup now")
-                    
-                    
-                    /*let delayInSeconds = Double(500) / 1000.0
-                     DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
-                     // Call the hitWebservice function after the delay
-                     debugPrint("Show popup now")
-                     // self.booking_history_details_WB(str_show_loader: "yes")
-                     }*/
-                    
-                    self.handleEveythingFromGoogleMapInit()
-                    
-                } else {
-                    debugPrint("DATA IS NOT NIL")
-                    
-                    self.handleEveythingFromGoogleMapInit()
-                }
-            } else {
-                self.handleEveythingFromGoogleMapInit()
-            }
-            
-        }
-        
-        
     }
     
     
@@ -996,19 +1022,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     
     @objc func booking_history_details_WB(str_show_loader:String) {
         
-        if(self.dict_get_all_data_from_notification["type"] as! String != "rideend") {
-            if (str_show_loader == "yes") {
-                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                    print(language as Any)
-                    
-                    if (language == "en") {
-                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-                    } else {
-                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
-                    }
-                }
-            }
-        }
+        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
         
         self.view.endEditing(true)
         
@@ -1027,35 +1041,12 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
                     "token":String(token_id_is),
                 ]
                 
-                var lan:String!
-                
-                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                    print(language as Any)
-                    
-                    if (language == "en") {
-                        lan = "en"
-                    } else {
-                        lan = "bn"
-                    }
-                    
-                    
-                }
-                
-                if(self.dict_get_all_data_from_notification["type"] as! String != "rideend") {
-                    parameters = [
-                        "action"        : "bookingdetail",
-                        "bookingId"     : String(self.str_booking_id),
-                        "userId"        : String(myString),
-                        "language"      : String(lan),
-                    ]
-                } else {
-                    parameters = [
-                        "action"        : "bookingdetail",
-                        "bookingId"     : "\(self.dict_get_all_data_from_notification["bookingId"]!)",
-                        "userId"        : String(myString),
-                        "language"      : String(lan),
-                    ]
-                }
+                parameters = [
+                    "action"        : "bookingdetail",
+                    "bookingId"     : "\(self.dict_get_all_data_from_notification["bookingId"]!)",
+                    "userId"        : String(myString),
+                    "language"      : String("en"),
+                ]
                 
                 
                 print(parameters as Any)
@@ -1088,7 +1079,13 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
                             
                             var dict: Dictionary<AnyHashable, Any>
                             dict = JSON["data"] as! Dictionary<AnyHashable, Any>
-                            print(dict as Any)
+                            // print(dict as Any)
+                            
+                            self.dictDynamicDictionary = dict as NSDictionary
+                            
+                            // manage
+                            self.parseDataAfterGetBookingDetails(allData: dict as NSDictionary)
+                            return
                             
                             let cancellationFees:Double!
                             
@@ -1358,7 +1355,112 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     }
     
     
-    
+    @objc func parseDataAfterGetBookingDetails(allData:NSDictionary) {
+        // print(allData as Any)
+        
+        // total time
+        self.lblTotalTime.text = "\(allData["totalTime"]!)"
+        
+        // car details
+        self.lbl_car_details.text = "\(allData["vehicleNumber"]!) (\(allData["CarName"]!))"
+        
+        // driver details
+        self.lbl_driver_rating.text = "\(allData["driverRating"]!)"
+        self.lbl_driver_name.text = "\(allData["driverName"]!)"
+        self.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+        self.img_profile.sd_setImage(with: URL(string: (allData["driverImage"] as! String)), placeholderImage: UIImage(named: "logo"))
+        
+        
+        // cancel ride
+        self.btn_cancel_ride.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+        
+        // confirm booking button
+        if "\(self.dictDynamicDictionary["rideStatus"]!)" == "1" {
+            self.btnConfirmBooking.setTitle("DRIVER ARRIVING", for: .normal)
+        } else if "\(self.dictDynamicDictionary["rideStatus"]!)" == "2" {
+            self.btnConfirmBooking.setTitle("DRIVER ARRIVED", for: .normal)
+        }  else if "\(self.dictDynamicDictionary["rideStatus"]!)" == "3" {
+            self.btnConfirmBooking.setTitle("ENJOY YOUR RIDE", for: .normal)
+        }
+        
+        self.btnConfirmBooking.backgroundColor = .systemGreen
+        
+        // chat
+        self.btn_chat.backgroundColor = .clear
+        self.btn_chat.addTarget(self, action: #selector(chat_click_method), for: .touchUpInside)
+        
+        // star
+        if "\(self.dictDynamicDictionary["driverRating"]!)" == "0" {
+            
+            self.img_star_one.image = UIImage(systemName: "star")
+            self.img_star_two.image = UIImage(systemName: "star")
+            self.img_star_three.image = UIImage(systemName: "star")
+            self.img_star_four.image = UIImage(systemName: "star")
+            self.img_star_five.image = UIImage(systemName: "star")
+            
+        } else if "\(self.dictDynamicDictionary["driverRating"]!)" > "1" &&
+                    "\(self.dictDynamicDictionary["driverRating"]!)" < "2" {
+            
+            self.img_star_one.image = UIImage(systemName: "star.fill")
+            self.img_star_two.image = UIImage(systemName: "star.leadinghalf.filled")
+            self.img_star_three.image = UIImage(systemName: "star")
+            self.img_star_four.image = UIImage(systemName: "star")
+            self.img_star_five.image = UIImage(systemName: "star")
+            
+        } else if "\(self.dictDynamicDictionary["driverRating"]!)" == "2" {
+            
+            self.img_star_one.image = UIImage(systemName: "star.fill")
+            self.img_star_two.image = UIImage(systemName: "star.fill")
+            self.img_star_three.image = UIImage(systemName: "star")
+            self.img_star_four.image = UIImage(systemName: "star")
+            self.img_star_five.image = UIImage(systemName: "star")
+            
+            
+        } else if "\(self.dictDynamicDictionary["driverRating"]!)" > "2" &&
+                    "\(self.dictDynamicDictionary["driverRating"]!)" < "3" {
+            
+            self.img_star_one.image = UIImage(systemName: "star.fill")
+            self.img_star_two.image = UIImage(systemName: "star.fill")
+            self.img_star_three.image = UIImage(systemName: "star.leadinghalf.filled")
+            self.img_star_four.image = UIImage(systemName: "star")
+            self.img_star_five.image = UIImage(systemName: "star")
+            
+        } else if "\(self.dictDynamicDictionary["driverRating"]!)" == "3" {
+            
+            self.img_star_one.image = UIImage(systemName: "star.fill")
+            self.img_star_two.image = UIImage(systemName: "star.fill")
+            self.img_star_three.image = UIImage(systemName: "star.fill")
+            self.img_star_four.image = UIImage(systemName: "star")
+            self.img_star_five.image = UIImage(systemName: "star")
+            
+        } else if "\(self.dictDynamicDictionary["driverRating"]!)" > "3" &&
+                    "\(self.dictDynamicDictionary["driverRating"]!)" < "4" {
+            
+            self.img_star_one.image = UIImage(systemName: "star.fill")
+            self.img_star_two.image = UIImage(systemName: "star.fill")
+            self.img_star_three.image = UIImage(systemName: "star.fill")
+            self.img_star_four.image = UIImage(systemName: "star.leadinghalf.filled")
+            self.img_star_five.image = UIImage(systemName: "star")
+            
+        } else if "\(self.dictDynamicDictionary["driverRating"]!)" == "5" {
+            
+            self.img_star_one.image = UIImage(systemName: "star.fill")
+            self.img_star_two.image = UIImage(systemName: "star.fill")
+            self.img_star_three.image = UIImage(systemName: "star.fill")
+            self.img_star_four.image = UIImage(systemName: "star.fill")
+            self.img_star_five.image = UIImage(systemName: "star.fill")
+            
+        }
+        
+        // maps
+        self.handleEveythingFromGoogleMapInit()
+        
+        // table view
+        self.tbleView.delegate = self
+        self.tbleView.dataSource = self
+        self.tbleView.reloadData()
+        
+    }
     
     @objc func home_click_method() {
         
@@ -1371,11 +1473,9 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         print(self.dict_get_all_data_from_notification as Any)
         
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
-        // push!.str_get_user_id = "\(self.dict_get_all_data_from_notification["userId"]!)"
         
-        // push!.str_driver_id = "\(self.dict_get_all_data_from_notification["userId"]!)"
-        push!.get_all_data = self.dict_get_all_data_from_notification
-        push!.str_booking_id = "\(self.dict_get_all_data_from_notification["bookingId"]!)"
+        push!.get_all_data = self.dictDynamicDictionary
+        push!.str_booking_id = "\(self.dictDynamicDictionary["bookingId"]!)"
         
         self.navigationController?.pushViewController(push!, animated: true)
     }
@@ -2063,33 +2163,15 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     
     @objc func handleEveythingFromGoogleMapInit() {
         
-        
-        /*print(self.getLoginUserLatitudeTo as Any)
-         print(self.getLoginUserLongitudeTo as Any)
-         print(self.getLoginUserAddressTo as Any)
-         
-         print(self.getLoginUserLatitudeFrom as Any)
-         print(self.getLoginUserLongitudeFrom as Any)
-         print(self.getLoginUserAddressFrom as Any)
-         
-         UserDefaults.standard.set("", forKey: "key_map_view_lat_long")
-         UserDefaults.standard.set(nil, forKey: "key_map_view_lat_long")
-         
-         UserDefaults.standard.set("", forKey: "key_map_view_address")
-         UserDefaults.standard.set(nil, forKey: "key_map_view_address")
-         
-         UserDefaults.standard.set("", forKey: "keyUserSelectWhichProfile")
-         UserDefaults.standard.set(nil, forKey: "keyUserSelectWhichProfile")
-         */
         self.initializeMap()
     }
     
     func initializeMap() {
         
-        print(dict_get_all_data_from_notification as Any)
+        // print(dict_get_all_data_from_notification as Any)
         
-        let separateDropLocation    = (self.dict_get_all_data_from_notification["RequestDropLatLong"] as! String)
-        let separateRequestLocation    = (self.dict_get_all_data_from_notification["RequestPickupLatLong"] as! String)
+        let separateDropLocation    = (self.dictDynamicDictionary["RequestDropLatLong"] as! String)
+        let separateRequestLocation    = (self.dictDynamicDictionary["RequestPickupLatLong"] as! String)
         
         let separateDropLocationArr = separateDropLocation.components(separatedBy: ",")
         let separateRequestLocationArr = separateRequestLocation.components(separatedBy: ",")
@@ -2106,10 +2188,10 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         self.doublePlaceFinalLat = Double(dropLatitude)
         self.doublePlaceFinalLong = Double(dropLongitude)
         
-        debugPrint(doublePlaceStartLat as Any)
-        debugPrint(doublePlaceStartLong as Any)
-        debugPrint(doublePlaceFinalLat as Any)
-        debugPrint(doublePlaceFinalLong as Any)
+        /*debugPrint(doublePlaceStartLat as Any)
+         debugPrint(doublePlaceStartLong as Any)
+         debugPrint(doublePlaceFinalLat as Any)
+         debugPrint(doublePlaceFinalLong as Any)*/
         
         let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 10.0)
         mapView = GMSMapView(frame: .zero)
@@ -2137,8 +2219,8 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
         let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
         
-        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.dict_get_all_data_from_notification["RequestPickupAddress"] as! String), color: .green)
-        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.dict_get_all_data_from_notification["RequestDropAddress"] as! String), color: .yellow)
+        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.dictDynamicDictionary["RequestPickupAddress"] as! String), color: .green)
+        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.dictDynamicDictionary["RequestDropAddress"] as! String), color: .yellow)
         
         fetchRoute(from: placeACoordinate, to: placeBCoordinate)
     }
@@ -2167,8 +2249,8 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         let destination = "\(self.doublePlaceFinalLat!),\(self.doublePlaceFinalLong!)"
         let apiKey = GOOGLE_MAP_API
         
-        debugPrint(origin)
-        debugPrint(destination)
+        // debugPrint(origin)
+        // debugPrint(destination)
         
         ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "please wait...")
         
@@ -2246,8 +2328,8 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
                     
                     
                     /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "pay_after_ride_cancel_id") as? pay_after_ride_cancel
-                    push!.dictGetAllData = self.dict_get_all_data_from_notification
-                    self.navigationController?.pushViewController(push!, animated: true)*/
+                     push!.dictGetAllData = self.dict_get_all_data_from_notification
+                     self.navigationController?.pushViewController(push!, animated: true)*/
                     
                     
                     

@@ -769,7 +769,7 @@ class BooCheckChat: UIViewController, MessagingDelegate, UINavigationControllerD
                     }
                     
                 } else {
-                    token_to_parse = "\(self.self.get_all_data["deviceToken"]!)"
+                    // token_to_parse = "\(self.self.get_all_data["deviceToken"]!)"
                 }
                 
                 parameters = [

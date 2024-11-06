@@ -54,7 +54,7 @@ class success_payment: UIViewController {
     
     @IBOutlet weak var view_price:UIView! {
         didSet {
-            view_price.backgroundColor = navigation_color
+            view_price.applyGradient()
         }
     }
     

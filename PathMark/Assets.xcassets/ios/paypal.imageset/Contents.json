@@ -6,12 +6,10 @@
       "scale" : "1x"
     },
     {
-      "filename" : "paypal@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "paypal@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

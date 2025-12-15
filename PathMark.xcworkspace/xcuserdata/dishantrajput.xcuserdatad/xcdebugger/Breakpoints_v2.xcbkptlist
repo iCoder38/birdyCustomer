@@ -146,53 +146,6 @@
             endingLineNumber = "1045"
             landmarkName = "find_driver_WB()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C96636D7-0C7D-4FA6-922D-E744583B051A - 51206bc7ce2ba88f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.find_driver_WB() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1045"
-                  endingLineNumber = "1045"
-                  offsetFromSymbolStart = "3256">
-               </Location>
-               <Location
-                  uuid = "C96636D7-0C7D-4FA6-922D-E744583B051A - bf0c354f792769f5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMark.map_view.find_driver_WB() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1045"
-                  endingLineNumber = "1045"
-                  offsetFromSymbolStart = "508">
-               </Location>
-               <Location
-                  uuid = "C96636D7-0C7D-4FA6-922D-E744583B051A - 51206bc7ce2ba88f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.find_driver_WB() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1045"
-                  endingLineNumber = "1045"
-                  offsetFromSymbolStart = "2892">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -369,38 +322,6 @@
             endingLineNumber = "1788"
             landmarkName = "login_refresh_token_wb()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D34C940F-178B-483E-B6BC-73ACE3A3489E - d4af26bf9c8ae5f5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMark.map_view.login_refresh_token_wb() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1788"
-                  endingLineNumber = "1788"
-                  offsetFromSymbolStart = "4172">
-               </Location>
-               <Location
-                  uuid = "D34C940F-178B-483E-B6BC-73ACE3A3489E - d4af26bf9c8ae5f5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMark.map_view.login_refresh_token_wb() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1788"
-                  endingLineNumber = "1788"
-                  offsetFromSymbolStart = "3884">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -481,53 +402,6 @@
             endingLineNumber = "1336"
             landmarkName = "login_refresh_token_wb()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B1B04157-69F9-47BF-94AD-63092490C9F4 - 7dbbc9f693b5c5cd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMark.ride_status.login_refresh_token_wb() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/ride_status_screen/ride_status.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1337"
-                  endingLineNumber = "1337"
-                  offsetFromSymbolStart = "3100">
-               </Location>
-               <Location
-                  uuid = "B1B04157-69F9-47BF-94AD-63092490C9F4 - b70479e9965c0788"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMark.ride_status.login_refresh_token_wb() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/ride_status_screen/ride_status.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1336"
-                  endingLineNumber = "1336"
-                  offsetFromSymbolStart = "68">
-               </Location>
-               <Location
-                  uuid = "B1B04157-69F9-47BF-94AD-63092490C9F4 - b70479e9965c07af"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMark.ride_status.login_refresh_token_wb() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/ride_status_screen/ride_status.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1335"
-                  endingLineNumber = "1335"
-                  offsetFromSymbolStart = "68">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -560,38 +434,6 @@
             endingLineNumber = "2109"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9600BDF9-275E-44FA-A457-5265EA51389D - 42a56b32e462f7bc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2109"
-                  endingLineNumber = "2109"
-                  offsetFromSymbolStart = "6448">
-               </Location>
-               <Location
-                  uuid = "9600BDF9-275E-44FA-A457-5265EA51389D - 42a56b32e462f7bc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2109"
-                  endingLineNumber = "2109"
-                  offsetFromSymbolStart = "6152">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -608,38 +450,6 @@
             endingLineNumber = "2129"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "AD8B5AA9-2898-47A5-B8A0-F241D9C5E6FF - 42a56b32e462f408"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2129"
-                  endingLineNumber = "2129"
-                  offsetFromSymbolStart = "10448">
-               </Location>
-               <Location
-                  uuid = "AD8B5AA9-2898-47A5-B8A0-F241D9C5E6FF - 42a56b32e462f408"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2129"
-                  endingLineNumber = "2129"
-                  offsetFromSymbolStart = "10152">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -656,38 +466,6 @@
             endingLineNumber = "759"
             landmarkName = "login_refresh_token_wb()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5A978FDE-AEB7-4C4F-9E07-DFFEF1722218 - 73ce7faaf75ab066"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.total_fare_distance_mpa_route.login_refresh_token_wb() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/total_fare_distance_mpa_route/total_fare_distance_mpa_route.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "744"
-                  endingLineNumber = "744"
-                  offsetFromSymbolStart = "2376">
-               </Location>
-               <Location
-                  uuid = "5A978FDE-AEB7-4C4F-9E07-DFFEF1722218 - 73ce7faaf75ab677"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.total_fare_distance_mpa_route.login_refresh_token_wb() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/total_fare_distance_mpa_route/total_fare_distance_mpa_route.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "759"
-                  endingLineNumber = "759"
-                  offsetFromSymbolStart = "2376">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -736,38 +514,6 @@
             endingLineNumber = "2107"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "8A81BC04-446F-491F-A626-9777762B270A - 42a56b32e462f77e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2107"
-                  endingLineNumber = "2107"
-                  offsetFromSymbolStart = "6152">
-               </Location>
-               <Location
-                  uuid = "8A81BC04-446F-491F-A626-9777762B270A - 42a56b32e462f77e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2107"
-                  endingLineNumber = "2107"
-                  offsetFromSymbolStart = "5868">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -784,38 +530,6 @@
             endingLineNumber = "2126"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D930F050-BE2B-4251-84C8-6E1CA0981E93 - 42a56b32e462f5ed"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2126"
-                  endingLineNumber = "2126"
-                  offsetFromSymbolStart = "10140">
-               </Location>
-               <Location
-                  uuid = "D930F050-BE2B-4251-84C8-6E1CA0981E93 - 42a56b32e462f5ed"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2126"
-                  endingLineNumber = "2126"
-                  offsetFromSymbolStart = "9864">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -832,38 +546,6 @@
             endingLineNumber = "2146"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "00AB5814-5534-4083-86F6-61571D784E8F - 42a56b32e462c8ae"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2411"
-                  endingLineNumber = "2411"
-                  offsetFromSymbolStart = "14140">
-               </Location>
-               <Location
-                  uuid = "00AB5814-5534-4083-86F6-61571D784E8F - 42a56b32e462ea79"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2146"
-                  endingLineNumber = "2146"
-                  offsetFromSymbolStart = "13864">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -880,53 +562,6 @@
             endingLineNumber = "490"
             landmarkName = "locationTwoClickMethod()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2810BEE4-7AAA-462F-807B-BC0A796A5266 - d833cc4c6b4bc3bd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.locationTwoClickMethod() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "489"
-                  endingLineNumber = "489"
-                  offsetFromSymbolStart = "1020">
-               </Location>
-               <Location
-                  uuid = "2810BEE4-7AAA-462F-807B-BC0A796A5266 - 7bb721975c3d269e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.viewWillAppear(Swift.Bool) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "491"
-                  endingLineNumber = "491"
-                  offsetFromSymbolStart = "268">
-               </Location>
-               <Location
-                  uuid = "2810BEE4-7AAA-462F-807B-BC0A796A5266 - d833cc4c6b4bc3dc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.map_view.locationTwoClickMethod() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/map_view/map_view.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "490"
-                  endingLineNumber = "490"
-                  offsetFromSymbolStart = "764">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -975,53 +610,6 @@
             endingLineNumber = "598"
             landmarkName = "add_emergency_phone()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B71B6A34-B3B4-442D-9DDF-544C277390F6 - e1a017b985c9b0a3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.add_contacts.add_emergency_phone() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/add_contactss/add_contacts.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "599"
-                  endingLineNumber = "599"
-                  offsetFromSymbolStart = "9136">
-               </Location>
-               <Location
-                  uuid = "B71B6A34-B3B4-442D-9DDF-544C277390F6 - e1a017b985c9b140"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.add_contacts.add_emergency_phone() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/add_contactss/add_contacts.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "598"
-                  endingLineNumber = "598"
-                  offsetFromSymbolStart = "8984">
-               </Location>
-               <Location
-                  uuid = "B71B6A34-B3B4-442D-9DDF-544C277390F6 - e1a017b985c9b140"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.add_contacts.add_emergency_phone() -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/add_contactss/add_contacts.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "598"
-                  endingLineNumber = "598"
-                  offsetFromSymbolStart = "9136">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1043,54 +631,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "777F4078-21B1-4E40-B753-9CD1EB5308D9"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PathMark/controllers/dashboard/dashboard.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "617"
-            endingLineNumber = "617"
-            landmarkName = "checkCarCategoriesWB(str_show_loader:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "777F4078-21B1-4E40-B753-9CD1EB5308D9 - 25fb6dbe41c08aa2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMark.dashboard.checkCarCategoriesWB(str_show_loader: Swift.String) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/dashboard/dashboard.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "615"
-                  endingLineNumber = "615"
-                  offsetFromSymbolStart = "380">
-               </Location>
-               <Location
-                  uuid = "777F4078-21B1-4E40-B753-9CD1EB5308D9 - 617753ffa36697a8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMark.dashboard.checkCarCategoriesWB(str_show_loader: Swift.String) -&gt; ()"
-                  moduleName = "PathMark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/dashboard/dashboard.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "615"
-                  endingLineNumber = "615"
-                  offsetFromSymbolStart = "5528">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D97FCCE4-9D38-41F6-8BD4-E34EC62F6B1F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -1100,6 +640,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "627"
             endingLineNumber = "627"
+            landmarkName = "checkCarCategoriesWB(str_show_loader:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B8B5A4F8-89D3-44D5-8F00-CC700FB12F03"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PathMark/controllers/dashboard/dashboard.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "682"
+            endingLineNumber = "682"
             landmarkName = "checkCarCategoriesWB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>

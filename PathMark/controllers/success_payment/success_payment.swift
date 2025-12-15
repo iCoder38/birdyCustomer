@@ -78,9 +78,11 @@ class success_payment: UIViewController {
         view.addGestureRecognizer(tap)
         
         if (self.str_show_total_price == nil) {
-            self.lbl_price.text = "\(str_bangladesh_currency_symbol)\(self.get_booking_details["FinalFare"]!)"
+            self.lbl_price.text = "Ride completed"
+            // "\(str_bangladesh_currency_symbol)\(self.get_booking_details["FinalFare"]!)"
         } else {
-            self.lbl_price.text = "\(str_bangladesh_currency_symbol)\(self.str_show_total_price!)"
+            self.lbl_price.text = "Ride completed"
+            // "\(str_bangladesh_currency_symbol)\(self.str_show_total_price!)"
         }
         // self.lbl_price.text = "\(str_bangladesh_currency_symbol)\(self.str_show_total_price!)"
         

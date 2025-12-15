@@ -131,7 +131,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     
     @IBOutlet weak var lblNavigationTitle:UILabel! {
         didSet {
-            lblNavigationTitle.text = "Fare distance"
+            
             lblNavigationTitle.textColor = NAVIGATION_TITLE_COLOR
             lblNavigationTitle.backgroundColor = .clear
         }
@@ -1377,10 +1377,13 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         // confirm booking button
         if "\(self.dictDynamicDictionary["rideStatus"]!)" == "1" {
             self.btnConfirmBooking.setTitle("DRIVER ARRIVING", for: .normal)
+            lblNavigationTitle.text = "DRIVER ARRIVING"
         } else if "\(self.dictDynamicDictionary["rideStatus"]!)" == "2" {
             self.btnConfirmBooking.setTitle("DRIVER ARRIVED", for: .normal)
+            lblNavigationTitle.text = "DRIVER ARRIVED"
         }  else if "\(self.dictDynamicDictionary["rideStatus"]!)" == "3" {
             self.btnConfirmBooking.setTitle("ENJOY YOUR RIDE", for: .normal)
+            lblNavigationTitle.text = "ENJOY YOUR RIDE"
         }
         
         self.btnConfirmBooking.backgroundColor = .systemGreen

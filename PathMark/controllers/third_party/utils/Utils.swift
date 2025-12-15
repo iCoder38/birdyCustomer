@@ -137,7 +137,7 @@ let NAVIGATION_TITLE_COLOR  = UIColor.white
 let NAVIGATION_BACK_COLOR   = UIColor.white
 let CART_COUNT_COLOR        = UIColor.black
 
-var str_bangladesh_currency_symbol = "৳ "
+var str_bangladesh_currency_symbol = "$ "
 var countryCodeForGoogleSearch = "BD"
 
 // URLs

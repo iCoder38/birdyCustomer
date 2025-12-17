@@ -77,12 +77,20 @@ class search_location: UIViewController, UITextFieldDelegate, CLLocationManagerD
     
     // ***************************************************************** // nav
     
-    @IBOutlet weak var navigationBar:UIView! {
+    @IBOutlet weak var navigationBar: UIView! {
         didSet {
-            navigationBar.backgroundColor = navigation_color
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.navigationBar,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
-    
+
     @IBOutlet weak var btnBack:UIButton! {
         didSet {
             btnBack.tintColor = NAVIGATION_BACK_COLOR

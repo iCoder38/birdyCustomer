@@ -201,7 +201,7 @@ class add_address: UIViewController , CLLocationManagerDelegate {
             btn_submit.setTitleColor(.white, for: .normal)
             btn_submit.layer.cornerRadius = 6
             btn_submit.clipsToBounds = true
-            btn_submit.backgroundColor = UIColor.init(red: 104.0/255.0, green: 218.0/255.0, blue: 134.0/255.0, alpha: 1)
+            btn_submit.backgroundColor = BUTTON_RED_COLOR
             
             // shadow
             btn_submit.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor

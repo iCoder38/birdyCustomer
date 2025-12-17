@@ -243,12 +243,20 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         }
     }
     
-    @IBOutlet weak var btn_push_to_map:UIButton!
-    @IBOutlet weak var btn_push_to_map_down:UIButton!
+    @IBOutlet weak var btn_push_to_map:UIButton! {
+        didSet {
+            btn_push_to_map.setTitleColor(.white, for: .normal)
+        }
+    }
+    @IBOutlet weak var btn_push_to_map_down:UIButton! {
+        didSet {
+            btn_push_to_map_down.setTitleColor(.white, for: .normal)
+        }
+    }
     
     @IBOutlet weak var viewPlace:UIView! {
         didSet {
-            viewPlace.backgroundColor = .white
+            viewPlace.backgroundColor = .black
             viewPlace.layer.masksToBounds = false
             viewPlace.layer.shadowColor = UIColor.black.cgColor
             viewPlace.layer.shadowOffset =  CGSize.zero
@@ -261,6 +269,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
     @IBOutlet weak var lbl_my_full_address:UILabel! {
         didSet {
             lbl_my_full_address.text = ""
+            lbl_my_full_address.textColor = .white
         }
     }
     
@@ -274,7 +283,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         didSet {
             Utils.buttonStyle(button: btn_book_a_ride_now,
                               bCornerRadius: 0,
-                              bBackgroundColor: navigation_color,
+                              bBackgroundColor: BUTTON_RED_COLOR,
                               bTitle: "BOOK A RIDE NOW",
                               bTitleColor: .white)
             
@@ -316,6 +325,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 }
                 
             }
+            lbl_select_destination.textColor = .white
         }
     }
     

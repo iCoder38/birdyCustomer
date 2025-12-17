@@ -128,7 +128,10 @@ let APP_BASIC_COLOR = UIColor.init(red: 50.0/255.0, green: 97.0/255.0, blue: 138
 
 let BUTTON_DARK_APP_COLOR = UIColor.init(red: 169.0/255.0, green: 163.0/255.0, blue: 131.0/255.0, alpha: 1)
 
-let APP_BUTTON_COLOR = UIColor.black// UIColor.init(red: 43.0/255.0, green: 100.0/255.0, blue: 191.0/255.0, alpha: 1)
+let BUTTON_RED_COLOR = UIColor.init(red: 206.0/255.0, green: 60.0/255.0, blue: 36.0/255.0, alpha: 1)
+let BUTTON_YELLOW_COLOR = UIColor.init(red: 246.0/255.0, green: 206.0/255.0, blue: 70.0/255.0, alpha: 1)
+
+let APP_BUTTON_COLOR = UIColor.black
 
 let button_dark = UIColor.init(red: 64.0/255.0, green: 112.0/255.0, blue: 216.0/255.0, alpha: 1)
 let button_light = UIColor.init(red: 200.0/255.0, green: 223.0/255.0, blue: 254.0/255.0, alpha: 1)
@@ -680,5 +683,32 @@ extension Data {
             .replacingOccurrences(of: "+", with: "-")
             .replacingOccurrences(of: "/", with: "_")
             .replacingOccurrences(of: "=", with: "")
+    }
+}
+
+
+import UIKit
+
+final class GradientViewHelper {
+
+    static func apply(
+        to view: UIView,
+        colors: [UIColor],
+        startPoint: CGPoint = CGPoint(x: 0, y: 0.5),
+        endPoint: CGPoint = CGPoint(x: 1, y: 0.5)
+    ) {
+        // Remove old gradient if exists
+        view.layer.sublayers?
+            .filter { $0.name == "gradientLayer" }
+            .forEach { $0.removeFromSuperlayer() }
+
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.name = "gradientLayer"
+        gradientLayer.frame = view.bounds
+        gradientLayer.colors = colors.map { $0.cgColor }
+        gradientLayer.startPoint = startPoint
+        gradientLayer.endPoint = endPoint
+
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
 }

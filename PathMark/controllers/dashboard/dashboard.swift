@@ -18,11 +18,6 @@ import GoogleMaps
 
 class dashboard: UIViewController , CLLocationManagerDelegate {
     
-//    func didSelectCard(_ card: [String : Any]) {
-//        <#code#>
-//    }
-    
-    
     // MARK:- SAVE LOCATION STRING -
     var strSaveLatitude:String!
     var strSaveLongitude:String!
@@ -66,7 +61,6 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 }
                 
             }
-            
             view_navigation_title.textColor = .white
         }
     }

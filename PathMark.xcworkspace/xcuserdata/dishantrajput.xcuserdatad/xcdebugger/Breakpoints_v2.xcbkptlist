@@ -14,8 +14,8 @@
             filePath = "PathMark/controllers/edit_profile/edit_profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408"
+            startingLineNumber = "418"
+            endingLineNumber = "418"
             landmarkName = "sign_up_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "PathMark/controllers/add_address/add_address.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "976"
-            endingLineNumber = "976"
+            startingLineNumber = "987"
+            endingLineNumber = "987"
             landmarkName = "add_address_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "PathMark/controllers/add_address/add_address.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1000"
-            endingLineNumber = "1000"
+            startingLineNumber = "1011"
+            endingLineNumber = "1011"
             landmarkName = "login_refresh_token_wb()"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "PathMark/controllers/add_address/add_address.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1015"
-            endingLineNumber = "1015"
+            startingLineNumber = "1026"
+            endingLineNumber = "1026"
             landmarkName = "login_refresh_token_wb()"
             landmarkType = "7">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "PathMark/controllers/share_list/shared_booking.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -590,10 +590,96 @@
             filePath = "PathMark/controllers/edit_profile/edit_profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1079"
-            endingLineNumber = "1079"
+            startingLineNumber = "1089"
+            endingLineNumber = "1089"
             landmarkName = "edit_profile"
             landmarkType = "21">
+            <Locations>
+               <Location
+                  uuid = "95D2BF80-CC7D-404D-A877-50BB9C7273D7 - 6f2142df882de0cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMark.edit_profile_table_cell.header_half_view_navigation_bar.getter : Swift.Optional&lt;__C.UIView&gt;"
+                  moduleName = "PathMark.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "95D2BF80-CC7D-404D-A877-50BB9C7273D7 - 5d8e4591bc871f17"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMark.edit_profile_table_cell.header_half_view_navigation_bar.setter : Swift.Optional&lt;__C.UIView&gt;"
+                  moduleName = "PathMark.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "95D2BF80-CC7D-404D-A877-50BB9C7273D7 - c27413a44d45fb38"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMark.edit_profile_table_cell.header_half_view_navigation_bar.modify : Swift.Optional&lt;__C.UIView&gt;"
+                  moduleName = "PathMark.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1090"
+                  endingLineNumber = "1090">
+               </Location>
+               <Location
+                  uuid = "95D2BF80-CC7D-404D-A877-50BB9C7273D7 - ea4196830e0314bd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMark.edit_profile_table_cell.header_half_view_navigation_bar.modify : Swift.Optional&lt;__C.UIView&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "PathMark.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///%3Ccompiler-generated%3E"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "95D2BF80-CC7D-404D-A877-50BB9C7273D7 - 60dd56af88a61a32"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMark.edit_profile_table_cell.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; PathMark.edit_profile_table_cell"
+                  moduleName = "PathMark.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1090"
+                  endingLineNumber = "1090">
+               </Location>
+               <Location
+                  uuid = "95D2BF80-CC7D-404D-A877-50BB9C7273D7 - 650b619a0e1efae3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMark.edit_profile_table_cell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;PathMark.edit_profile_table_cell&gt;"
+                  moduleName = "PathMark.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/RideWithUs/PathMark/controllers/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1090"
+                  endingLineNumber = "1090">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -606,8 +692,8 @@
             filePath = "PathMark/controllers/add_contactss/add_contacts.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "598"
-            endingLineNumber = "598"
+            startingLineNumber = "608"
+            endingLineNumber = "608"
             landmarkName = "add_emergency_phone()"
             landmarkType = "7">
          </BreakpointContent>
@@ -638,8 +724,8 @@
             filePath = "PathMark/controllers/dashboard/dashboard.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "637"
-            endingLineNumber = "637"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
             landmarkName = "checkCarCategoriesWB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -654,8 +740,8 @@
             filePath = "PathMark/controllers/dashboard/dashboard.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "692"
-            endingLineNumber = "692"
+            startingLineNumber = "686"
+            endingLineNumber = "686"
             landmarkName = "checkCarCategoriesWB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>

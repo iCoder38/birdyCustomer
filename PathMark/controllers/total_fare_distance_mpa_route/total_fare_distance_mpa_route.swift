@@ -1119,9 +1119,6 @@ extension total_fare_distance_mpa_route: UITableViewDataSource , UITableViewDele
         
         cell.lbl_distance.text = String(self.strGetTotalDistance)
         
-        
-         
-        
         return cell
     }
     
@@ -1231,10 +1228,6 @@ class total_fare_distance_mpa_route_table_cell: UITableViewCell {
             lbl_payment_type.textColor = .black
         }
     }
-    
-    //
-    
-    
     
     @IBOutlet weak var view_big:UIView! {
         didSet {

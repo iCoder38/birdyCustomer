@@ -20,8 +20,19 @@ class shared_booking: UIViewController {
     }
     
     @IBOutlet weak var view_navigation_bar:UIView! {
+//        didSet {
+//            view_navigation_bar.applyGradient()
+//        }
         didSet {
-            view_navigation_bar.applyGradient()
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.view_navigation_bar,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     

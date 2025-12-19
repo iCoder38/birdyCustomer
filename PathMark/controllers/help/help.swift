@@ -22,14 +22,24 @@ class help: UIViewController {
     }
     
     @IBOutlet weak var view_navigation_bar:UIView! {
+//        didSet {
+//            view_navigation_bar.applyGradient()
+//        }
         didSet {
-            view_navigation_bar.applyGradient()
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.view_navigation_bar,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                print(language as Any)
                
@@ -38,12 +48,12 @@ class help: UIViewController {
                } else {
                    view_navigation_title.text = "হেল্প"
                }
-               
             
            }
             view_navigation_title.textColor = .white
         }
     }
+    
     @IBOutlet weak var lbl_contact_us:UILabel! {
         didSet {
             

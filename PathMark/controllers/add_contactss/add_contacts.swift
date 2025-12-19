@@ -23,8 +23,19 @@ class add_contacts: UIViewController , UITextFieldDelegate {
     }
     
     @IBOutlet weak var view_navigation_bar:UIView! {
+//        didSet {
+//            view_navigation_bar.applyGradient()
+//        }
         didSet {
-            view_navigation_bar.applyGradient()
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.view_navigation_bar,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     
@@ -154,7 +165,6 @@ class add_contacts: UIViewController , UITextFieldDelegate {
             btn_submit.layer.shadowOpacity = 1.0
             btn_submit.layer.shadowRadius = 10.0
             btn_submit.layer.masksToBounds = false
-            
         }
     }
     

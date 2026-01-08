@@ -104,7 +104,7 @@ class MenuControllerVC: UIViewController {
                               "লগ-আউট করুন"]
     
     var arr_customer_image = ["home",
-                              "home",
+                              "edit",
                               "booking",
                               "emergency_contacts",
                               "card",
@@ -112,7 +112,7 @@ class MenuControllerVC: UIViewController {
                               "lock_24",
                               "logo-white",
                               "help",
-                              "help",
+                              "setting",
                               "help",
                               // "language_white",
                               "logout"]
@@ -441,7 +441,7 @@ extension MenuControllerVC: UITableViewDataSource {
         
         
         if self.arr_customer_title_en[indexPath.row] == "Emergency Contacts" {
-            
+
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
             self.view.window?.rootViewController = sw

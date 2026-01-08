@@ -775,7 +775,7 @@ class BooCheckChat: UIViewController, MessagingDelegate, UINavigationControllerD
                 parameters = [
                     "action"        : "notificationall",
                     "userId"        : String(myString),
-                    "deviceToken"   : String(token_to_parse),
+                    "deviceToken"   : String(""),
                     "device"        : "\(self.self.get_all_data["device"]!)",
                     "toDevice"      : (person["device"] as! String),
                     "toDeviceToken" : (person["deviceToken"] as! String),

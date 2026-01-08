@@ -67,7 +67,8 @@ class schedule_confirm_booking: UIViewController , CLLocationManagerDelegate , M
     
     @IBOutlet weak var navigationBar:UIView! {
         didSet {
-            navigationBar.backgroundColor = navigation_color
+//            navigationBar.backgroundColor = navigation_color
+            navigationBar.applyGradient()
         }
     }
     

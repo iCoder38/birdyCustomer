@@ -42,6 +42,7 @@
 		B96B4B752A5BD0F40038B82F /* login.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96B4B742A5BD0F40038B82F /* login.swift */; };
 		B96B4B782A5BD13A0038B82F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96B4B772A5BD13A0038B82F /* Utils.swift */; };
 		B96EE47A2B205E060077C746 /* about_us.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96EE4792B205E060077C746 /* about_us.swift */; };
+		B975A4782F0E4AC7004A52AC /* customer_trip_complete_details.swift in Sources */ = {isa = PBXBuildFile; fileRef = B975A4772F0E4AC7004A52AC /* customer_trip_complete_details.swift */; };
 		B9776C622A8E05F10084082F /* address_list.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9776C612A8E05F10084082F /* address_list.swift */; };
 		B97A19532A8CE7FD00D4DAD0 /* add_contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97A19522A8CE7FD00D4DAD0 /* add_contacts.swift */; };
 		B97A19562A8CE81300D4DAD0 /* emergency_contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97A19552A8CE81300D4DAD0 /* emergency_contacts.swift */; };
@@ -174,6 +175,7 @@
 		B96B4B742A5BD0F40038B82F /* login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = login.swift; sourceTree = "<group>"; };
 		B96B4B772A5BD13A0038B82F /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B96EE4792B205E060077C746 /* about_us.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = about_us.swift; sourceTree = "<group>"; };
+		B975A4772F0E4AC7004A52AC /* customer_trip_complete_details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customer_trip_complete_details.swift; sourceTree = "<group>"; };
 		B9776C612A8E05F10084082F /* address_list.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = address_list.swift; sourceTree = "<group>"; };
 		B97A19522A8CE7FD00D4DAD0 /* add_contacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = add_contacts.swift; sourceTree = "<group>"; };
 		B97A19552A8CE81300D4DAD0 /* emergency_contacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = emergency_contacts.swift; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				B99223102A8E4611005AA868 /* help */,
 				B96B4B712A5BD0BA0038B82F /* get_started_now.swift */,
 				B9997D592CD8B0CA0090E3F1 /* saveCards.swift */,
+				B975A4772F0E4AC7004A52AC /* customer_trip_complete_details.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -1220,6 +1223,7 @@
 				B9038E192A5D46ED0041A5B4 /* RPicker.swift in Sources */,
 				B9F779F42BDBA24300D699D0 /* invoice.swift in Sources */,
 				B980DD172A9DC98900F7CD07 /* ride_status.swift in Sources */,
+				B975A4782F0E4AC7004A52AC /* customer_trip_complete_details.swift in Sources */,
 				B9038E0C2A5D45FB0041A5B4 /* AlertView.swift in Sources */,
 				B9D3EAE02CCA303800711D69 /* cardPayment.swift in Sources */,
 				B91F4ACF2B06339300A587B5 /* schedule_ride_details.swift in Sources */,

@@ -64,7 +64,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     mainRevealController.frontViewController = frontNavigationController
                     
                     DispatchQueue.main.async {
-                        UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+//                        UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+                        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                           let window = scene.windows.first {
+                            window.rootViewController = mainRevealController
+                            window.makeKeyAndVisible()
+                        }
                     }
                     
                     self.window?.makeKeyAndVisible()
@@ -135,7 +140,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     
-   
+    func application(
+      _ application: UIApplication,
+      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        Messaging.messaging().apnsToken = deviceToken
+    }
+
     
     // MARK:- FIREBASE NOTIFICATION -
     @objc func fetchDeviceToken() {
@@ -178,23 +189,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }*/
 
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("Firebase registration token: \(String(describing: fcmToken))")
-        let dataDict:[String: String] = ["token": fcmToken ?? ""]
-        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-        
-        let defaults = UserDefaults.standard
-        // deviceToken
-//                defaults.set("\(token)", forKey: "deviceToken")
-        defaults.set("\(fcmToken!)", forKey: "key_my_device_token")
-        
-         print("\(fcmToken!)")
-        
-        
+        guard let token = fcmToken else { return }
+        print("FCM Token:", token)
+        UserDefaults.standard.set(token, forKey: "key_my_device_token")
     }
 
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("Firebase registration token: \(fcmToken)")
-    }
+
+//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+//        print("Firebase registration token: \(fcmToken)")
+//    }
     
     
     // MARK:- WHEN APP IS IN FOREGROUND - ( after click popup ) -
@@ -321,9 +324,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     @objc func handleNotificationWhenDriverRideEnd() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let destinationController = storyboard.instantiateViewController(withIdentifier:"success_payment_id") as? success_payment
+        let destinationController = storyboard.instantiateViewController(withIdentifier:"customer_trip_complete_details_id") as? customer_trip_complete_details
         
-        destinationController?.get_booking_details = dict as NSDictionary
+        destinationController?.dict_get_booking_details = dict as NSDictionary
+        destinationController?.str_home = "yes"
         
         let frontNavigationController = UINavigationController(rootViewController: destinationController!)
         

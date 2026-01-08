@@ -360,7 +360,6 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         
         
         if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
-            
             self.str_token_id = String(device_token)
         }
         
@@ -1341,7 +1340,9 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 
                 // loginUserLatitudeTo = "\(userLatitude!)"
                 // loginUserLongitudeTo = "\(userLongitude!)"
-                
+                if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
+                    self.str_token_id = String(device_token)
+                }
                 var parameters:Dictionary<AnyHashable, Any>!
                 parameters = [
                     "action"        : "editprofile",

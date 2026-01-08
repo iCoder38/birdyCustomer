@@ -25,9 +25,6 @@ class customPin: NSObject, MKAnnotation {
 // ###########################################################################################
 // ###########################################################################################
 
-
-
-
 // MARK:- BASE URL -
 let application_base_url = "https://demo4.evirtualservices.net/ridewithus/services/index"
 
@@ -40,7 +37,9 @@ let buttonColorRed = UIColor(red: 204/255, green: 60/255, blue: 36/255, alpha: 1
 let viewBackgroundColor = UIColor(red: 20/255, green: 19/255, blue: 19/255, alpha: 1.0)
 
 
-var GOOGLE_MAP_API = "AIzaSyB3sYhSTD7GEn1j6SsH-QL_GVNG6oUsfM0"
+var GOOGLE_MAP_API = "AIzaSyBieAKnUQiR-zls5RJBF5c7Y7Z5KsTW88o"
+
+//"AIzaSyB3sYhSTD7GEn1j6SsH-QL_GVNG6oUsfM0"
 
 // ###########################################################################################
 // ###########################################################################################
@@ -57,15 +56,8 @@ var bkash_call_back_URL = "http://mamtechit.com/callback"
 
 
 
-
-
 // AIzaSyB3sYhSTD7GEn1j6SsH-QL_GVNG6oUsfM0
 // AIzaSyDlTJ6OLa_sQxzYnWEjgubGlaiM6Wq951s: personal
-
-
-
-
-
 
 
 

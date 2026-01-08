@@ -118,6 +118,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     @IBOutlet weak var navigationBar:UIView! {
         didSet {
             navigationBar.applyGradient()
+            
         }
     }
     
@@ -1013,12 +1014,9 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         }
     }
     
-    
     @objc func parseData() {
         
     }
-    
-    
     
     @objc func booking_history_details_WB(str_show_loader:String) {
         

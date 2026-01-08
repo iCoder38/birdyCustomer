@@ -139,7 +139,8 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
     
     @IBOutlet weak var navigationBar:UIView! {
         didSet {
-            navigationBar.backgroundColor = navigation_color
+//            navigationBar.backgroundColor = navigation_color
+            navigationBar.applyGradient()
         }
     }
     

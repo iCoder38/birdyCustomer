@@ -1078,6 +1078,13 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
         let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]
         print(item as Any)
         
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "customer_trip_complete_details_id") as? customer_trip_complete_details
+        push!.dict_get_booking_details = (item! as NSDictionary)
+//        push!.str_from_history = "yes"
+        self.navigationController?.pushViewController(push!, animated: true)
+        
+        return;
+        
         if self.str_which_panel_select == "0" {
             
             // bookingTime

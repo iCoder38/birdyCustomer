@@ -382,7 +382,7 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
         mapView.settings.myLocationButton = true
         
         
-        
+        self.checkCarCategoriesWB(str_show_loader: "yes")
     }
     
     // Location Manager Delegate method
@@ -466,6 +466,19 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
              push!.str_from_location =  String(self.loginUserAddressFrom)
              
              self.navigationController?.pushViewController(push!, animated: true)
+        } else {
+            if (self.loginUserLatitudeFrom == nil) {
+                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please select drop location."), style: .alert)
+                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                alert.addButtons([cancel])
+                self.present(alert, animated: true)
+            } else {
+                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please select vehicle."), style: .alert)
+                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                alert.addButtons([cancel])
+                self.present(alert, animated: true)
+            }
+            
         }
         
     }
@@ -608,14 +621,25 @@ class dashboard: UIViewController , CLLocationManagerDelegate {
                 // loginUserLongitudeTo = "\(userLongitude!)"
                 
                 var parameters:Dictionary<AnyHashable, Any>!
-                parameters = [
-                    "action"            : "listbyprice",
-                    "TYPE"              : String("CAR"),
-                    "userId"            : String(myString),
-                    "pickuplatLong"     : String(self.loginUserLatitudeTo)+","+String(self.loginUserLongitudeTo),
-                    "droplatLong"       : String(self.loginUserLatitudeFrom)+","+String(self.loginUserLongitudeFrom),
-                    "language"          : String("en")
-                ]
+                
+//                print(self.loginUserLongitudeFrom)
+                if (self.loginUserLongitudeFrom == nil) {
+                    parameters = [
+                        "action"            : "category",
+                        "TYPE"              : String("CAR"),
+                        "language"          : String("en")
+                    ]
+                } else{
+                    parameters = [
+                        "action"            : "listbyprice",
+                        "TYPE"              : String("CAR"),
+                        "userId"            : String(myString),
+                        "pickuplatLong"     : String(self.loginUserLatitudeTo)+","+String(self.loginUserLongitudeTo),
+                        "droplatLong"       : String(self.loginUserLatitudeFrom)+","+String(self.loginUserLongitudeFrom),
+                        "language"          : String("en")
+                    ]
+                }
+                
                 
                 print(parameters as Any)
                 
@@ -1688,24 +1712,30 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
         cell.lblName.text = (item!["name"] as! String)
         cell.lblName.textColor = .black
         
-        let lat1 = Double(self.loginUserLatitudeTo!)
-        let lon1 = Double(self.loginUserLongitudeTo!)
-
-        let lat2 = Double(self.loginUserLatitudeFrom!)
-        let lon2 = Double(self.loginUserLongitudeFrom!)
-
-        let distance = getDistanceInMiles(lat1: lat1!,
-                                          lon1: lon1!,
-                                          lat2: lat2!,
-                                          lon2: lon2!)
+        // print(self.loginUserLatitudeFrom)
         
-        // print(distance as Any)
+        if (self.loginUserLatitudeFrom != nil) {
+            let lat1 = Double(self.loginUserLatitudeTo!)
+            let lon1 = Double(self.loginUserLongitudeTo!)
+
+            let lat2 = Double(self.loginUserLatitudeFrom!)
+            let lon2 = Double(self.loginUserLongitudeFrom!)
+
+            let distance = getDistanceInMiles(lat1: lat1!,
+                                              lon1: lon1!,
+                                              lat2: lat2!,
+                                              lon2: lon2!)
+                    
+            let multiplePriceWithDistance = Double("\(item!["total"]!)")!
+
+            cell.lblPrice.text = "$\(multiplePriceWithDistance)"
+            cell.lblPrice.textColor = .black
+            cell.lblPrice.isHidden = false
+        } else {
+            cell.lblPrice.isHidden = true
+        }
         
-        let multiplePriceWithDistance = Double("\(item!["total"]!)")!
-//        let myString = String(format: "%.2f", multiplePriceWithDistance)
-        cell.lblPrice.text = "$\(multiplePriceWithDistance)"
-        cell.lblPrice.textColor = .black
-//        cell.lblPrice.isHidden = true
+        
         
         cell.imgProfile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
         cell.imgProfile.sd_setImage(with: URL(string: (item!["image"] as! String)),
@@ -1730,9 +1760,11 @@ extension dashboard: UITableViewDataSource  , UITableViewDelegate {
         print(indexPath.row as Any)
         self.strSelectCarCategory = "\(indexPath.row)"
         
-        let item = self.arrCarCategories[indexPath.row] as? [String:Any]
-        // print(item as Any)
-        self.strUserSelectCarCategory = "\(item!["ID"]!)"
+        if (self.loginUserLatitudeFrom != nil) {
+            let item = self.arrCarCategories[indexPath.row] as? [String:Any]
+            self.strUserSelectCarCategory = "\(item!["ID"]!)"
+        }
+        
         
         self.tbleView.reloadData()
         

@@ -1104,7 +1104,7 @@ class cardPayment: UIViewController, UITextFieldDelegate, FullScreenPopupDelegat
     
     @objc private func showFullScreenPopup() {
         let popupVC = FullScreenPopupViewController()
-        popupVC.delegate = self // Set the delegate
+        popupVC.delegate = self
         let navController = UINavigationController(rootViewController: popupVC)
         navController.modalPresentationStyle = .fullScreen
         
@@ -1378,6 +1378,16 @@ class cardPayment_table_cell: UITableViewCell {
             btnSavedCard.layer.shadowOffset =  CGSize.zero
             btnSavedCard.layer.shadowOpacity = 0.5
             btnSavedCard.layer.shadowRadius = 2
+            
+            DispatchQueue.main.async { [self] in
+                GradientViewHelper.apply(
+                    to: btnSavedCard,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     

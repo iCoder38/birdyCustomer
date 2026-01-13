@@ -81,12 +81,20 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
     var doublePlaceFinalLat:Double!
     var doublePlaceFinalLong:Double!
     
-    @IBOutlet weak var lblStartingLocation:UILabel!
-    @IBOutlet weak var lblEndLocation:UILabel!
+    @IBOutlet weak var lblStartingLocation:UILabel! {
+        didSet {
+            lblStartingLocation.textColor = .white
+        }
+    }
+    @IBOutlet weak var lblEndLocation:UILabel! {
+        didSet {
+            lblEndLocation.textColor = .white
+        }
+    }
     
     @IBOutlet weak var viewEstimateBG:UIView!{
         didSet {
-            viewEstimateBG.backgroundColor = .white
+            viewEstimateBG.backgroundColor = .black
         }
     }
     
@@ -194,7 +202,7 @@ class total_fare_distance_mpa_route: UIViewController , CLLocationManagerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .black
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
         // keyboard

@@ -1078,12 +1078,11 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
         let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]
         print(item as Any)
         
-        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "customer_trip_complete_details_id") as? customer_trip_complete_details
+        /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "customer_trip_complete_details_id") as? customer_trip_complete_details
         push!.dict_get_booking_details = (item! as NSDictionary)
-//        push!.str_from_history = "yes"
         self.navigationController?.pushViewController(push!, animated: true)
         
-        return;
+        return;*/
         
         if self.str_which_panel_select == "0" {
             
@@ -1208,7 +1207,11 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                     push!.isFromMenu = false
                     self.navigationController?.pushViewController(push!, animated: true)*/
                     
-                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_history_details_id") as? ride_history_details
+//                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_history_details_id") as? ride_history_details
+//                    push!.dict_get_booking_details = (item! as NSDictionary)
+//                    self.navigationController?.pushViewController(push!, animated: true)
+                    
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "customer_trip_complete_details_id") as? customer_trip_complete_details
                     push!.dict_get_booking_details = (item! as NSDictionary)
                     self.navigationController?.pushViewController(push!, animated: true)
                     
@@ -1277,7 +1280,7 @@ class ride_history_upcoming_table_cell: UITableViewCell {
     @IBOutlet weak var img_profile:UIImageView! {
         didSet {
             img_profile.backgroundColor = .gray
-            img_profile.layer.cornerRadius = 40
+            img_profile.layer.cornerRadius = 20
             img_profile.clipsToBounds = true
         }
     }

@@ -99,19 +99,20 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     
     @IBOutlet weak var viewBottom:UIView! {
         didSet {
-            viewBottom.backgroundColor = .white
+            viewBottom.backgroundColor = .black
             viewBottom.layer.cornerRadius = 12
             viewBottom.clipsToBounds = true
             
         }
     }
     
-    @IBOutlet weak var lblTotalTime:UILabel! {
+    @IBOutlet weak var lblTotalTime:PaddingLabel! {
         didSet {
             lblTotalTime.backgroundColor = .black
             lblTotalTime.textColor = .yellow
             lblTotalTime.layer.cornerRadius = 12
             lblTotalTime.clipsToBounds = true
+//            lblTotalTime.padding = UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
         }
     }
     
@@ -163,13 +164,25 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
             view_bg.layer.shadowOffset =  CGSize.zero
             view_bg.layer.shadowOpacity = 0.5
             view_bg.layer.shadowRadius = 2
-            view_bg.backgroundColor = .white
+            view_bg.backgroundColor = .black
         }
     }
     
-    @IBOutlet weak var lbl_car_details:UILabel!
-    @IBOutlet weak var lbl_driver_name:UILabel!
-    @IBOutlet weak var lbl_driver_rating:UILabel!
+    @IBOutlet weak var lbl_car_details:UILabel! {
+        didSet {
+            lbl_car_details.textColor = .white
+        }
+    }
+    @IBOutlet weak var lbl_driver_name:UILabel! {
+        didSet {
+            lbl_driver_name.textColor = .white
+        }
+    }
+    @IBOutlet weak var lbl_driver_rating:UILabel! {
+        didSet {
+            lbl_driver_rating.textColor = .white
+        }
+    }
     
     @IBOutlet weak var txt_write_message:UITextField! {
         didSet {
@@ -222,14 +235,14 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     @IBOutlet weak var btn_call_driver:UIButton! {
         didSet {
             btn_call_driver.backgroundColor = .clear
-            btn_call_driver.setTitleColor(.black, for: .normal)
+            btn_call_driver.setTitleColor(.white, for: .normal)
         }
     }
     
     @IBOutlet weak var btn_cancel_ride:UIButton! {
         didSet {
             btn_cancel_ride.backgroundColor = .clear
-            btn_cancel_ride.setTitleColor(.black, for: .normal)
+            btn_cancel_ride.setTitleColor(.white, for: .normal)
         }
     }
     
@@ -1360,7 +1373,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         self.lblTotalTime.text = "\(allData["totalTime"]!)"
         
         // car details
-        self.lbl_car_details.text = "\(allData["vehicleNumber"]!) (\(allData["CarName"]!))"
+        self.lbl_car_details.text = "\(allData["vehicleNumber"]!) (\(allData["CarName"]!):\(allData["VehicleColor"]!))"
         
         // driver details
         self.lbl_driver_rating.text = "\(allData["driverRating"]!)"
@@ -1375,16 +1388,17 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         // confirm booking button
         if "\(self.dictDynamicDictionary["rideStatus"]!)" == "1" {
             self.btnConfirmBooking.setTitle("DRIVER ARRIVING", for: .normal)
+            self.btnConfirmBooking.backgroundColor = .systemYellow
             lblNavigationTitle.text = "DRIVER ARRIVING"
         } else if "\(self.dictDynamicDictionary["rideStatus"]!)" == "2" {
             self.btnConfirmBooking.setTitle("DRIVER ARRIVED", for: .normal)
+            self.btnConfirmBooking.backgroundColor = .systemOrange
             lblNavigationTitle.text = "DRIVER ARRIVED"
         }  else if "\(self.dictDynamicDictionary["rideStatus"]!)" == "3" {
             self.btnConfirmBooking.setTitle("ENJOY YOUR RIDE", for: .normal)
             lblNavigationTitle.text = "ENJOY YOUR RIDE"
+            self.btnConfirmBooking.backgroundColor = .systemGreen
         }
-        
-        self.btnConfirmBooking.backgroundColor = .systemGreen
         
         // chat
         self.btn_chat.backgroundColor = .clear
@@ -2453,4 +2467,23 @@ class ride_status_table_cell: UITableViewCell {
     }
     
     
+}
+
+import UIKit
+
+class PaddingLabel: UILabel {
+
+    var padding = UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12)
+
+    override func drawText(in rect: CGRect) {
+        super.drawText(in: rect.inset(by: padding))
+    }
+
+    override var intrinsicContentSize: CGSize {
+        let size = super.intrinsicContentSize
+        return CGSize(
+            width: size.width + padding.left + padding.right,
+            height: size.height + padding.top + padding.bottom
+        )
+    }
 }

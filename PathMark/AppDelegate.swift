@@ -330,9 +330,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         destinationController?.str_home = "yes"
         
         let frontNavigationController = UINavigationController(rootViewController: destinationController!)
-        
         let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
-        
         let mainRevealController = SWRevealViewController()
         
         mainRevealController.rearViewController = rearViewController

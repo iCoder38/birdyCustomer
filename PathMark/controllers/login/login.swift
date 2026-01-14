@@ -866,6 +866,9 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
         cell.btnSignIn.addTarget(self, action: #selector(home_click_method), for: .touchUpInside)
         cell.btnDontHaveAnAccount.addTarget(self, action: #selector(dontHaveAntAccountClickMethod), for: .touchUpInside)
         cell.btn_remember_me.addTarget(self, action: #selector(remember_me_click_method), for: .touchUpInside)
+        
+        cell.btnForgotPassword.addTarget(self, action: #selector(forgot_password_click_here), for: .touchUpInside)
+        
         // cell.btn_google.addTarget(self, action: #selector(signInViaGoogle), for: .touchUpInside)
         // cell.btn_facebook.addTarget(self, action: #selector(signInViaFacebook), for: .touchUpInside)
         
@@ -1165,7 +1168,12 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
     @objc func dontHaveAntAccountClickMethod() {
         
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "sign_up_id")
-         self.navigationController?.pushViewController(push, animated: true)
+        self.navigationController?.pushViewController(push, animated: true)
+    }
+    
+    @objc func forgot_password_click_here() {
+        let vc = ForgotPasswordVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -1265,6 +1273,13 @@ class login_table_cell: UITableViewCell {
         didSet {
             Utils.buttonStyle(button: btnDontHaveAnAccount, bCornerRadius: 6, bBackgroundColor: .clear, bTitle: "Not a member? Register Now", bTitleColor: UIColor(red: 87.0/255.0, green: 77.0/255.0, blue: 112.0/255.0, alpha: 1))
             btnDontHaveAnAccount.setTitleColor(UIColor.yellow, for: .normal)
+        }
+    }
+    
+    @IBOutlet weak var btnForgotPassword:UIButton! {
+        didSet {
+            Utils.buttonStyle(button: btnForgotPassword, bCornerRadius: 6, bBackgroundColor: .clear, bTitle: "Forgot password? - Click here", bTitleColor: UIColor(red: 87.0/255.0, green: 77.0/255.0, blue: 112.0/255.0, alpha: 1))
+            btnForgotPassword.setTitleColor(UIColor.yellow, for: .normal)
         }
     }
     

@@ -186,13 +186,24 @@
                                                     </state>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l3f-k8-MHy">
-                                                    <rect key="frame" x="20" y="497" width="353" height="35"/>
+                                                    <rect key="frame" x="20" y="540" width="353" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="fE8-r2-UhR"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" title="Not a member ? Register Now">
+                                                        <color key="titleColor" systemColor="systemYellowColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TqW-ME-AlB">
+                                                    <rect key="frame" x="20" y="497" width="353" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="nfE-GK-PIt"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="Forgot password? - Click here">
                                                         <color key="titleColor" systemColor="systemYellowColor"/>
                                                     </state>
                                                 </button>
@@ -206,18 +217,21 @@
                                                 <constraint firstItem="A56-lo-ubh" firstAttribute="leading" secondItem="shE-Ac-2BR" secondAttribute="leadingMargin" id="AdP-B3-ZZ8"/>
                                                 <constraint firstItem="Xf5-T3-4NN" firstAttribute="trailing" secondItem="shE-Ac-2BR" secondAttribute="trailingMargin" id="Ebp-eR-YJf"/>
                                                 <constraint firstItem="rlq-dl-4m8" firstAttribute="trailing" secondItem="shE-Ac-2BR" secondAttribute="trailingMargin" id="HU4-Mb-MMK"/>
-                                                <constraint firstItem="l3f-k8-MHy" firstAttribute="top" secondItem="GcN-1S-der" secondAttribute="bottom" constant="8" symbolic="YES" id="NhD-2r-kXE"/>
+                                                <constraint firstItem="l3f-k8-MHy" firstAttribute="top" secondItem="GcN-1S-der" secondAttribute="bottom" constant="51" id="NhD-2r-kXE"/>
                                                 <constraint firstItem="rlq-dl-4m8" firstAttribute="top" secondItem="PPw-e5-pTo" secondAttribute="bottom" constant="20" id="OVT-ZW-I8x"/>
                                                 <constraint firstItem="GcN-1S-der" firstAttribute="top" secondItem="1Lg-Hu-Tax" secondAttribute="bottom" constant="8" symbolic="YES" id="OXz-T1-qc4"/>
                                                 <constraint firstItem="rlq-dl-4m8" firstAttribute="leading" secondItem="shE-Ac-2BR" secondAttribute="leadingMargin" id="P5Q-jm-E1H"/>
                                                 <constraint firstItem="l3f-k8-MHy" firstAttribute="leading" secondItem="shE-Ac-2BR" secondAttribute="leadingMargin" id="P94-xF-MT7"/>
                                                 <constraint firstItem="cqb-ue-NCJ" firstAttribute="top" secondItem="rlq-dl-4m8" secondAttribute="bottom" constant="20" id="SNL-RX-hzP"/>
                                                 <constraint firstItem="Xf5-T3-4NN" firstAttribute="top" secondItem="rlq-dl-4m8" secondAttribute="bottom" constant="76" id="TpL-ys-bDS"/>
+                                                <constraint firstItem="TqW-ME-AlB" firstAttribute="trailing" secondItem="shE-Ac-2BR" secondAttribute="trailingMargin" id="VUE-R1-db5"/>
                                                 <constraint firstItem="PPw-e5-pTo" firstAttribute="trailing" secondItem="shE-Ac-2BR" secondAttribute="trailingMargin" id="Yhg-z6-4z5"/>
+                                                <constraint firstItem="TqW-ME-AlB" firstAttribute="leading" secondItem="shE-Ac-2BR" secondAttribute="leadingMargin" id="a4G-Rt-zuc"/>
                                                 <constraint firstItem="PPw-e5-pTo" firstAttribute="leading" secondItem="shE-Ac-2BR" secondAttribute="leadingMargin" id="abN-37-BOJ"/>
                                                 <constraint firstItem="1Lg-Hu-Tax" firstAttribute="leading" secondItem="shE-Ac-2BR" secondAttribute="leadingMargin" id="bGr-ok-wiH"/>
                                                 <constraint firstItem="A56-lo-ubh" firstAttribute="top" secondItem="rlq-dl-4m8" secondAttribute="bottom" constant="8" symbolic="YES" id="k35-0R-Tx8"/>
                                                 <constraint firstItem="GcN-1S-der" firstAttribute="trailing" secondItem="shE-Ac-2BR" secondAttribute="trailingMargin" id="kJ1-od-mna"/>
+                                                <constraint firstItem="TqW-ME-AlB" firstAttribute="top" secondItem="GcN-1S-der" secondAttribute="bottom" constant="8" symbolic="YES" id="ntX-Uq-mNQ"/>
                                                 <constraint firstItem="LjO-TT-ChP" firstAttribute="leading" secondItem="shE-Ac-2BR" secondAttribute="leadingMargin" id="owA-V4-sPv"/>
                                                 <constraint firstItem="GcN-1S-der" firstAttribute="leading" secondItem="shE-Ac-2BR" secondAttribute="leadingMargin" id="p0r-8e-NHw"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="cqb-ue-NCJ" secondAttribute="trailing" constant="12" id="pYE-sb-7zp"/>
@@ -230,6 +244,7 @@
                                         <color key="backgroundColor" red="0.45621799200000002" green="0.45832409330000001" blue="0.46464239689999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <connections>
                                             <outlet property="btnDontHaveAnAccount" destination="l3f-k8-MHy" id="MVT-rI-0zC"/>
+                                            <outlet property="btnForgotPassword" destination="TqW-ME-AlB" id="1nT-lc-SwV"/>
                                             <outlet property="btnSignIn" destination="GcN-1S-der" id="RIl-wa-rPJ"/>
                                             <outlet property="btn_remember_me" destination="1Lg-Hu-Tax" id="F4h-Bb-drn"/>
                                             <outlet property="lbl_login_to_continue" destination="PPw-e5-pTo" id="W0U-ml-J74"/>
@@ -2489,7 +2504,7 @@
                                 <rect key="frame" x="17" y="1127" width="381" height="257"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlM-DR-jd1">
-                                        <rect key="frame" x="8" y="8" width="7" height="23"/>
+                                        <rect key="frame" x="8" y="8" width="6.3333333333333321" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="esN-Tw-Scj"/>
                                         </constraints>
@@ -2498,7 +2513,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z2Q-gt-SUm">
-                                        <rect key="frame" x="23" y="87" width="0.0" height="23"/>
+                                        <rect key="frame" x="22.333333333333336" y="87" width="0.0" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="OeM-Re-iGR"/>
                                         </constraints>
@@ -3501,7 +3516,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Egc-mW-o8b">
-                                                                    <rect key="frame" x="36" y="7.3333333333333517" width="16" height="15.666666666666666"/>
+                                                                    <rect key="frame" x="36" y="7.3333333333333526" width="16" height="15.666666666666661"/>
                                                                     <color key="tintColor" systemColor="systemYellowColor"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="16" id="Hdr-DM-il6"/>
@@ -7486,7 +7501,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="৳ 5.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzK-bk-Q2m">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 5.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzK-bk-Q2m">
                                         <rect key="frame" x="290" y="8" width="63" height="23"/>
                                         <color key="backgroundColor" red="1" green="0.45431270620000003" blue="0.39536565130000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
@@ -11024,7 +11039,7 @@
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="phone" catalog="system" width="128" height="115"/>
         <image name="phone.fill" catalog="system" width="128" height="114"/>
-        <image name="photo" width="140" height="140"/>
+        <image name="photo" width="180" height="181"/>
         <image name="pin.fill" catalog="system" width="116" height="128"/>
         <image name="square.and.arrow.up.fill" catalog="system" width="117" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>

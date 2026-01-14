@@ -46,8 +46,8 @@
             filePath = "PathMark/controllers/login/login.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1047"
-            endingLineNumber = "1047"
+            startingLineNumber = "1050"
+            endingLineNumber = "1050"
             landmarkName = "social_login_via_apple_one(social_id:email:name:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "PathMark/controllers/login/login.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "945"
-            endingLineNumber = "945"
+            startingLineNumber = "948"
+            endingLineNumber = "948"
             landmarkName = "social_login_via_apple_two(social_id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -673,6 +673,22 @@
             startingLineNumber = "56"
             endingLineNumber = "56"
             landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C0400860-8CEA-4BD9-81A6-5B23F2667E5E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PathMark/controllers/decline_page/pay_after_cancel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+            landmarkName = "decline_ride_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

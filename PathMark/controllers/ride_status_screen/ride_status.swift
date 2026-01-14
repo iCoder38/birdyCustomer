@@ -1496,13 +1496,31 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     }
     
     @objc func cancancel_ride_click_method() {
+
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
-        myAlert!.dict_booking_details   = self.dict_get_all_data_from_notification
-        myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        myAlert!.modalTransitionStyle   = UIModalTransitionStyle.crossDissolve
-        present(myAlert!, animated: true, completion: nil)
+        let myAlert = storyboard.instantiateViewController(
+            withIdentifier: "decline_request_id"
+        ) as! decline_request
+
+        myAlert.dict_booking_details = self.dict_get_all_data_from_notification
+
+        // 🔥 THIS IS THE KEY PART
+        myAlert.onProceedToPayment = { [weak self] booking, reason, comment in
+            guard let self = self else { return }
+
+            let vc = PayAfterCancelNewVC()
+            vc.get_dict_booking_details = booking
+            vc.get_str_reason_select = reason
+            vc.get_txt_view = comment
+
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+
+        myAlert.modalPresentationStyle = .overCurrentContext
+        myAlert.modalTransitionStyle = .crossDissolve
+        present(myAlert, animated: true)
     }
+
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)

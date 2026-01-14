@@ -104,6 +104,9 @@
 		B9F377D22B0F3CB3007F6CEB /* share_track.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F377D12B0F3CB3007F6CEB /* share_track.swift */; };
 		B9F6F7312B3071EA009BAA2F /* terms_and_conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F6F7302B3071EA009BAA2F /* terms_and_conditions.swift */; };
 		B9F779F42BDBA24300D699D0 /* invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F779F32BDBA24300D699D0 /* invoice.swift */; };
+		B9FA823A2F178B87000BE295 /* forgot_password.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA82392F178B87000BE295 /* forgot_password.swift */; };
+		B9FA823C2F178EA5000BE295 /* set_new_password.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA823B2F178EA5000BE295 /* set_new_password.swift */; };
+		B9FA823E2F17944C000BE295 /* pay_after_cancel_new.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FA823D2F17944C000BE295 /* pay_after_cancel_new.swift */; };
 		B9FE545C2A5FD8CE005583C2 /* parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FE545B2A5FD8CE005583C2 /* parameter.swift */; };
 		B9FE54662A5FED30005583C2 /* MenuControllerVCTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FE54602A5FED30005583C2 /* MenuControllerVCTableCell.swift */; };
 		B9FE54672A5FED30005583C2 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FE54632A5FED30005583C2 /* SWRevealViewController.m */; };
@@ -233,6 +236,9 @@
 		B9F377D12B0F3CB3007F6CEB /* share_track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = share_track.swift; sourceTree = "<group>"; };
 		B9F6F7302B3071EA009BAA2F /* terms_and_conditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = terms_and_conditions.swift; sourceTree = "<group>"; };
 		B9F779F32BDBA24300D699D0 /* invoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = invoice.swift; sourceTree = "<group>"; };
+		B9FA82392F178B87000BE295 /* forgot_password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = forgot_password.swift; sourceTree = "<group>"; };
+		B9FA823B2F178EA5000BE295 /* set_new_password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = set_new_password.swift; sourceTree = "<group>"; };
+		B9FA823D2F17944C000BE295 /* pay_after_cancel_new.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pay_after_cancel_new.swift; sourceTree = "<group>"; };
 		B9FE545B2A5FD8CE005583C2 /* parameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = parameter.swift; sourceTree = "<group>"; };
 		B9FE545F2A5FED2F005583C2 /* PathMark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PathMark-Bridging-Header.h"; sourceTree = "<group>"; };
 		B9FE54602A5FED30005583C2 /* MenuControllerVCTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuControllerVCTableCell.swift; sourceTree = "<group>"; };
@@ -491,6 +497,8 @@
 			isa = PBXGroup;
 			children = (
 				B96B4B742A5BD0F40038B82F /* login.swift */,
+				B9FA82392F178B87000BE295 /* forgot_password.swift */,
+				B9FA823B2F178EA5000BE295 /* set_new_password.swift */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -697,6 +705,7 @@
 			isa = PBXGroup;
 			children = (
 				B9C5307F2B0DD2FF00DB37B0 /* decline_request.swift */,
+				B9FA823D2F17944C000BE295 /* pay_after_cancel_new.swift */,
 			);
 			path = decline_page;
 			sourceTree = "<group>";
@@ -1193,6 +1202,7 @@
 				B934EC862B0763F500908C0D /* before_payment.swift in Sources */,
 				B96B4B752A5BD0F40038B82F /* login.swift in Sources */,
 				B9A8EE622BFE207D00169855 /* select_profile.swift in Sources */,
+				B9FA823A2F178B87000BE295 /* forgot_password.swift in Sources */,
 				B9038E102A5D45FB0041A5B4 /* ActionSheetView.swift in Sources */,
 				B9776C622A8E05F10084082F /* address_list.swift in Sources */,
 				B96EE47A2B205E060077C746 /* about_us.swift in Sources */,
@@ -1206,6 +1216,7 @@
 				B9038E0D2A5D45FB0041A5B4 /* Color.swift in Sources */,
 				B99223122A8E461B005AA868 /* help.swift in Sources */,
 				B9038E0F2A5D45FB0041A5B4 /* LeftPaddingTextField.swift in Sources */,
+				B9FA823E2F17944C000BE295 /* pay_after_cancel_new.swift in Sources */,
 				B943FE542B26EA03000A20FA /* BooCheckChat.swift in Sources */,
 				B99223162A8E4991005AA868 /* CarouselCell.swift in Sources */,
 				B9997D5A2CD8B0CA0090E3F1 /* saveCards.swift in Sources */,
@@ -1226,6 +1237,7 @@
 				B975A4782F0E4AC7004A52AC /* customer_trip_complete_details.swift in Sources */,
 				B9038E0C2A5D45FB0041A5B4 /* AlertView.swift in Sources */,
 				B9D3EAE02CCA303800711D69 /* cardPayment.swift in Sources */,
+				B9FA823C2F178EA5000BE295 /* set_new_password.swift in Sources */,
 				B91F4ACF2B06339300A587B5 /* schedule_ride_details.swift in Sources */,
 				B9F377D22B0F3CB3007F6CEB /* share_track.swift in Sources */,
 				B9038E162A5D465A0041A5B4 /* total_fare_distance_mpa_route.swift in Sources */,

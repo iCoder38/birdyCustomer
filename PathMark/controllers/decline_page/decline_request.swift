@@ -17,6 +17,11 @@ class decline_request: UIViewController {
     var timer:Timer!
     var dict_booking_details:NSDictionary!
     var window: UIWindow?
+    
+    var onProceedToPayment: ((_ booking: NSDictionary,
+                              _ reason: String,
+                              _ comment: String) -> Void)?
+    
     @IBOutlet weak var view_bg:UIView! {
         didSet {
             view_bg.layer.cornerRadius = 12
@@ -352,223 +357,22 @@ class decline_request: UIViewController {
     }
     
     @objc func decline_ride_WB(str_show_loader:String) {
-         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-                } else {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
-                }
-                
-             
-            }
-        // self.dismiss(animated: true)
+//        let vc = PayAfterCancelNewVC()
+//        
+//        vc.get_dict_booking_details = self.dict_booking_details
+//        vc.get_str_reason_select = String(self.str_reason_select)
+//        vc.get_txt_view = String(self.txt_view.text)
+//        
+//        self.navigationController?.pushViewController(vc, animated: true)
         
-        // self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
-        
-        if (str_show_loader == "yes") {
-             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-                } else {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
-                }
-                
-             
-            }
-        }
-        
-        
-        self.view.endEditing(true)
-        
-        var parameters:Dictionary<AnyHashable, Any>!
-        
-        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-            print(person)
-            
-            let x : Int = person["userId"] as! Int
-            let myString = String(x)
-            
-            var ar : NSArray!
-            ar = (person["carinfromation"] as! Array<Any>) as NSArray
-            
-            let arr_mut_order_history:NSMutableArray! = []
-            arr_mut_order_history.addObjects(from: ar as! [Any])
-            
-            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
-                print(token_id_is as Any)
-                
-                let headers: HTTPHeaders = [
-                    "token":String(token_id_is),
-                ]
-                
-                /*
-                 [action] => ridecancel
-                     [userId] => 71
-                     [bookingId] => 195
-                     [userType] => Driver
-                     [cancelReason] => My reason is not listed
-                     [cancelComment] => hmm
-                 */
-                parameters = [
-                    "action"        : "ridecancel",
-                    "userId"        : String(myString),
-                    "bookingId"     : "\(self.dict_booking_details["bookingId"]!)",
-                    "userType"      : String("Member"),
-                    "cancelReason"  : String(self.str_reason_select),
-                    "cancelComment" : String(self.txt_view.text)
-                ]
-                
-                print(parameters as Any)
-                
-                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON { [self]
-                    response in
-                    // debugPrint(response.result)
-                    
-                    switch response.result {
-                    case let .success(value):
-                        
-                        let JSON = value as! NSDictionary
-                        print(JSON as Any)
-                        
-                        var strSuccess : String!
-                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
-                        
-                        var message : String!
-                        message = (JSON["msg"] as? String)
-                        
-                        print(strSuccess as Any)
-                        if strSuccess == String("success") {
-                            print("yes")
-                            
-                            let str_token = (JSON["AuthToken"] as! String)
-                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-                            
-                            ERProgressHud.sharedInstance.hide()
-                            
-                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        self.dismiss(animated: true) {
 
-                            let destinationController = storyboard.instantiateViewController(withIdentifier:"dashboard_id") as? dashboard
-                                
-                            // destinationController?.str_booking_id =  "\(self.dict_booking_details["bookingId"]!)"
-                               
-                            // destinationController?.str_reason_select2 = String(self.str_reason_select)
-                            // destinationController?.txt_view2 = String(self.txt_view.text)
-                            
-                            let frontNavigationController = UINavigationController(rootViewController: destinationController!)
-
-                            let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
-
-                            let mainRevealController = SWRevealViewController()
-
-                            mainRevealController.rearViewController = rearViewController
-                            mainRevealController.frontViewController = frontNavigationController
-                            
-                            DispatchQueue.main.async {
-                                UIApplication.shared.keyWindow?.rootViewController = mainRevealController
-                            }
-                            
-                            window?.makeKeyAndVisible()
-                            
-                            
-                             
-                            
-                            
-                            
-                            
-                        } else if message == String(not_authorize_api) {
-                            self.login_refresh_token_wb()
-                            
-                        } else {
-                            
-                            print("no")
-                            ERProgressHud.sharedInstance.hide()
-                            
-                            var strSuccess2 : String!
-                            strSuccess2 = JSON["msg"]as Any as? String
-                            
-                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
-                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-                            alert.addButtons([cancel])
-                            self.present(alert, animated: true)
-                            
-                        }
-                        
-                    case let .failure(error):
-                        print(error)
-                        ERProgressHud.sharedInstance.hide()
-                        
-                        self.please_check_your_internet_connection()
-                        
-                    }
-                }
+                self.onProceedToPayment?(
+                    self.dict_booking_details,
+                    self.str_reason_select,
+                    self.txt_view.text
+                )
             }
-        }
-         
-    }
-    
-    @objc func login_refresh_token_wb() {
-        
-        var parameters:Dictionary<AnyHashable, Any>!
-        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
-            print(get_login_details as Any)
-            
-            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-                
-                let x : Int = person["userId"] as! Int
-                let myString = String(x)
-                
-                parameters = [
-                    "action"    : "gettoken",
-                    "userId"    : String(myString),
-                    "email"     : (get_login_details["email"] as! String),
-                    "role"      : "Member"
-                ]
-            }
-            
-            print("parameters-------\(String(describing: parameters))")
-            
-            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
-                response in
-                
-                switch(response.result) {
-                case .success(_):
-                    if let data = response.value {
-                        
-                        let JSON = data as! NSDictionary
-                        print(JSON)
-                        
-                        var strSuccess : String!
-                        strSuccess = JSON["status"] as? String
-                        
-                        if strSuccess.lowercased() == "success" {
-                            
-                            let str_token = (JSON["AuthToken"] as! String)
-                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-                            
-                            self.decline_ride_WB(str_show_loader: "no")
-                            
-                        } else {
-                            ERProgressHud.sharedInstance.hide()
-                        }
-                        
-                    }
-                    
-                case .failure(_):
-                    print("Error message:\(String(describing: response.error))")
-                    ERProgressHud.sharedInstance.hide()
-                    self.please_check_your_internet_connection()
-                    
-                    break
-                }
-            }
-        }
-        
     }
     
     @objc func updateCounter() {

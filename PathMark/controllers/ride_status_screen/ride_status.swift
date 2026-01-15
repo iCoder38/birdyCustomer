@@ -37,6 +37,8 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     var strSaveStateName:String!
     var strSaveZipcodeName:String!
     
+    // DRIVER LIVE MARKER
+    var driverMarker: GMSMarker?
     
     var counter = 2
     var timer:Timer!
@@ -1470,6 +1472,9 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         // maps
         self.handleEveythingFromGoogleMapInit()
         
+         
+        self.updateDriverLocationOnMap()
+        
         // table view
         self.tbleView.delegate = self
         self.tbleView.dataSource = self
@@ -2201,6 +2206,9 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     
     func initializeMap() {
         
+        if mapView != nil {
+            return
+        }
         // print(dict_get_all_data_from_notification as Any)
         
         let separateDropLocation    = (self.dictDynamicDictionary["RequestDropLatLong"] as! String)
@@ -2252,11 +2260,62 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
         let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
         
-        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.dictDynamicDictionary["RequestPickupAddress"] as! String), color: .green)
+        // addMarker(at: placeACoordinate, title: "Origin", snippet: (self.dictDynamicDictionary["RequestPickupAddress"] as! String), color: .green)
         addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.dictDynamicDictionary["RequestDropAddress"] as! String), color: .yellow)
         
         fetchRoute(from: placeACoordinate, to: placeBCoordinate)
+        
+        // 🔥 ADD THIS
+        updateDriverLocationOnMap()
     }
+    
+    func updateDriverLocationOnMap() {
+
+        guard
+            let latStr = self.dictDynamicDictionary["driverLatitude"] as? String,
+            let lngStr =
+                self.dictDynamicDictionary["driverLongitude"] as? String ??
+                self.dictDynamicDictionary["driverlongitude"] as? String,
+            let lat = Double(latStr),
+            let lng = Double(lngStr)
+        else { return }
+
+        let driverCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+
+        if driverMarker == nil {
+
+            let marker = GMSMarker(position: driverCoordinate)
+
+            if let carImg = UIImage(named: "car1") {
+                marker.icon = resizeImage(
+                    image: carImg,
+                    targetSize: CGSize(width: 20, height: 20)
+                )
+            }
+
+            marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+            marker.isFlat = true
+            marker.zIndex = 999
+            marker.map = mapView
+            driverMarker = marker
+
+        } else {
+
+            CATransaction.begin()
+            CATransaction.setAnimationDuration(1.0)
+            driverMarker?.position = driverCoordinate
+            CATransaction.commit()
+        }
+    }
+
+
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        return renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+    }
+
     
     @objc func buttonUpClickMethod() {
         

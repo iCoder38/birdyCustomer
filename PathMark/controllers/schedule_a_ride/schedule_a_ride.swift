@@ -140,7 +140,7 @@ class schedule_a_ride: UIViewController {
     
     @IBOutlet weak var btn_schedule:UIButton! {
         didSet {
-            btn_schedule.backgroundColor = navigation_color
+            btn_schedule.backgroundColor = .systemRed
             btn_schedule.layer.cornerRadius = 12
             btn_schedule.clipsToBounds = true
             btn_schedule.setTitleColor(.white, for: .normal)
@@ -207,7 +207,7 @@ class schedule_a_ride: UIViewController {
     }
     
     @objc func schedule_a_ride_click_method2() {
-        
+        // self.str_selected_date
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_confirm_booking_id") as? schedule_confirm_booking
         
         push!.str_get_category_id2 = String(self.str_get_category_id)

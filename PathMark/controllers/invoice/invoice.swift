@@ -38,7 +38,31 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
-            view_navigation_bar.applyGradient()
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.view_navigation_bar,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
+        }
+    }
+    
+    @IBOutlet weak var view_price:UIView! {
+        didSet {
+            view_price.layer.cornerRadius = 6
+            view_price.clipsToBounds = true
+            view_price.backgroundColor = .white
+        }
+    }
+    
+    @IBOutlet weak var view_Location:UIView! {
+        didSet {
+            view_Location.layer.cornerRadius = 6
+            view_Location.clipsToBounds = true
+            view_Location.backgroundColor = .white
         }
     }
     
@@ -106,7 +130,15 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
     
     @IBOutlet weak var view_bg:UIView! {
         didSet {
-            view_bg.backgroundColor = navigation_color
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.view_bg,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     
@@ -164,6 +196,7 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
         didSet {
             btn_cash.layer.cornerRadius = 12
             btn_cash.clipsToBounds = true
+            btn_cash.backgroundColor = .systemRed
             
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
@@ -208,9 +241,11 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
         self.lbl_pick_up.text = "\(self.dict_all_details["RequestPickupAddress"]!)"
         self.lbl_drop.text = "\(self.dict_all_details["RequestDropAddress"]!)"
         
-        self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
         
-        if self.dict_all_details["Last_cancel_amount"] == nil {
+        
+//        print(self.dict_all_details  as Any)
+        
+        /*if self.dict_all_details["Last_cancel_amount"] == nil {
             
             if self.dict_all_details["last_cancel_amount"] == nil {
                 
@@ -250,14 +285,19 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
             
             
             self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(formattedNumber1)"
-        }
+        }*/
         
+        // RIDE WITH US
+        self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["estimatedPrice"]!)"
+        self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["estimatedPrice"]!)"
+        self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["estimatedPrice"]!)"
+        // RIDE WITH US
         
-        self.lbl_booking_fees.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["bookingFee"]!)"
+        // self.lbl_booking_fees.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["bookingFee"]!)"
         
         let cancellationFees:Double!
         
-        if let amount = convertToDouble("\(self.dict_all_details["FinalFare"]!)"),
+        /*if let amount = convertToDouble("\(self.dict_all_details["FinalFare"]!)"),
            let bookingFees = convertToDouble("\(self.dict_all_details["bookingFee"]!)") {
             
             if "\(self.dict_all_details["last_cancel_amount"]!)" == "" {
@@ -307,10 +347,10 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
             
         } else {
             print("Invalid number format in one of the strings.")
-        }
+        }*/
         
         
-        self.lbl_previuos_cancel_fee.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["last_cancel_amount"]!)"
+        // self.lbl_previuos_cancel_fee.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["last_cancel_amount"]!)"
         
         self.btn_cash.addTarget(self, action: #selector(cash_payment_WB), for: .touchUpInside)
         self.iAmHereForLocationPermission()
@@ -473,7 +513,7 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.systemOrange
+        renderer.strokeColor = UIColor.systemBlue
         renderer.lineWidth = 4.0
         return renderer
     }
@@ -512,7 +552,7 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
         }*/
         
         // new
-        if self.dict_all_details["Last_cancel_amount"] == nil {
+        /*if self.dict_all_details["Last_cancel_amount"] == nil {
             
             if self.dict_all_details["last_cancel_amount"] == nil {
                 
@@ -525,7 +565,16 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
                 self.navigationController?.pushViewController(push!, animated: true)
                 
             } else {
-                let a = Double("\(self.dict_all_details["last_cancel_amount"]!)")
+                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
+                
+                push!.str_booking_id2 = "\(self.dict_all_details["bookingId"]!)"
+                push!.str_get_total_price2 = String(self.str_store_total_price)
+                push!.get_full_data_for_payment2 = self.dict_all_details
+                
+                self.navigationController?.pushViewController(push!, animated: true)
+                
+                 
+                /*let a = Double("\(self.dict_all_details["last_cancel_amount"]!)")
                 let b = Double("\(self.dict_all_details["FinalFare"]!)")
                 
                 let sum:Double!
@@ -539,7 +588,7 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
                 push!.str_get_total_price2 = String(self.str_store_total_price)
                 push!.get_full_data_for_payment2 = self.dict_all_details
                 
-                self.navigationController?.pushViewController(push!, animated: true)
+                self.navigationController?.pushViewController(push!, animated: true)*/
             }
             
         } else {
@@ -558,9 +607,24 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
             push!.get_full_data_for_payment2 = self.dict_all_details
             
             self.navigationController?.pushViewController(push!, animated: true)
-        }
+        }*/
         
+        // RIDE WITH US APP
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "cardPayment_id") as? cardPayment
+        push!.get_full_data_for_payment = dict_all_details
+        push!.str_from_history = "yes"
+        push!.isFromMenu = false
+        push!.str_from_schedule = "yes"
+        self.navigationController?.pushViewController(push!, animated: true)
         
+//        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "before_payment_id") as? before_payment
+//        
+//        push!.str_booking_id2 = "\(self.dict_all_details["bookingId"]!)"
+//        push!.str_get_total_price2 = "\(self.dict_all_details["estimatedPrice"]!)"
+////        String(self.str_store_total_price)
+//        push!.get_full_data_for_payment2 = self.dict_all_details
+//        
+//        self.navigationController?.pushViewController(push!, animated: true)
         
         
         

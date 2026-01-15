@@ -414,10 +414,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     @objc func handleConfirmNotificationTimeNotNil() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let destinationController = storyboard.instantiateViewController(withIdentifier:"schedule_ride_details_id") as? schedule_ride_details
+        let destinationController = storyboard.instantiateViewController(withIdentifier:"invoice_id") as? invoice
         
-        destinationController?.dict_get_booking_details = dict as NSDictionary
-        destinationController?.str_from_history = "no"
+        destinationController?.dict_all_details = dict as NSDictionary
+//        destinationController?.str_from_history = "no"
         let frontNavigationController = UINavigationController(rootViewController: destinationController!)
         
         let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC

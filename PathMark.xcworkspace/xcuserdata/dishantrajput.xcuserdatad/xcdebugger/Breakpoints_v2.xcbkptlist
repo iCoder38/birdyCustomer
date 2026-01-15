@@ -398,8 +398,8 @@
             filePath = "PathMark/controllers/ride_status_screen/ride_status.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1347"
-            endingLineNumber = "1347"
+            startingLineNumber = "1349"
+            endingLineNumber = "1349"
             landmarkName = "login_refresh_token_wb()"
             landmarkType = "7">
          </BreakpointContent>
@@ -641,22 +641,6 @@
             startingLineNumber = "709"
             endingLineNumber = "709"
             landmarkName = "checkCarCategoriesWB(str_show_loader:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FC2F223C-8C9C-4707-97AB-CFD41F76D33F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PathMark/controllers/schedule_a_ride/schedule_confirm_booking/schedule_confirm_booking.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

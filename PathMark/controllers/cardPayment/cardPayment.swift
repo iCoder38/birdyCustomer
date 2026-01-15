@@ -10,6 +10,8 @@ import Alamofire
 
 class cardPayment: UIViewController, UITextFieldDelegate, FullScreenPopupDelegate {
     
+    var str_from_schedule:String!
+    
     var get_full_data_for_payment:NSDictionary!
     var str_from_history:String!
     
@@ -215,10 +217,18 @@ class cardPayment: UIViewController, UITextFieldDelegate, FullScreenPopupDelegat
                             
                             ERProgressHud.sharedInstance.hide()
                             
-                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_status_id") as? ride_status
-                            push!.dict_get_all_data_from_notification = self.get_full_data_for_payment
-                            push!.str_from_history = "no"
-                            self.navigationController?.pushViewController(push!, animated: true)
+                            if(self.str_from_schedule == "yes") {
+                                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
+                                push!.dict_get_booking_details = self.get_full_data_for_payment
+                                push!.str_from_history = "no"
+                                self.navigationController?.pushViewController(push!, animated: true)
+                            } else {
+                                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_status_id") as? ride_status
+                                push!.dict_get_all_data_from_notification = self.get_full_data_for_payment
+                                push!.str_from_history = "no"
+                                self.navigationController?.pushViewController(push!, animated: true)
+                            }
+                            
                             
                             
                             /*let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(message), style: .alert)

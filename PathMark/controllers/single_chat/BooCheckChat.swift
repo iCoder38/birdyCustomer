@@ -28,7 +28,17 @@ class BooCheckChat: UIViewController, MessagingDelegate, UINavigationControllerD
     // ***************************************************************** // nav
     @IBOutlet weak var navigationBar:UIView! {
         didSet {
-            navigationBar.backgroundColor = navigation_color
+//            navigationBar.backgroundColor = navigation_color
+//            navigationBar.applyGradient()
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.navigationBar,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     @IBOutlet weak var btnBack:UIButton! {
@@ -111,6 +121,15 @@ class BooCheckChat: UIViewController, MessagingDelegate, UINavigationControllerD
     @IBOutlet weak var inputToolbar: UIView! {
         didSet {
             inputToolbar.backgroundColor = navigation_color
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.inputToolbar,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     

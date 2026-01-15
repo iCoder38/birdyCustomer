@@ -23,7 +23,15 @@ class schedule_ride_details: UIViewController {
     
     @IBOutlet weak var view_driver_info:UIView! {
         didSet {
-            view_driver_info.backgroundColor = navigation_color
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.view_driver_info,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     
@@ -46,7 +54,15 @@ class schedule_ride_details: UIViewController {
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
-            view_navigation_bar.applyGradient()
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.view_navigation_bar,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     
@@ -337,7 +353,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
                 self.lbl_distance_head.text = "দূরত্ব"
             }
             
-             
+            
         } else {
             print("=============================")
             print("LOGIN : Select language error")
@@ -352,11 +368,11 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
             let resultString = String(str.prefix(10))
             
             /*let inputFormatter = DateFormatter()
-            inputFormatter.dateFormat = "yyyy-MM-dd"
-            let showDate = inputFormatter.date(from: String(result))
-            inputFormatter.dateFormat = "MM-dd-yyyy"
-            let resultString = inputFormatter.string(from: showDate!)
-            print(resultString)*/
+             inputFormatter.dateFormat = "yyyy-MM-dd"
+             let showDate = inputFormatter.date(from: String(result))
+             inputFormatter.dateFormat = "MM-dd-yyyy"
+             let resultString = inputFormatter.string(from: showDate!)
+             print(resultString)*/
             //
             if (self.dict_get_booking_details["bookingTime"] as! String) == "" {
                 
@@ -370,7 +386,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
                         cell.lbl_time.text = "বুকিংয়ের তারিখ তারিখ এবং : "+String(resultString)+" | "+(self.dict_get_booking_details["bookingTime"] as! String)
                     }
                     
-                     
+                    
                 } else {
                     print("=============================")
                     print("LOGIN : Select language error")
@@ -382,7 +398,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
             } else {
                 let fullName    = (self.dict_get_booking_details["bookingTime"] as! String)
                 let fullNameArr = fullName.components(separatedBy: ":")
-
+                
                 let hour    = fullNameArr[0]
                 let minute = fullNameArr[1]
                 
@@ -399,7 +415,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
                         booking_date_and_time_text = "বুকিংয়ের তারিখ তারিখ এবং"
                     }
                     
-                     
+                    
                 } else {
                     print("=============================")
                     print("LOGIN : Select language error")
@@ -439,12 +455,26 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
             let str = (self.dict_get_booking_details["bookingDate"] as! String)
             let result = String(str.prefix(10))
             
-            let inputFormatter = DateFormatter()
-            inputFormatter.dateFormat = "yyyy-MM-dd"
+            /*let inputFormatter = DateFormatter()
+            inputFormatter.dateFormat = "MM-dd-yyyy"
             let showDate = inputFormatter.date(from: String(result))
             inputFormatter.dateFormat = "MM-dd-yyyy"
             let resultString = inputFormatter.string(from: showDate!)
-            print(resultString)
+            print(resultString)*/
+            var resultString:String!
+            let inputFormatter = DateFormatter()
+            inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            inputFormatter.locale = Locale(identifier: "en_US_POSIX")
+
+            if let date = inputFormatter.date(from: str) {
+
+                let outputFormatter = DateFormatter()
+                outputFormatter.dateFormat = "yyyy-MM-dd"
+
+                let finalDate = outputFormatter.string(from: date)
+                print(finalDate)
+                resultString = finalDate
+            }
             
             if (self.dict_get_booking_details["bookingTime"] as! String) == "" {
                 // cell.lbl_time.text = "Booking Date and Time : "+String(resultString)+" | "+(self.dict_get_booking_details["bookingTime"] as! String)
@@ -458,7 +488,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
                         cell.lbl_time.text = "বুকিংয়ের তারিখ তারিখ এবং : "+String(resultString)+" | "+(self.dict_get_booking_details["bookingTime"] as! String)
                     }
                     
-                     
+                    
                 } else {
                     print("=============================")
                     print("LOGIN : Select language error")
@@ -471,7 +501,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
             } else {
                 let fullName    = (self.dict_get_booking_details["bookingTime"] as! String)
                 let fullNameArr = fullName.components(separatedBy: ":")
-
+                
                 let hour    = fullNameArr[0]
                 let minute = fullNameArr[1]
                 
@@ -488,7 +518,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
                         booking_date_and_time_text = "বুকিংয়ের তারিখ তারিখ এবং"
                     }
                     
-                     
+                    
                 } else {
                     print("=============================")
                     print("LOGIN : Select language error")
@@ -528,7 +558,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
         
         
         
-         
+        
         
         if (self.str_from_history == "yes") {
             cell.lbl_driver_name.text = (self.dict_get_booking_details["fullName"] as! String)
@@ -702,83 +732,130 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
         
         
         /*cell.lbl_car_driver_name.text = (self.dict_get_booking_details["fullName"] as! String)
-        
-        cell.lbl_from.text = (self.dict_get_booking_details["RequestPickupAddress"] as! String)
-        cell.lbl_to.text = (self.dict_get_booking_details["RequestDropAddress"] as! String)
-        
-        cell.lbl_fare.text = "\(self.dict_get_booking_details["FinalFare"]!)"
-        cell.lbl_tip.text = "\(self.dict_get_booking_details["TIP"]!)"
-        cell.lbl_promotion.text = "\(self.dict_get_booking_details["discountAmount"]!)"
-        
-        // tip
-        let i_am_tip:String!
-        if "\(self.dict_get_booking_details["TIP"]!)" == "" {
-            i_am_tip = "0.0"
-        } else {
-            i_am_tip = "\(self.dict_get_booking_details["TIP"]!)"
-        }
-        
-        // promotion
-        let i_am_promotion:String!
-        if "\(self.dict_get_booking_details["discountAmount"]!)" == "" {
-            i_am_promotion = "0.0"
-        } else {
-            i_am_promotion = "\(self.dict_get_booking_details["discountAmount"]!)"
-        }
-        
-        let double_fare = Double("\(self.dict_get_booking_details["FinalFare"]!)")
-        let double_tip = Double(i_am_tip)
-        let double_promotion = Double(i_am_promotion)
-        
-        let add_all = double_fare!+double_tip!+double_promotion!
-        cell.lbl_total_amount.text = "\(add_all)"
-        
-        cell.lbl_car_number.text = "\(self.dict_get_booking_details["CarName"]!)"+" "+"\(self.dict_get_booking_details["vehicleNumber"]!)"
-        cell.lbl_car_color.text = "\(self.dict_get_booking_details["VehicleColor"]!)"
-        
-        cell.img_car_image.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-        cell.img_car_image.sd_setImage(with: URL(string: (self.dict_get_booking_details["carImage"] as! String)), placeholderImage: UIImage(named: "logo33"))
-        
-        cell.img_driver_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-        cell.img_driver_profile.sd_setImage(with: URL(string: (self.dict_get_booking_details["image"] as! String)), placeholderImage: UIImage(named: "logo33"))
-        
-        cell.lbl_rating.text = "\(self.dict_get_booking_details["AVGRating"]!)"
-        
-        if "\(self.dict_get_booking_details["rideStatus"]!)" == "5" {
-            
-            if "\(self.dict_get_booking_details["paymentStatus"]!)" != "" {
-                cell.img_gif.isHidden = false
-                cell.img_gif.image = UIImage.gif(name: "double-check")
-            } else {
-                cell.img_gif.isHidden = true
-            }
-            
-        } else {
-            cell.img_gif.isHidden = true
-        }*/
+         
+         cell.lbl_from.text = (self.dict_get_booking_details["RequestPickupAddress"] as! String)
+         cell.lbl_to.text = (self.dict_get_booking_details["RequestDropAddress"] as! String)
+         
+         cell.lbl_fare.text = "\(self.dict_get_booking_details["FinalFare"]!)"
+         cell.lbl_tip.text = "\(self.dict_get_booking_details["TIP"]!)"
+         cell.lbl_promotion.text = "\(self.dict_get_booking_details["discountAmount"]!)"
+         
+         // tip
+         let i_am_tip:String!
+         if "\(self.dict_get_booking_details["TIP"]!)" == "" {
+         i_am_tip = "0.0"
+         } else {
+         i_am_tip = "\(self.dict_get_booking_details["TIP"]!)"
+         }
+         
+         // promotion
+         let i_am_promotion:String!
+         if "\(self.dict_get_booking_details["discountAmount"]!)" == "" {
+         i_am_promotion = "0.0"
+         } else {
+         i_am_promotion = "\(self.dict_get_booking_details["discountAmount"]!)"
+         }
+         
+         let double_fare = Double("\(self.dict_get_booking_details["FinalFare"]!)")
+         let double_tip = Double(i_am_tip)
+         let double_promotion = Double(i_am_promotion)
+         
+         let add_all = double_fare!+double_tip!+double_promotion!
+         cell.lbl_total_amount.text = "\(add_all)"
+         
+         cell.lbl_car_number.text = "\(self.dict_get_booking_details["CarName"]!)"+" "+"\(self.dict_get_booking_details["vehicleNumber"]!)"
+         cell.lbl_car_color.text = "\(self.dict_get_booking_details["VehicleColor"]!)"
+         
+         cell.img_car_image.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+         cell.img_car_image.sd_setImage(with: URL(string: (self.dict_get_booking_details["carImage"] as! String)), placeholderImage: UIImage(named: "logo33"))
+         
+         cell.img_driver_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+         cell.img_driver_profile.sd_setImage(with: URL(string: (self.dict_get_booking_details["image"] as! String)), placeholderImage: UIImage(named: "logo33"))
+         
+         cell.lbl_rating.text = "\(self.dict_get_booking_details["AVGRating"]!)"
+         
+         if "\(self.dict_get_booking_details["rideStatus"]!)" == "5" {
+         
+         if "\(self.dict_get_booking_details["paymentStatus"]!)" != "" {
+         cell.img_gif.isHidden = false
+         cell.img_gif.image = UIImage.gif(name: "double-check")
+         } else {
+         cell.img_gif.isHidden = true
+         }
+         
+         } else {
+         cell.img_gif.isHidden = true
+         }*/
         cell.btn_cancel.addTarget(self, action: #selector(cancel_ride_click_method2), for: .touchUpInside)
         cell.backgroundColor = .clear
         
         return cell
         
     }
-     
-        @objc func cancel_ride_click_method2() {
+    
+    @objc func cancel_ride_click_method2() {
+        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
+        myAlert!.dict_booking_details = self.dict_get_booking_details
+        myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(myAlert!, animated: true, completion: nil)*/
+        
+        let alertController = UIAlertController(title: "Alert", message: "Trip cancelled : Since the trip was cancelled after confirmation, a cancellation fee of $5 has been charged as per our policy.", preferredStyle: .actionSheet)
+        
+        let delete_contact = UIAlertAction(title: "Cancel Ride", style: .destructive) {
+            UIAlertAction in
+            NSLog("OK Pressed")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
-            myAlert!.dict_booking_details = self.dict_get_booking_details
-            myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-            present(myAlert!, animated: true, completion: nil)
+            let myAlert = storyboard.instantiateViewController(
+                withIdentifier: "decline_request_id"
+            ) as! decline_request
+
+            myAlert.dict_booking_details = self.dict_get_booking_details
+
+            // 🔥 THIS IS THE KEY PART
+            myAlert.onProceedToPayment = { [weak self] booking, reason, comment in
+                guard let self = self else { return }
+
+                let vc = PayAfterCancelNewVC()
+                vc.get_dict_booking_details = booking
+                vc.get_str_reason_select = reason
+                vc.get_txt_view = comment
+
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+
+            myAlert.modalPresentationStyle = .overCurrentContext
+            myAlert.modalTransitionStyle = .crossDissolve
+            self.present(myAlert, animated: true)
+            
+            
         }
-  
+        
+         
+         
+        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) {
+            UIAlertAction in
+            NSLog("OK Pressed")
+        }
+
+        
+        alertController.addAction(delete_contact)
+        alertController.addAction(dismiss)
+        
+        self.present(alertController, animated: true, completion: nil)
+
+        
+        
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView .deselectRow(at: indexPath, animated: true)
- 
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           
+        
         return 486
     }
     
@@ -849,6 +926,8 @@ class schedule_ride_details_table_cell: UITableViewCell {
             view_driver_info.layer.shadowRadius = 10.0
             view_driver_info.layer.masksToBounds = false
             view_driver_info.layer.cornerRadius = 12
+            
+            
         }
     }
     
@@ -900,6 +979,7 @@ class schedule_ride_details_table_cell: UITableViewCell {
                 print("=============================")
                 UserDefaults.standard.set("en", forKey: str_language_convert)
             }
+            lbl_text.textColor = .white
         }
     }
     

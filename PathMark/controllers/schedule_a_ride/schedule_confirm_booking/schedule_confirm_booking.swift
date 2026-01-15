@@ -86,7 +86,7 @@ class schedule_confirm_booking: UIViewController , CLLocationManagerDelegate , M
                 print(language as Any)
                 
                 if (language == "en") {
-                    lblNavigationTitle.text = "Fare distance"
+                    lblNavigationTitle.text = "Confirm Booking"
                 } else {
                     lblNavigationTitle.text = "ভাড়া দূরত্ব"
                 }
@@ -893,10 +893,10 @@ class schedule_confirm_booking_table_cell: UITableViewCell {
             view_cell_big.layer.shadowOpacity = 1.0
             view_cell_big.layer.shadowRadius = 15.0
             view_cell_big.layer.masksToBounds = false
-            // view_cell_big.backgroundColor = .white
+             view_cell_big.backgroundColor = .black
             
     
-        }
+        } 
     }
     
     @IBOutlet weak var view_cell_amount:UIView! {

@@ -23,7 +23,16 @@ class ride_history: UIViewController {
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
-            view_navigation_bar.applyGradient()
+//            view_navigation_bar.applyGradient()
+            DispatchQueue.main.async {
+                GradientViewHelper.apply(
+                    to: self.view_navigation_bar,
+                    colors: [
+                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
+                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
+                    ]
+                )
+            }
         }
     }
     
@@ -544,8 +553,14 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             cell.lbl_date.text = (item!["bookingDate"] as! String)
             
             if "\(item!["rideStatus"]!)" == "1" {
-                cell.lbl_status.text = "Accepted"
-                cell.lbl_status.textColor = .systemGreen
+                if "\(item!["paymentStatus"]!)" == "" {
+                    cell.lbl_status.text = "Pending"
+                    cell.lbl_status.textColor = .systemOrange
+                }else{
+                    cell.lbl_status.text = "Accepted"
+                    cell.lbl_status.textColor = .systemGreen
+                }
+                
             }  else if "\(item!["rideStatus"]!)" == "3" {
                 cell.lbl_status.text = "On Going"
                 cell.lbl_status.textColor = .systemOrange
@@ -1087,14 +1102,21 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
         if self.str_which_panel_select == "0" {
             
             // bookingTime
-            
             if "\(item!["bookingTime"]!)" != "" { // schedule
                 
                 if "\(item!["rideStatus"]!)" == "1" {
-                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
-                    push!.dict_get_booking_details = (item! as NSDictionary)
-                    push!.str_from_history = "yes"
-                    self.navigationController?.pushViewController(push!, animated: true)
+                    if "\(item!["paymentStatus"]!)" == "" {
+                        // RIDE ACCEPT BUT PAYMENT NOT DONE
+                        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "invoice_id") as? invoice
+                         push!.dict_all_details = (item! as NSDictionary)
+                        self.navigationController?.pushViewController(push!, animated: true)
+                    } else {
+                        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
+                        push!.dict_get_booking_details = (item! as NSDictionary)
+                        push!.str_from_history = "yes"
+                        self.navigationController?.pushViewController(push!, animated: true)
+                    }
+                    
                 } else if "\(item!["rideStatus"]!)" == "5" || "\(item!["rideStatus"]!)" == "4" {
                     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "invoice_id") as? invoice
                      push!.dict_all_details = (item! as NSDictionary)

@@ -1502,7 +1502,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
     
     @objc func cancancel_ride_click_method() {
 
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let myAlert = storyboard.instantiateViewController(
             withIdentifier: "decline_request_id"
         ) as! decline_request
@@ -1523,7 +1523,53 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
 
         myAlert.modalPresentationStyle = .overCurrentContext
         myAlert.modalTransitionStyle = .crossDissolve
-        present(myAlert, animated: true)
+        present(myAlert, animated: true)*/
+        
+        let alertController = UIAlertController(title: "Alert", message: "Trip cancelled : Since the trip was cancelled after confirmation, a cancellation fee of $5 has been charged as per our policy.", preferredStyle: .actionSheet)
+        
+        let delete_contact = UIAlertAction(title: "Cancel Ride", style: .destructive) {
+            UIAlertAction in
+            NSLog("OK Pressed")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let myAlert = storyboard.instantiateViewController(
+                withIdentifier: "decline_request_id"
+            ) as! decline_request
+
+            myAlert.dict_booking_details = self.dict_get_all_data_from_notification
+
+            // 🔥 THIS IS THE KEY PART
+            myAlert.onProceedToPayment = { [weak self] booking, reason, comment in
+                guard let self = self else { return }
+
+                let vc = PayAfterCancelNewVC()
+                vc.get_dict_booking_details = booking
+                vc.get_str_reason_select = reason
+                vc.get_txt_view = comment
+
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+
+            myAlert.modalPresentationStyle = .overCurrentContext
+            myAlert.modalTransitionStyle = .crossDissolve
+            self.present(myAlert, animated: true)
+            
+            
+        }
+        
+         
+         
+        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) {
+            UIAlertAction in
+            NSLog("OK Pressed")
+        }
+
+        
+        alertController.addAction(delete_contact)
+        alertController.addAction(dismiss)
+        
+        self.present(alertController, animated: true, completion: nil)
+
+        
     }
 
     

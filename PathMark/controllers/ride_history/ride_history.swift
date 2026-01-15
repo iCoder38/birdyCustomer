@@ -534,7 +534,168 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if self.str_which_panel_select == "0" {
+        let cell:ride_history_upcoming_table_cell = tableView.dequeueReusableCell(withIdentifier: "ride_history_upcoming_table_cell") as! ride_history_upcoming_table_cell
+        
+        cell.backgroundColor = .clear
+        
+        let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]
+        print(item as Any)
+        
+        cell.lbl_name.text = (item!["fullName"] as! String)
+        cell.lbl_car_model.text = (item!["CarName"] as! String)
+        cell.lbl_car_number.text = (item!["vehicleNumber"] as! String)+" ("+(item!["VehicleColor"] as! String)+")"
+        
+        cell.lbl_from.text = (item!["RequestPickupAddress"] as! String)
+        cell.lbl_to.text = (item!["RequestDropAddress"] as! String)
+        
+        cell.lbl_date.text = (item!["bookingDate"] as! String)
+        
+        if "\(item!["rideStatus"]!)" == "1" {
+            if "\(item!["paymentStatus"]!)" == "" {
+                cell.lbl_status.text = "Pending"
+                cell.lbl_status.textColor = .systemOrange
+            }else{
+                cell.lbl_status.text = "Accepted"
+                cell.lbl_status.textColor = .systemGreen
+            }
+            
+        }  else if "\(item!["rideStatus"]!)" == "3" {
+            cell.lbl_status.text = "On Going"
+            cell.lbl_status.textColor = .systemOrange
+        }  else if "\(item!["rideStatus"]!)" == "5" {
+            
+            cell.lbl_status.text = "Completed"
+            cell.lbl_status.textColor = .systemGreen
+            
+        } else if "\(item!["rideStatus"]!)" == "4" {
+            
+            if "\(item!["paymentStatus"]!)" == "" {
+                cell.lbl_status.backgroundColor = .systemOrange
+                
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        cell.lbl_status.text = "Pay"
+                        
+                    } else {
+                        cell.lbl_status.text = "এখন পরিশোধ করুন"
+                    }
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
+                cell.lbl_status.textColor = .white
+            } else {
+                cell.lbl_status.backgroundColor = .systemGreen
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        cell.lbl_status.text = "Completed"
+                        
+                    } else {
+                        cell.lbl_status.text = "সম্পূর্ণ হয়েছে "
+                    }
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
+                
+                
+                cell.lbl_status.textColor = .white
+            }
+            
+        }  else if "\(item!["rideStatus"]!)" == "7" {
+            
+            cell.lbl_status.text = "Cancelled"
+            cell.lbl_status.textColor = .systemRed
+            
+        }  else {
+            // compare date
+            let dateString = (item!["bookingDate"] as! String)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let stringDate = String(dateString)
+            if let date = dateFormatter.date(from: stringDate) {
+                if date.isInThePast {
+                    print("Date is past")
+                    
+                    cell.lbl_status.backgroundColor = .systemRed
+                    cell.lbl_status.text = "Expired"
+                    
+                } else if date.isInToday {
+                    print("Date is today")
+                    if "\(item!["rideStatus"]!)" == "1" {
+                        cell.lbl_status.backgroundColor = .systemOrange
+                        
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                cell.lbl_status.text = "Pending"
+                                
+                            } else {
+                                cell.lbl_status.text = "অনিষ্পন্ন"
+                            }
+                            
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
+                        
+                        
+                    }
+                } else {
+                    print("Date is future")
+                    if "\(item!["rideStatus"]!)" == "1" {
+                        cell.lbl_status.backgroundColor = .systemOrange
+                        
+                        
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                cell.lbl_status.text = "Pending"
+                                
+                            } else {
+                                cell.lbl_status.text = "অনিষ্পন্ন"
+                            }
+                            
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
+                        
+                        
+                        
+                    }
+                }
+            }
+        }
+        
+        cell.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+        cell.img_profile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo"))
+        
+        return cell
+        
+        /*if self.str_which_panel_select == "0" {
             
             let cell:ride_history_upcoming_table_cell = tableView.dequeueReusableCell(withIdentifier: "ride_history_upcoming_table_cell") as! ride_history_upcoming_table_cell
             
@@ -897,7 +1058,7 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             
             return cell
             
-        }
+        }*/
         
     }
         

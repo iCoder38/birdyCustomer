@@ -457,7 +457,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
             
             print(self.self.dict_get_booking_details as Any)
             
-            cell.lbl_time.text = "Booking Date and Time :\(self.dict_get_booking_details["bookingDate"]!)\(self.dict_get_booking_details["bookingTime"]!)"
+            cell.lbl_time.text = "Booking Date and Time :\(self.dict_get_booking_details["bookingDate"]!) | \(self.dict_get_booking_details["bookingTime"]!)"
             
             /*let inputFormatter = DateFormatter()
             inputFormatter.dateFormat = "MM-dd-yyyy"
@@ -568,9 +568,18 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
         
         
         if (self.str_from_history == "yes") {
-            cell.lbl_driver_name.text = (self.dict_get_booking_details["fullName"] as! String)
+            if (self.dict_get_booking_details["driverName"] == nil) {
+                cell.lbl_driver_name.text = (self.dict_get_booking_details["fullName"] as! String)
+            } else {
+                cell.lbl_driver_name.text = (self.dict_get_booking_details["driverName"] as! String)
+            }
         } else {
-            cell.lbl_driver_name.text = (self.dict_get_booking_details["driverName"] as! String)
+            if (self.dict_get_booking_details["driverName"] == nil) {
+                cell.lbl_driver_name.text = (self.dict_get_booking_details["fullName"] as! String)
+            } else {
+                cell.lbl_driver_name.text = (self.dict_get_booking_details["driverName"] as! String)
+            }
+            
         }
         
         if (self.str_from_history == "yes") {
@@ -656,85 +665,168 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
             }
             
         } else {
+             
             // star manage
-            if "\(self.dict_get_booking_details["rating"]!)" == "0" {
-                
-                cell.img_star_one.image = UIImage(systemName: "star")
-                cell.img_star_two.image = UIImage(systemName: "star")
-                cell.img_star_three.image = UIImage(systemName: "star")
-                cell.img_star_four.image = UIImage(systemName: "star")
-                cell.img_star_five.image = UIImage(systemName: "star")
-                
-            } else if "\(self.dict_get_booking_details["rating"]!)" > "1" &&
-                        "\(self.dict_get_booking_details["rating"]!)" < "2" {
-                
-                cell.img_star_one.image = UIImage(systemName: "star.fill")
-                cell.img_star_two.image = UIImage(systemName: "star.leadinghalf.filled")
-                cell.img_star_three.image = UIImage(systemName: "star")
-                cell.img_star_four.image = UIImage(systemName: "star")
-                cell.img_star_five.image = UIImage(systemName: "star")
-                
-            } else if "\(self.dict_get_booking_details["rating"]!)" == "2" {
-                
-                cell.img_star_one.image = UIImage(systemName: "star.fill")
-                cell.img_star_two.image = UIImage(systemName: "star.fill")
-                cell.img_star_three.image = UIImage(systemName: "star")
-                cell.img_star_four.image = UIImage(systemName: "star")
-                cell.img_star_five.image = UIImage(systemName: "star")
-                
-                
-            } else if "\(self.dict_get_booking_details["rating"]!)" > "2" &&
-                        "\(self.dict_get_booking_details["rating"]!)" < "3" {
-                
-                cell.img_star_one.image = UIImage(systemName: "star.fill")
-                cell.img_star_two.image = UIImage(systemName: "star.fill")
-                cell.img_star_three.image = UIImage(systemName: "star.leadinghalf.filled")
-                cell.img_star_four.image = UIImage(systemName: "star")
-                cell.img_star_five.image = UIImage(systemName: "star")
-                
-            } else if "\(self.dict_get_booking_details["rating"]!)" == "3" {
-                
-                cell.img_star_one.image = UIImage(systemName: "star.fill")
-                cell.img_star_two.image = UIImage(systemName: "star.fill")
-                cell.img_star_three.image = UIImage(systemName: "star.fill")
-                cell.img_star_four.image = UIImage(systemName: "star")
-                cell.img_star_five.image = UIImage(systemName: "star")
-                
-            } else if "\(self.dict_get_booking_details["rating"]!)" > "3" &&
-                        "\(self.dict_get_booking_details["rating"]!)" < "4" {
-                
-                cell.img_star_one.image = UIImage(systemName: "star.fill")
-                cell.img_star_two.image = UIImage(systemName: "star.fill")
-                cell.img_star_three.image = UIImage(systemName: "star.fill")
-                cell.img_star_four.image = UIImage(systemName: "star.leadinghalf.filled")
-                cell.img_star_five.image = UIImage(systemName: "star")
-                
-            } else if "\(self.dict_get_booking_details["rating"]!)" == "4" {
-                
-                cell.img_star_one.image = UIImage(systemName: "star.fill")
-                cell.img_star_two.image = UIImage(systemName: "star.fill")
-                cell.img_star_three.image = UIImage(systemName: "star.fill")
-                cell.img_star_four.image = UIImage(systemName: "star.fill")
-                cell.img_star_five.image = UIImage(systemName: "star")
-                
-            } else if "\(self.dict_get_booking_details["rating"]!)" > "4" &&
-                        "\(self.dict_get_booking_details["rating"]!)" < "5" {
-                
-                cell.img_star_one.image = UIImage(systemName: "star.fill")
-                cell.img_star_two.image = UIImage(systemName: "star.fill")
-                cell.img_star_three.image = UIImage(systemName: "star.fill")
-                cell.img_star_four.image = UIImage(systemName: "star.fill")
-                cell.img_star_five.image = UIImage(systemName: "star.leadinghalf.filled")
-                
-            } else if "\(self.dict_get_booking_details["rating"]!)" == "5" {
-                
-                cell.img_star_one.image = UIImage(systemName: "star.fill")
-                cell.img_star_two.image = UIImage(systemName: "star.fill")
-                cell.img_star_three.image = UIImage(systemName: "star.fill")
-                cell.img_star_four.image = UIImage(systemName: "star.fill")
-                cell.img_star_five.image = UIImage(systemName: "star.fill")
-                
+            if (self.dict_get_booking_details["rating"] == nil ){
+                if "\(self.dict_get_booking_details["AVGRating"]!)" == "0" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star")
+                    cell.img_star_two.image = UIImage(systemName: "star")
+                    cell.img_star_three.image = UIImage(systemName: "star")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["AVGRating"]!)" > "1" &&
+                            "\(self.dict_get_booking_details["AVGRating"]!)" < "2" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.leadinghalf.filled")
+                    cell.img_star_three.image = UIImage(systemName: "star")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["AVGRating"]!)" == "2" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                    
+                } else if "\(self.dict_get_booking_details["AVGRating"]!)" > "2" &&
+                            "\(self.dict_get_booking_details["AVGRating"]!)" < "3" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.leadinghalf.filled")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["AVGRating"]!)" == "3" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["AVGRating"]!)" > "3" &&
+                            "\(self.dict_get_booking_details["AVGRating"]!)" < "4" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star.leadinghalf.filled")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["AVGRating"]!)" == "4" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star.fill")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["AVGRating"]!)" > "4" &&
+                            "\(self.dict_get_booking_details["AVGRating"]!)" < "5" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star.fill")
+                    cell.img_star_five.image = UIImage(systemName: "star.leadinghalf.filled")
+                    
+                } else if "\(self.dict_get_booking_details["AVGRating"]!)" == "5" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star.fill")
+                    cell.img_star_five.image = UIImage(systemName: "star.fill")
+                    
+                }
+            } else {
+                if "\(self.dict_get_booking_details["rating"]!)" == "0" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star")
+                    cell.img_star_two.image = UIImage(systemName: "star")
+                    cell.img_star_three.image = UIImage(systemName: "star")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["rating"]!)" > "1" &&
+                            "\(self.dict_get_booking_details["rating"]!)" < "2" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.leadinghalf.filled")
+                    cell.img_star_three.image = UIImage(systemName: "star")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["rating"]!)" == "2" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                    
+                } else if "\(self.dict_get_booking_details["rating"]!)" > "2" &&
+                            "\(self.dict_get_booking_details["rating"]!)" < "3" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.leadinghalf.filled")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["rating"]!)" == "3" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["rating"]!)" > "3" &&
+                            "\(self.dict_get_booking_details["rating"]!)" < "4" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star.leadinghalf.filled")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["rating"]!)" == "4" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star.fill")
+                    cell.img_star_five.image = UIImage(systemName: "star")
+                    
+                } else if "\(self.dict_get_booking_details["rating"]!)" > "4" &&
+                            "\(self.dict_get_booking_details["rating"]!)" < "5" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star.fill")
+                    cell.img_star_five.image = UIImage(systemName: "star.leadinghalf.filled")
+                    
+                } else if "\(self.dict_get_booking_details["rating"]!)" == "5" {
+                    
+                    cell.img_star_one.image = UIImage(systemName: "star.fill")
+                    cell.img_star_two.image = UIImage(systemName: "star.fill")
+                    cell.img_star_three.image = UIImage(systemName: "star.fill")
+                    cell.img_star_four.image = UIImage(systemName: "star.fill")
+                    cell.img_star_five.image = UIImage(systemName: "star.fill")
+                    
+                }
             }
+            
         }
         
         

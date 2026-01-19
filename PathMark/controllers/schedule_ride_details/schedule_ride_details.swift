@@ -455,13 +455,17 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
             let str = (self.dict_get_booking_details["bookingDate"] as! String)
             let result = String(str.prefix(10))
             
+            print(self.self.dict_get_booking_details as Any)
+            
+            cell.lbl_time.text = "Booking Date and Time :\(self.dict_get_booking_details["bookingDate"]!)\(self.dict_get_booking_details["bookingTime"]!)"
+            
             /*let inputFormatter = DateFormatter()
             inputFormatter.dateFormat = "MM-dd-yyyy"
             let showDate = inputFormatter.date(from: String(result))
             inputFormatter.dateFormat = "MM-dd-yyyy"
             let resultString = inputFormatter.string(from: showDate!)
             print(resultString)*/
-            var resultString:String!
+            /*var resultString:String!
             let inputFormatter = DateFormatter()
             inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
             inputFormatter.locale = Locale(identifier: "en_US_POSIX")
@@ -525,6 +529,9 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
                     print("=============================")
                     UserDefaults.standard.set("en", forKey: str_language_convert)
                 }
+                print(booking_date_and_time_text)
+                print(resultString)
+                print(minute+str_pm)
                 
                 if (hour == "13") {
                     cell.lbl_time.text = "\(booking_date_and_time_text) : "+String(resultString)+" | 1:"+minute+str_pm
@@ -553,7 +560,7 @@ extension schedule_ride_details: UITableViewDataSource , UITableViewDelegate {
                 } else {
                     cell.lbl_time.text = "\(booking_date_and_time_text) : "+String(resultString)+" | "+(self.dict_get_booking_details["bookingTime"] as! String)+str_am
                 }
-            }
+            }*/
         }
         
         

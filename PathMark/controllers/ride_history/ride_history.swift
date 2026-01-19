@@ -554,7 +554,7 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             if "\(item!["paymentStatus"]!)" == "" {
                 cell.lbl_status.text = "Pending"
                 cell.lbl_status.textColor = .systemOrange
-            }else{
+            } else {
                 cell.lbl_status.text = "Accepted"
                 cell.lbl_status.textColor = .systemGreen
             }
@@ -1436,7 +1436,8 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
         if self.str_which_panel_select == "0" {
             return 220
         } else {
-            return UITableView.automaticDimension
+            return 220
+            // UITableView.automaticDimension
         }
         
         

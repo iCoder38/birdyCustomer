@@ -435,28 +435,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     @objc func handleConfirmNotificationTimeNil() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if(dict["estimatedPrice"] == nil) {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let destinationController = storyboard.instantiateViewController(withIdentifier:"ride_status_id") as? ride_status
+            
+            destinationController?.dict_get_all_data_from_notification = dict as NSDictionary
+            
+            let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+            
+            let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+            
+            let mainRevealController = SWRevealViewController()
+            
+            mainRevealController.rearViewController = rearViewController
+            mainRevealController.frontViewController = frontNavigationController
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+            }
+            
+            window?.makeKeyAndVisible()
+            
+        } else {
         
-        let destinationController = storyboard.instantiateViewController(withIdentifier:"cardPayment_id") as? cardPayment
-        
-        destinationController?.get_full_data_for_payment = dict
-        destinationController?.str_from_history = "no"
-        destinationController?.isFromMenu = false
-        
-        let frontNavigationController = UINavigationController(rootViewController: destinationController!)
-        
-        let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
-        
-        let mainRevealController = SWRevealViewController()
-        
-        mainRevealController.rearViewController = rearViewController
-        mainRevealController.frontViewController = frontNavigationController
-        
-        DispatchQueue.main.async {
-            UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let destinationController = storyboard.instantiateViewController(withIdentifier:"cardPayment_id") as? cardPayment
+            
+            destinationController?.get_full_data_for_payment = dict
+            destinationController?.str_from_history = "no"
+            destinationController?.isFromMenu = false
+            
+            let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+            
+            let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+            
+            let mainRevealController = SWRevealViewController()
+            
+            mainRevealController.rearViewController = rearViewController
+            mainRevealController.frontViewController = frontNavigationController
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+            }
+            
+            window?.makeKeyAndVisible()
+            
         }
         
-        window?.makeKeyAndVisible()
     }
     
     @objc func pushWithData() {

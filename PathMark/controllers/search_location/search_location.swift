@@ -79,15 +79,7 @@ class search_location: UIViewController, UITextFieldDelegate, CLLocationManagerD
     
     @IBOutlet weak var navigationBar: UIView! {
         didSet {
-            DispatchQueue.main.async {
-                GradientViewHelper.apply(
-                    to: self.navigationBar,
-                    colors: [
-                        UIColor(red: 255/255, green: 94/255, blue: 58/255, alpha: 1),
-                        UIColor(red: 255/255, green: 185/255, blue: 0/255, alpha: 1)
-                    ]
-                )
-            }
+            navigationBar.applyGradient()
         }
     }
 

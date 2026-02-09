@@ -60,8 +60,8 @@ class ForgotPasswordVC: UIViewController {
         
         let gradient = CAGradientLayer()
         gradient.colors = [
-            UIColor.systemOrange.cgColor,
-            UIColor.systemYellow.cgColor
+            lightGreenColor,
+            darkGreenColor
         ]
         gradient.startPoint = CGPoint(x: 0, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 0)
@@ -121,7 +121,7 @@ class ForgotPasswordVC: UIViewController {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         
         submitButton.setTitle("SUBMIT", for: .normal)
-        submitButton.backgroundColor = UIColor.systemRed
+        submitButton.backgroundColor = APP_BUTTON_COLOR
         submitButton.setTitleColor(.white, for: .normal)
         submitButton.layer.cornerRadius = 10
         submitButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)

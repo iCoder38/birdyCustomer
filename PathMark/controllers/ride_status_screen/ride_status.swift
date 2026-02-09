@@ -274,6 +274,9 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         self.view.backgroundColor = .white
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
+        self.btn_home.addTarget(self, action: #selector(home_click_method), for: .touchUpInside)
+        self.btn_share.addTarget(self, action: #selector(share_click_method), for: .touchUpInside)
+         
         /*if (self.dict_get_all_data_from_notification["type"] != nil) {
          
          if (self.dict_get_all_data_from_notification["type"] as! String == "Chat") {
@@ -1386,6 +1389,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         
         // cancel ride
         self.btn_cancel_ride.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+        self.btn_call_driver.addTarget(self, action: #selector(call_driver_click_method), for: .touchUpInside)
         
         // confirm booking button
         if "\(self.dictDynamicDictionary["rideStatus"]!)" == "1" {
@@ -1482,6 +1486,14 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         
     }
     
+    @objc func call_driver_click_method() {
+//        print(self.self.dictDynamicDictionary as Any)
+        
+        if let url = URL(string: "tel://\(self.dictDynamicDictionary["driverPhone"]!)") {
+                UIApplication.shared.open(url)
+            }
+    }
+    
     @objc func home_click_method() {
         
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "dashboard_id")
@@ -1568,7 +1580,7 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         alertController.addAction(dismiss)
         
         self.present(alertController, animated: true, completion: nil)
-
+        
         
     }
 
@@ -1886,7 +1898,6 @@ class ride_status: UIViewController , CLLocationManagerDelegate , MKMapViewDeleg
         })
         
         alertController.addAction(saveAction)
-        
         
         self.present(alertController, animated: true, completion: nil)
     }

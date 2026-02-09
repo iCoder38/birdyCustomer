@@ -28,7 +28,7 @@ class terms_and_conditions: UIViewController {
         didSet {
             btn_accept.setTitleColor(.white, for: .normal)
             btn_accept.setTitle("Agree and Continue", for: .normal)
-            btn_accept.backgroundColor = .systemYellow
+            btn_accept.backgroundColor = APP_BUTTON_COLOR
         }
     }
         

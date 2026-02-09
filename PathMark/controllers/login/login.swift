@@ -33,7 +33,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
     
     var window: UIWindow?
     
-
+    
     let locationManager = CLLocationManager()
     
     // MARK:- SAVE LOCATION STRING -
@@ -78,26 +78,26 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
         super.viewDidLoad()
         
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
-         self.view.backgroundColor = viewBackgroundColor
+        self.view.backgroundColor = viewBackgroundColor
         
-//        let defaults = UserDefaults.standard
-//        defaults.setValue("", forKey: str_save_login_user_data)
-//        defaults.setValue("", forKey: str_save_last_api_token)
+        //        let defaults = UserDefaults.standard
+        //        defaults.setValue("", forKey: str_save_login_user_data)
+        //        defaults.setValue("", forKey: str_save_last_api_token)
         
         
-//        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "verify_phone_number_id") as? verify_phone_number
-//        self.navigationController?.pushViewController(push!, animated: true)
-
+        //        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "verify_phone_number_id") as? verify_phone_number
+        //        self.navigationController?.pushViewController(push!, animated: true)
+        
         // set language
-          // UserDefaults.standard.set("bg", forKey: str_language_convert)
+        // UserDefaults.standard.set("bg", forKey: str_language_convert)
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-         
+        
         self.language_convert()
         
     }
     
-   
+    
     
     @objc func language_convert() {
         let indexPath = IndexPath.init(row: 0, section: 0)
@@ -139,24 +139,24 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
     
     @objc func signInViaGoogle() {
         // let gIdConfiguration = GIDConfiguration(clientID: "clientID", serverClientID: "serverClientID")
-         let gIdConfiguration  = GIDConfiguration(clientID: "750959835757-m69poiuvdmji91uqku55em8o3cljarke.apps.googleusercontent.com")
+        let gIdConfiguration  = GIDConfiguration(clientID: "750959835757-m69poiuvdmji91uqku55em8o3cljarke.apps.googleusercontent.com")
         // ledt gIdConfiguration  = GIDConfiguration(clientID: "com.googleusercontent.apps.750959835757-m69poiuvdmji91uqku55em8o3cljarke")
         
         GIDSignIn.sharedInstance.configuration = gIdConfiguration
-//
+        //
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
             guard error == nil else { return }
             guard let signInResult = signInResult else { return }
-
+            
             let user = signInResult.user
-
+            
             let emailAddress = user.profile?.email
-
+            
             let fullName = user.profile?.name
             let givenName = user.profile?.givenName
             let familyName = user.profile?.familyName
             let social_id = user.userID
-
+            
             let profilePicUrl = user.profile?.imageURL(withDimension: 320)
             
             print(emailAddress as Any)
@@ -180,18 +180,18 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
         self.show_loading_UI()
         
         var parameters:Dictionary<AnyHashable, Any>!
-
-            parameters = [
-                "action"        :   "socialLoginAction",
-                "email"         :   String(email),
-                "socialId"      :   String(social_id),
-                "fullName"      :   String(name),
-                "socialType"    :   String("google"),
-                "device"        :   String("iOS"),
-                "deviceToken"   :   String(""),
-                "image"         :   String(profile_picture)
-            ]
-//        }
+        
+        parameters = [
+            "action"        :   "socialLoginAction",
+            "email"         :   String(email),
+            "socialId"      :   String(social_id),
+            "fullName"      :   String(name),
+            "socialType"    :   String("google"),
+            "device"        :   String("iOS"),
+            "deviceToken"   :   String(""),
+            "image"         :   String(profile_picture)
+        ]
+        //        }
         
         print("parameters-------\(String(describing: parameters))")
         
@@ -220,8 +220,8 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
                         // print(type(of: JSON["AuthToken"]))
                         
                         /*let str_token = (JSON["AuthToken"] as! String)
-                        UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                        UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)*/
+                         UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                         UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)*/
                         
                         // let indexPath = IndexPath.init(row: 0, section: 0)
                         // let cell = self.tbleView.cellForRow(at: indexPath) as! login_table_cell
@@ -238,14 +238,14 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
                             
                             //1. Create the alert controller.
                             let alert = UIAlertController(title: "Phone number", message: "Enter your phone number", preferredStyle: .alert)
-
+                            
                             //2. Add the text field. You can configure it however you need.
                             alert.addTextField { (textField) in
                                 textField.delegate = self
                                 textField.text = ""
                                 textField.keyboardType = .numberPad
                             }
-
+                            
                             // 3. Grab the value from the text field, and print it when the user clicks OK.
                             alert.addAction(UIAlertAction(title: "Login", style: .default, handler: { [weak alert] (_) in
                                 let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
@@ -255,7 +255,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
                                 self.update_number_WB(str_show_loader: "yes")
                                 //
                             }))
-
+                            
                             // 4. Present the alert.
                             self.present(alert, animated: true, completion: nil)
                             
@@ -320,7 +320,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
     @objc func update_number_WB(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
-             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
                 
                 if (language == "en") {
@@ -329,7 +329,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
                     ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
                 }
                 
-             
+                
             }
         }
         
@@ -500,14 +500,14 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
     }
     
     
-
+    
     @objc func iAmHereForLocationPermission() {
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
-
+        
         // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
-              
+        
         if CLLocationManager.locationServicesEnabled() {
             switch CLLocationManager.authorizationStatus() {
             case .notDetermined, .restricted, .denied:
@@ -517,11 +517,11 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
                 
             case .authorizedAlways, .authorizedWhenInUse:
                 print("Access")
-                          
+                
                 locationManager.delegate = self
                 locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
                 locationManager.startUpdatingLocation()
-                      
+                
             @unknown default:
                 break
             }
@@ -536,16 +536,16 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
         self.show_loading_UI()
         
         var parameters:Dictionary<AnyHashable, Any>!
-//        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-//            let x : Int = (person["userId"] as! Int)
-//            let myString = String(x)
-            
-            parameters = [
-                "action"    : "login",
-                "email"     : String(cell.txtEmailAddress.text!),
-                "password"  : String(cell.txtPassword.text!),
-            ]
-//        }
+        //        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+        //            let x : Int = (person["userId"] as! Int)
+        //            let myString = String(x)
+        
+        parameters = [
+            "action"    : "login",
+            "email"     : String(cell.txtEmailAddress.text!),
+            "password"  : String(cell.txtPassword.text!),
+        ]
+        //        }
         
         print("parameters-------\(String(describing: parameters))")
         
@@ -568,8 +568,8 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
                         dict = JSON["data"] as! Dictionary<AnyHashable, Any>
                         
                         /*let defaults = UserDefaults.standard
-                        defaults.setValue(dict, forKey: str_save_login_user_data)*/
-                         
+                         defaults.setValue(dict, forKey: str_save_login_user_data)*/
+                        
                         let str_token = (JSON["AuthToken"] as! String)
                         UserDefaults.standard.set("", forKey: str_save_last_api_token)
                         UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
@@ -626,7 +626,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
     }
- 
+    
     @objc func signInViaFacebook() {
         // Settings.shared.appID = "fb1035864164317944"
         // Settings.shared.displayName = "Zarib"
@@ -638,12 +638,9 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
             print("\n\n result: \(String(describing: result))")
             print("\n\n Error: \(String(describing: error))")
             
-            if (error == nil)
-            {
-                if let fbloginresult = result
-                {
-                    if(fbloginresult.isCancelled)
-                    {
+            if (error == nil) {
+                if let fbloginresult = result {
+                    if(fbloginresult.isCancelled) {
                         //Show Cancel alert to the user
                         let alert = UIAlertController(title: "Facebook login", message: "User pressed cancel button", preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {    (action:UIAlertAction!) in
@@ -685,21 +682,21 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
         self.show_loading_UI()
         
         var parameters:Dictionary<AnyHashable, Any>!
-//        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-//            let x : Int = (person["userId"] as! Int)
-//            let myString = String(x)
-            
-            parameters = [
-                "action"        :   "socialLoginAction",
-                "email"         :   String(email),
-                "socialId"      :   String(social_id),
-                "fullName"      :   String(name),
-                "socialType"    :   String("facebook"),
-                "device"        :   String("iOS"),
-                "deviceToken"   :   String(""),
-                "image"         :   String(profile_picture)
-            ]
-//        }
+        //        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+        //            let x : Int = (person["userId"] as! Int)
+        //            let myString = String(x)
+        
+        parameters = [
+            "action"        :   "socialLoginAction",
+            "email"         :   String(email),
+            "socialId"      :   String(social_id),
+            "fullName"      :   String(name),
+            "socialType"    :   String("facebook"),
+            "device"        :   String("iOS"),
+            "deviceToken"   :   String(""),
+            "image"         :   String(profile_picture)
+        ]
+        //        }
         
         print("parameters-------\(String(describing: parameters))")
         
@@ -731,8 +728,8 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
                         // print(type(of: JSON["AuthToken"]))
                         
                         /*let str_token = (JSON["AuthToken"] as! String)
-                        UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                        UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)*/
+                         UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                         UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)*/
                         
                         // let indexPath = IndexPath.init(row: 0, section: 0)
                         // let cell = self.tbleView.cellForRow(at: indexPath) as! login_table_cell
@@ -783,14 +780,13 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate,
             }
         }
     }
-     
+    
     @objc func save_email(email:String) {
         
         let custom_email_pass = ["email":String(email)]
         UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
     }
-    
-    
+        
 }
 
 /*extension login: ASAuthorizationControllerDelegate {
@@ -807,7 +803,7 @@ extension login: ASAuthorizationControllerPresentationContextProviding {
     }
 }*/
 
-extension login: UITableViewDataSource  , UITableViewDelegate{
+extension login: UITableViewDataSource  , UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -959,9 +955,7 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
                     
                     var strSuccess : String!
                     strSuccess = JSON["status"] as? String
-                    
-                    
-                    
+
                     if strSuccess.lowercased() == "success" {
                         
                         var dict: Dictionary<AnyHashable, Any>
@@ -1188,7 +1182,7 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
 }
 
 class login_table_cell: UITableViewCell {
-
+    
     @IBOutlet weak var btn_google:UIButton!
     @IBOutlet weak var btn_facebook:UIButton!
     @IBOutlet weak var btn_apple:UIButton!
@@ -1207,7 +1201,7 @@ class login_table_cell: UITableViewCell {
         didSet {
             
             
-             
+            
         }
     }
     
@@ -1242,7 +1236,6 @@ class login_table_cell: UITableViewCell {
     
     @IBOutlet weak var btnSignIn:UIButton! {
         didSet {
-             
             Utils.buttonStyle(button: btnSignIn,
                               bCornerRadius: 12,
                               bBackgroundColor: buttonColorRed,
@@ -1254,6 +1247,7 @@ class login_table_cell: UITableViewCell {
             btnSignIn.layer.shadowOffset =  CGSize.zero
             btnSignIn.layer.shadowOpacity = 0.5
             btnSignIn.layer.shadowRadius = 2
+            btnSignIn.backgroundColor = APP_BUTTON_COLOR
         }
     }
     
@@ -1268,11 +1262,12 @@ class login_table_cell: UITableViewCell {
             Utils.buttonStyle(button: btnSaveAndContinue, bCornerRadius: 6, bBackgroundColor: .black, bTitle: "Sign In", bTitleColor: .white)
         }
     }
-   
+    
     @IBOutlet weak var btnDontHaveAnAccount:UIButton! {
         didSet {
             Utils.buttonStyle(button: btnDontHaveAnAccount, bCornerRadius: 6, bBackgroundColor: .clear, bTitle: "Not a member? Register Now", bTitleColor: UIColor(red: 87.0/255.0, green: 77.0/255.0, blue: 112.0/255.0, alpha: 1))
             btnDontHaveAnAccount.setTitleColor(UIColor.yellow, for: .normal)
+            btnDontHaveAnAccount.backgroundColor = .clear
         }
     }
     
@@ -1280,25 +1275,23 @@ class login_table_cell: UITableViewCell {
         didSet {
             Utils.buttonStyle(button: btnForgotPassword, bCornerRadius: 6, bBackgroundColor: .clear, bTitle: "Forgot password? - Click here", bTitleColor: UIColor(red: 87.0/255.0, green: 77.0/255.0, blue: 112.0/255.0, alpha: 1))
             btnForgotPassword.setTitleColor(UIColor.yellow, for: .normal)
+            btnForgotPassword.backgroundColor = .clear
         }
     }
     
     @IBOutlet weak var lbl_remember_me:UILabel!
     @IBOutlet weak var lbl_login_with_social_media:UILabel!
     @IBOutlet weak var lbl_login_to_continue:UILabel!
-   
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
-    
-    
-
 }

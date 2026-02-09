@@ -26,7 +26,8 @@ class customPin: NSObject, MKAnnotation {
 // ###########################################################################################
 
 // MARK:- BASE URL -
-let application_base_url = "https://demo4.evirtualservices.net/ridewithus/services/index"
+let application_base_url = "https://app.thebirdyapp.com/services/index/"
+//"https://demo4.evirtualservices.net/ridewithus/services/index"
 
 var RIDE_WITH_US = ""
 
@@ -36,6 +37,7 @@ let darkOrangeColor = UIColor(red: 255/255, green: 200/255, blue: 0/255, alpha: 
 let buttonColorRed = UIColor(red: 204/255, green: 60/255, blue: 36/255, alpha: 1.0)
 let viewBackgroundColor = UIColor(red: 20/255, green: 19/255, blue: 19/255, alpha: 1.0)
 
+let APP_BUTTON_COLOR = UIColor.systemGreen
 
 var GOOGLE_MAP_API = "AIzaSyBieAKnUQiR-zls5RJBF5c7Y7Z5KsTW88o"
 
@@ -123,7 +125,8 @@ let BUTTON_DARK_APP_COLOR = UIColor.init(red: 169.0/255.0, green: 163.0/255.0, b
 let BUTTON_RED_COLOR = UIColor.init(red: 206.0/255.0, green: 60.0/255.0, blue: 36.0/255.0, alpha: 1)
 let BUTTON_YELLOW_COLOR = UIColor.init(red: 246.0/255.0, green: 206.0/255.0, blue: 70.0/255.0, alpha: 1)
 
-let APP_BUTTON_COLOR = UIColor.black
+let lightGreenColor = UIColor(red: 130/255, green: 205/255, blue: 71/255, alpha: 1)
+let darkGreenColor  = UIColor(red: 92/255, green: 184/255, blue: 92/255, alpha: 1)
 
 let button_dark = UIColor.init(red: 64.0/255.0, green: 112.0/255.0, blue: 216.0/255.0, alpha: 1)
 let button_light = UIColor.init(red: 200.0/255.0, green: 223.0/255.0, blue: 254.0/255.0, alpha: 1)
@@ -265,7 +268,7 @@ class Utils: NSObject {
     class func buttonStyle(button:UIButton,bCornerRadius:CGFloat,bBackgroundColor:UIColor,bTitle:String,bTitleColor:UIColor) {
         button.layer.cornerRadius = bCornerRadius
         button.clipsToBounds = true
-        button.backgroundColor = bBackgroundColor
+        button.backgroundColor = APP_BUTTON_COLOR
         button.setTitle(bTitle, for: .normal)
         button.setTitleColor(bTitleColor, for: .normal)
 //        button.setGradientBackground(
@@ -396,37 +399,27 @@ extension String {
 
 extension UIView {
     
-    /*func applyGradient(colours: [UIColor], cornerRadius: CGFloat?, startPoint: CGPoint, endPoint: CGPoint)  {
-        let gradient: CAGradientLayer = CAGradientLayer()
+    func applyGradient(
+        colours: [UIColor] = [lightGreenColor, darkGreenColor],
+        cornerRadius: CGFloat? = nil,
+        startPoint: CGPoint = CGPoint(x: 0.0, y: 0.5),
+        endPoint: CGPoint = CGPoint(x: 1.0, y: 0.5)
+    ) {
+        let gradient = CAGradientLayer()
         gradient.frame = self.bounds
+        gradient.colors = colours.map { $0.cgColor }
+        gradient.startPoint = startPoint
+        gradient.endPoint = endPoint
+
         if let cornerRadius = cornerRadius {
             gradient.cornerRadius = cornerRadius
         }
-        gradient.startPoint = startPoint
-        gradient.endPoint = endPoint
-        gradient.colors = colours.map { $0.cgColor }
+
+        // Purana gradient remove
+        self.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
+
         self.layer.insertSublayer(gradient, at: 0)
-    }*/
-    
-    func applyGradient(
-            colours: [UIColor] = [lightOrangeColor, darkOrangeColor],
-            cornerRadius: CGFloat? = nil,
-            startPoint: CGPoint? = CGPoint(x: 0.0, y: 0.5),
-            endPoint: CGPoint? = CGPoint(x: 1.0, y: 0.5)
-        ) {
-            let gradient: CAGradientLayer = CAGradientLayer()
-            gradient.frame = self.bounds
-            if let cornerRadius = cornerRadius {
-                gradient.cornerRadius = cornerRadius
-            }
-            gradient.startPoint = startPoint!
-            gradient.endPoint = endPoint!
-            gradient.colors = colours.map { $0.cgColor }
-            
-            self.layer.sublayers?.forEach { if $0 is CAGradientLayer { $0.removeFromSuperlayer() } }
-            self.layer.insertSublayer(gradient, at: 0)
-            
-        }
+    }
         
 }
 

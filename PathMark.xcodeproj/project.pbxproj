@@ -1447,7 +1447,7 @@
 				DEVELOPMENT_TEAM = NHVZESNL9B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PathMark/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Ride with us";
+				INFOPLIST_KEY_CFBundleDisplayName = "Birdy - Passenger";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Ride with us would like to access your camera to upload profile picture.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Ride with us would like to access your location for Customer's current location. ";
@@ -1465,7 +1465,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.evs.dev.RideWithUs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.evs.dev.birdy.passenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1492,7 +1492,7 @@
 				DEVELOPMENT_TEAM = NHVZESNL9B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PathMark/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Ride with us";
+				INFOPLIST_KEY_CFBundleDisplayName = "Birdy - Passenger";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Ride with us would like to access your camera to upload profile picture.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Ride with us would like to access your location for Customer's current location. ";
@@ -1510,7 +1510,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.evs.dev.RideWithUs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.evs.dev.birdy.passenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

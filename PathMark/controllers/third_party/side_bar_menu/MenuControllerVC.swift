@@ -30,7 +30,6 @@ class MenuControllerVC: UIViewController {
     
     @IBOutlet weak var viewUnderNavigation:UIView! {
         didSet {
-            viewUnderNavigation.backgroundColor = navigation_color
             viewUnderNavigation.backgroundColor = .black
         }
     }

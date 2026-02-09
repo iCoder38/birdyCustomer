@@ -1390,7 +1390,7 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
             // cell.btn_accept_terms.tag = 1
             cell.btn_accept_terms.setImage(UIImage(named: "rem"), for: .normal)
             cell.btn_accept_terms.backgroundColor = .clear
-            cell.btnSignUp.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1)
+            cell.btnSignUp.backgroundColor = APP_BUTTON_COLOR
             cell.btnSignUp.isUserInteractionEnabled = true
         } else {
             // cell.btn_accept_terms.setImage(UIImage(named: "rem1"), for: .normal)
@@ -1896,7 +1896,7 @@ class sign_up_table_cell: UITableViewCell {
             btnSignUp.layer.shadowOffset =  CGSize.zero
             btnSignUp.layer.shadowOpacity = 0.5
             btnSignUp.layer.shadowRadius = 2
-            
+            btnSignUp.backgroundColor = APP_BUTTON_COLOR
         }
     }
     

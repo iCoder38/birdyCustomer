@@ -1186,7 +1186,10 @@ extension cardPayment: UITableViewDataSource , UITableViewDelegate {
             cell.btn_submit.addTarget(self, action: #selector(saveAndPay), for: .touchUpInside)
             cell.btnCheckBox.backgroundColor = .systemGreen
         } else {
+//            print(self.get_full_data_for_payment as Any)
+            
             cell.btn_submit.setTitle("Pay: \(self.get_full_data_for_payment["estimatedPrice"]!)", for: .normal)
+//            cell.btn_submit.setTitle("Submit", for: .normal)
             cell.btn_submit.addTarget(self, action: #selector(saveAndPay), for: .touchUpInside)
             cell.btnCheckBox.addTarget(self, action: #selector(checkBoxClickMethod), for: .touchUpInside)
         }

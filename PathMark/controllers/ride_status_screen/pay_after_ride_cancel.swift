@@ -20,6 +20,7 @@ class pay_after_ride_cancel: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(self.dictGetAllData as Any)
+        
         /*
          Optional({
              "Discount_percentage" = 10;
@@ -50,6 +51,7 @@ class pay_after_ride_cancel: UIViewController {
              vehicleType = 1;
          })
          */
+        
         self.lblTotalDistance.text = "\(self.dictGetAllData["totalDistance"]!) km"
         self.btnPay.addTarget(self, action: #selector(confirmAndPayClickMethod), for: .touchUpInside)
         

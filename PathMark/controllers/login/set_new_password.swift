@@ -53,8 +53,8 @@ class SetNewPasswordVC: UIViewController {
 
         let gradient = CAGradientLayer()
         gradient.colors = [
-            UIColor.systemOrange.cgColor,
-            UIColor.systemYellow.cgColor
+            lightGreenColor,
+            darkGreenColor
         ]
         gradient.startPoint = CGPoint(x: 0, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 0)
@@ -111,7 +111,7 @@ class SetNewPasswordVC: UIViewController {
         setupTextField(confirmPasswordTextField, placeholder: "Confirm password", secure: true)
 
         changePasswordButton.setTitle("CHANGE PASSWORD", for: .normal)
-        changePasswordButton.backgroundColor = .systemRed
+        changePasswordButton.backgroundColor = APP_BUTTON_COLOR
         changePasswordButton.setTitleColor(.white, for: .normal)
         changePasswordButton.titleLabel?.font = .boldSystemFont(ofSize: 16)
         changePasswordButton.layer.cornerRadius = 10

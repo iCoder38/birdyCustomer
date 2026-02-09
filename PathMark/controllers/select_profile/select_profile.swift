@@ -21,7 +21,7 @@ class select_profile: UIViewController {
         didSet {
             btn_create_ac_account.layer.cornerRadius = 12
             btn_create_ac_account.clipsToBounds = true
-            btn_create_ac_account.backgroundColor = .systemOrange
+            btn_create_ac_account.backgroundColor = APP_BUTTON_COLOR
         }
     }
     @IBOutlet weak var btn_login:UIButton!  {
@@ -92,7 +92,7 @@ class select_profile: UIViewController {
             if (language == "en") {
                 btn_create_ac_account.setTitle("Create an account", for: .normal)
                 btn_login.setTitle("Login", for: .normal)
-                lbl_title.text = "Hello, welcome to Ride with us."
+                lbl_title.text = "Hello, welcome to Birdy app."
                 lbl_sub_title.text = "Get started now"
             } else {
                 btn_create_ac_account.setTitle("অ্যাকাউন্ট তৈরি করুন", for: .normal)

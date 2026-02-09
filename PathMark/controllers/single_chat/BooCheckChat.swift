@@ -433,8 +433,6 @@ class BooCheckChat: UIViewController, MessagingDelegate, UINavigationControllerD
         self.navigationController?.popViewController(animated: true)
     }
     
-    
-    
     /*func observeMessage() {
         // print(self.strReceiptId+"+"+self.strLoginUserId)
         let ref = Database.database().reference()
@@ -514,8 +512,11 @@ class BooCheckChat: UIViewController, MessagingDelegate, UINavigationControllerD
             self.tbleView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
+    
     @objc func convertSelectedImageFromGallery(img1 :UIImage) {
+        
     }
+    
     @objc func cellTappedMethod1(){
         // print("you tap image number: \(sender.view.tag)")
         let alert = UIAlertController(title: "Upload Profile Image", message: nil, preferredStyle: .actionSheet)

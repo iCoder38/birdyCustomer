@@ -37,7 +37,7 @@ class PayAfterCancelNewVC: UIViewController, UITextFieldDelegate {
         cvvTF.delegate = self
     }
 
-    // MARK: - UI Setup
+    // MARK: - UI Setup -
 
     func setupUI() {
         view.backgroundColor = .black
